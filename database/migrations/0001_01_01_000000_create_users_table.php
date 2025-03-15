@@ -13,12 +13,17 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
-            $table->timestamps();
+            $table->string('username', 50)->unique();
+            $table->string('email', 100)->unique();
+            $table->string('password', 255);
+            $table->string('first_name', 50)->nullable();
+            $table->string('last_name', 50)->nullable();
+            $table->string('image')->nullable();
+            $table->text('bio')->nullable();
+            $table->string('phone', 20)->nullable();
+            $table->rememberToken(); // Laravel's remember me functionality
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrentOnUpdate()->nullable();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
