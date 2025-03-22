@@ -22,7 +22,7 @@
 
         <style>
             .navbar-scrolled {
-                background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white */
+                background-color: rgba(255, 255, 255, 0.808); /* Semi-transparent white */
                 backdrop-filter: blur(5px); /* Glassmorphism effect */
                 -webkit-backdrop-filter: blur(8px); /* For Safari */
                 box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
@@ -50,7 +50,7 @@
         <!-- Main Container -->
         <div class="relative min-h-screen">
             <!-- Navigation Bar - Updated with scroll effect -->
-            <header class="fixed w-full z-10 transition-all duration-300" id="navbar">
+            <header class="fixed w-full z-10 transition-all duration-300"  id="navbar">
                 <div class="container mx-auto px-6 py-4">
                     <div class="flex items-center justify-between">
                         <!-- Logo -->
@@ -118,13 +118,129 @@
 
             </div>
 
+            <!-- Destinations Section -->
+            <section id="about" class="py-16 bg-white">
+                <div class="container mx-auto px-8 md:px-16 lg:px-24">
+                    <div class="text-center mb-16">
+                        <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6">Explore Magical Morocco</h2>
+                        <p class="text-gray-600 max-w-2xl mx-auto">From ancient medinas to sweeping deserts, discover the most captivating destinations in the Kingdom of Morocco.</p>
+                    </div>
 
+                    <!-- Destinations Grid -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+                        <!-- Destination Card 1 -->
+                        <div class="bg-white rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:shadow-xl hover:-translate-y-2">
+                            <div class="relative">
+                                <img src="https://media.audleytravel.com/-/media/images/home/north-africa-and-the-middle-east/morocco/places/istock_41519458_morocco_djemaa_el_fna_marrakesh_1500x1500.webp?q=60&w=828&h=828" alt="Marrakech" class="w-full h-64 object-cover">
 
+                            </div>
+                            <div class="p-6">
+                                <div class="flex items-center mb-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
+                                    </svg>
+                                    <h3 class="text-xl font-bold text-gray-800">Marrakech</h3>
+                                </div>
+                                <p class="text-gray-600 mb-4">Explore the vibrant markets and ornate palaces of Morocco's Red City.</p>
 
-            <!-- Rest of your content would go here -->
-            <div class="container mx-auto px-6 py-16">
-                <!-- Your existing content or new content -->
-            </div>
+                            </div>
+                        </div>
+
+                        <!-- Destination Card 2 -->
+                        <div class="bg-white rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:shadow-xl hover:-translate-y-2">
+                            <div class="relative">
+                                <img src="https://images.unsplash.com/photo-1469041797191-50ace28483c3?q=80&w=2000&auto=format&fit=crop" alt="Sahara Desert" class="w-full h-64 object-cover">
+                                <div class="absolute top-4 left-4">
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <div class="flex items-center mb-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
+                                    </svg>
+                                    <h3 class="text-xl font-bold text-gray-800">Sahara Desert</h3>
+                                </div>
+                                <p class="text-gray-600 mb-4">Experience the magic of the dunes and camp under the stars in the world's largest hot desert.</p>
+
+                            </div>
+                        </div>
+
+                        <!-- Destination Card 3 -->
+                        <div class="bg-white rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:shadow-xl hover:-translate-y-2">
+                            <div class="relative">
+                                <img src="https://aml.ma/sites/default/files/2022-05/chefchaouen-destinations-au-maroc-bateau-ferry-espagne-maroc-ferry-bateau-maroc-espagne-aml.jpg" alt="Chefchaouen" class="w-full h-64 object-cover">
+
+                            </div>
+                            <div class="p-6">
+                                <div class="flex items-center mb-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
+                                    </svg>
+                                    <h3 class="text-xl font-bold text-gray-800">Chefchaouen</h3>
+                                </div>
+                                <p class="text-gray-600 mb-4">Wander through the stunning blue streets of Morocco's famous Blue Pearl in the Rif Mountains.</p>
+
+                            </div>
+                        </div>
+
+                        <!-- Destination Card 4 -->
+                        <div class="bg-white rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:shadow-xl hover:-translate-y-2">
+                            <div class="relative">
+                                <img src="https://www.specialholidaysmorocco.com/uploads/images/blog/352575_le-haut-atlas-1.jpg" alt="Atlas Mountains" class="w-full h-64 object-cover">
+
+                            </div>
+                            <div class="p-6">
+                                <div class="flex items-center mb-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
+                                    </svg>
+                                    <h3 class="text-xl font-bold text-gray-800">Atlas Mountains</h3>
+                                </div>
+                                <p class="text-gray-600 mb-4">Hike through breathtaking landscapes and traditional Berber villages in North Africa's highest mountain range.</p>
+
+                            </div>
+                        </div>
+
+                        <!-- Destination Card 5 -->
+                        <div class="bg-white rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:shadow-xl hover:-translate-y-2">
+                            <div class="relative">
+                                <img src="https://st.depositphotos.com/1004221/2533/i/450/depositphotos_25335607-stock-photo-essaouira-fortress-morocco-africa.jpg" alt="Essaouira" class="w-full h-64 object-cover">
+
+                            </div>
+                            <div class="p-6">
+                                <div class="flex items-center mb-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
+                                    </svg>
+                                    <h3 class="text-xl font-bold text-gray-800">Essaouira</h3>
+                                </div>
+                                <p class="text-gray-600 mb-4">Relax in this charming coastal town known for its fortified medina and refreshing ocean breezes.</p>
+
+                            </div>
+                        </div>
+
+                        <!-- Destination Card 6 -->
+                        <div class="bg-white rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:shadow-xl hover:-translate-y-2">
+                            <div class="relative">
+                                <img src="https://www.bonplanvoyage.net/wordpress2012/wp-content/uploads/que-faire-a-fes-e1691347398442.jpg" alt="Fes" class="w-full h-64 object-cover">
+
+                            </div>
+                            <div class="p-6">
+                                <div class="flex items-center mb-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
+                                    </svg>
+                                    <h3 class="text-xl font-bold text-gray-800">Fes</h3>
+                                </div>
+                                <p class="text-gray-600 mb-4">Step back in time in the world's largest car-free urban area with its ancient medina and traditional tanneries.</p>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                </div>
+            </section>
 
             <footer class="py-8 text-center text-sm text-gray-600">
                 &copy; {{ date('Y') }} HACK&GO. All rights reserved.
@@ -134,12 +250,10 @@
 </html>
 
 <script>
-    // Add event listener to the button scroll
+    //  scroll navigation
     document.addEventListener('DOMContentLoaded', function() {
         const navbar = document.getElementById('navbar');
         const mobileMenuButton = document.querySelector('.mobile-menu-button');
-
-        // Change navbar on scroll
         window.addEventListener('scroll', function() {
             if (window.scrollY > 50) {
                 navbar.classList.add('navbar-scrolled');
@@ -147,8 +261,6 @@
                 navbar.classList.remove('navbar-scrolled');
             }
         });
-
-        // Initial check in case page is loaded scrolled down
         if (window.scrollY > 50) {
             navbar.classList.add('navbar-scrolled');
         }
