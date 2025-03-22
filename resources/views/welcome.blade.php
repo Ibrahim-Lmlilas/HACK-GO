@@ -243,7 +243,7 @@
             </section>
 
             <!-- Features Section -->
-            <section class=" bg-white">
+            <section class="py-16 bg-white">
                 <div class="container mx-auto px-8 md:px-16 lg:px-24">
                     <div class="text-center mb-16">
                         <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6">Why Travel With Us</h2>
@@ -319,6 +319,24 @@
                     </div>
                 </div>
             </section>
+
+        <!-- Newsletter Section  -->
+        <section class="py-16 bg-[#075985] relative overflow-hidden  ">
+
+            <div class="container mx-auto px-6 py-4 relative z-1">
+                <div class="max-w-3xl mx-auto bg-[#206A91] backdrop-blur-sm rounded-2xl p-10 shadow-lg border border-[#5395B8]">
+                    <h2 class="text-3xl md:text-4xl font-bold text-amber-50 mb-4 text-center">Get Inspired for Your Next Adventure</h2>
+                    <p class="text-lg text-amber-100/90 mb-8 text-center">Subscribe to our newsletter and receive exclusive travel tips, hidden gems, and special offers directly in your inbox.</p>
+
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center ">
+                        <input type="email" placeholder="Your email address" class="px-4 py-3 rounded-lg w-full sm:flex-1 text-gray-800 focus:outline-none focus:ring-2 focus:ring-white border-2 border-transparent focus:border-[#5395B8]">
+                        <button class="bg-white hover:scale-105 px-6 py-3 rounded-lg font-medium transition duration-300 text-[#206A91]">Subscribe Now</button>
+                    </div>
+
+                    <p class="text-sm mt-4 text-[#5395B8] text-center">We respect your privacy and will never share your information. Unsubscribe anytime.</p>
+                </div>
+            </div>
+        </section>
 
             <footer class="py-8 text-center text-sm text-gray-600">
                 &copy; {{ date('Y') }} HACK&GO. All rights reserved.
