@@ -29,7 +29,8 @@
             }
 
             .navbar-scrolled .nav-link {
-                color: #1f2937 !important; /* text-gray-800 */
+                color: #1f2937 !important;
+                text-align: bold;
             }
 
             .navbar-scrolled .nav-link:hover {
@@ -71,16 +72,29 @@
                         </div>
 
                         <!-- Navigation Links -->
-                        <nav class="hidden md:flex space-x-8">
-
-                            <a href="#" class="text-white hover:text-gray-200 relative pb-1 after:absolute after:left-0 after:bottom-0 after:w-0 after:h-0.5 after:bg-blue-600 after:transition-all after:duration-300 hover:after:w-full nav-link">Moroccan Cities</a>
-                            <a href="#" class="text-white hover:text-gray-200 relative pb-1 after:absolute after:left-0 after:bottom-0 after:w-0 after:h-0.5 after:bg-blue-600 after:transition-all after:duration-300 hover:after:w-full nav-link">Desert Tours</a>
-                            <a href="#" class="text-white hover:text-gray-200 relative pb-1 after:absolute after:left-0 after:bottom-0 after:w-0 after:h-0.5 after:bg-blue-600 after:transition-all after:duration-300 hover:after:w-full nav-link">Cuisine</a>
+                        <nav class="hidden md:flex ml-36 space-x-10">
+                            <a href="#" class="text-white hover:text-gray-200 relative pb-1 after:absolute after:left-0 after:bottom-0 after:w-0 after:h-0.5 after:bg-blue-600 after:transition-all after:duration-300 hover:after:w-full nav-link">About Us</a>
+                            <a href="#" class="text-white hover:text-gray-200 relative pb-1 after:absolute after:left-0 after:bottom-0 after:w-0 after:h-0.5 after:bg-blue-600 after:transition-all after:duration-300 hover:after:w-full nav-link">service</a>
+                            <a href="#" class="text-white hover:text-gray-200 relative pb-1 after:absolute after:left-0 after:bottom-0 after:w-0 after:h-0.5 after:bg-blue-600 after:transition-all after:duration-300 hover:after:w-full nav-link">Blog</a>
                             <a href="#" class="text-white hover:text-gray-200 relative pb-1 after:absolute after:left-0 after:bottom-0 after:w-0 after:h-0.5 after:bg-blue-600 after:transition-all after:duration-300 hover:after:w-full nav-link">Contact</a>
-                            <div>
-                                <a href="#" width="100%"  class="bg-blue-600 hover:bg-blue-800 text-white px-4 py-2 rounded-md transition-transform duration-300 hover:scale-105 book-btn">Book Morocco Tour</a>
-                            </div>
                         </nav>
+
+                        <!-- Auth Buttons -->
+                        <div class="hidden md:flex items-center space-x-4">
+                            <a href="#" class="flex items-center border-[#1f2937] border-2   bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded-lg transition-colors duration-300 nav-link " >
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+                                </svg>
+                                Sign In
+                            </a>
+                            <a href="#" class="border-[#1f2937] border-2  bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium transition-colors duration-300 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 8h4m-2-2v4" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                </svg>
+                                Sign Up
+                            </a>
+                        </div>
 
                         <!-- Mobile Menu Button (hidden on desktop) -->
                         <div class="md:hidden">
