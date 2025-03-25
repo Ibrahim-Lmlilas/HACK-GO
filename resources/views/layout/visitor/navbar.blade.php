@@ -51,7 +51,7 @@
         <!-- Main Container -->
         <div class="relative min-h-screen">
             <!-- Navigation Bar - Updated with scroll effect -->
-            <header class="fixed w-full z-10 transition-all duration-300"  id="navbar">
+            <header class="fixed w-full z-10 transition-all duration-300" z-index="20" id="navbar">
                 <div class="container mx-auto px-6 py-4">
                     <div class="flex items-center justify-between">
                         <!-- Logo -->
@@ -73,10 +73,10 @@
 
                         <!-- Navigation Links -->
                         <nav class="hidden md:flex ml-48 space-x-10">
-                            <a href="#" class="text-white hover:text-gray-200 relative pb-1 after:absolute after:left-0 after:bottom-0 after:w-0 after:h-0.5 after:bg-blue-600 after:transition-all after:duration-300 hover:after:w-full nav-link">About Us</a>
+                            <a href="/About" class="text-white hover:text-gray-200 relative pb-1 after:absolute after:left-0 after:bottom-0 after:w-0 after:h-0.5 after:bg-blue-600 after:transition-all after:duration-300 hover:after:w-full nav-link">About Us</a>
                             <a href="/" class="text-white hover:text-gray-200 relative pb-1 after:absolute after:left-0 after:bottom-0 after:w-0 after:h-0.5 after:bg-blue-600 after:transition-all after:duration-300 hover:after:w-full nav-link">Home</a>
                             <a href="/blog" class="text-white hover:text-gray-200 relative pb-1 after:absolute after:left-0 after:bottom-0 after:w-0 after:h-0.5 after:bg-blue-600 after:transition-all after:duration-300 hover:after:w-full nav-link">Blog</a>
-                            <a href="#" class="text-white hover:text-gray-200 relative pb-1 after:absolute after:left-0 after:bottom-0 after:w-0 after:h-0.5 after:bg-blue-600 after:transition-all after:duration-300 hover:after:w-full nav-link">Contact</a>
+                            <a href="/contact" class="text-white hover:text-gray-200 relative pb-1 after:absolute after:left-0 after:bottom-0 after:w-0 after:h-0.5 after:bg-blue-600 after:transition-all after:duration-300 hover:after:w-full nav-link">Contact</a>
                         </nav>
 
                         <!-- Auth Buttons -->
@@ -118,7 +118,23 @@
             </main>
 
 
-
+            <script>
+                //  scroll navigation
+                document.addEventListener('DOMContentLoaded', function() {
+                    const navbar = document.getElementById('navbar');
+                    const mobileMenuButton = document.querySelector('.mobile-menu-button');
+                    window.addEventListener('scroll', function() {
+                        if (window.scrollY > 50) {
+                            navbar.classList.add('navbar-scrolled');
+                        } else {
+                            navbar.classList.remove('navbar-scrolled');
+                        }
+                    });
+                    if (window.scrollY > 50) {
+                        navbar.classList.add('navbar-scrolled');
+                    }
+                });
+            </script>
 
 
 
