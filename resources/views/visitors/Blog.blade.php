@@ -56,7 +56,7 @@
 <div class="relative h-screen overflow-hidden cursor-pointer" id="home">
     <!-- Background Video -->
     <video autoplay muted loop class="absolute w-full h-full object-cover" id="background-video">
-        <source src="https://drive.google.com/file/d/1Q3SZ-_F9SkBaySQz9BCmY_9xE42WCrf_/view?usp=drive_link" type="video/webm">
+        <source src="{{ asset('videos/HACK.webm') }}" type="video/webm">
     </video>
 
     <!-- Overlay -->
