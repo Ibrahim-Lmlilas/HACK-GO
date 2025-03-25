@@ -71,13 +71,14 @@
                             </a>
                         </div>
 
-                        <!-- Navigation Links -->
-                        <nav class="hidden md:flex ml-48 space-x-10">
-                            <a href="/About" class="text-white hover:text-gray-200 relative pb-1 after:absolute after:left-0 after:bottom-0 after:w-0 after:h-0.5 after:bg-blue-600 after:transition-all after:duration-300 hover:after:w-full nav-link">About Us</a>
-                            <a href="/" class="text-white hover:text-gray-200 relative pb-1 after:absolute after:left-0 after:bottom-0 after:w-0 after:h-0.5 after:bg-blue-600 after:transition-all after:duration-300 hover:after:w-full nav-link">Home</a>
-                            <a href="/blog" class="text-white hover:text-gray-200 relative pb-1 after:absolute after:left-0 after:bottom-0 after:w-0 after:h-0.5 after:bg-blue-600 after:transition-all after:duration-300 hover:after:w-full nav-link">Blog</a>
-                            <a href="/contact" class="text-white hover:text-gray-200 relative pb-1 after:absolute after:left-0 after:bottom-0 after:w-0 after:h-0.5 after:bg-blue-600 after:transition-all after:duration-300 hover:after:w-full nav-link">Contact</a>
-                        </nav>
+                       <!-- Navigation Links -->
+                       <nav class="hidden md:flex ml-48 space-x-10">
+                        <a href="/" class="text-white hover:text-gray-200 relative pb-1 after:absolute after:left-0 after:bottom-0 after:w-0 after:h-0.5 after:bg-blue-600 after:transition-all after:duration-300 hover:after:w-full nav-link">Home</a>
+                        <a href="/About" class="text-white hover:text-gray-200 relative pb-1 after:absolute after:left-0 after:bottom-0 after:w-0 after:h-0.5 after:bg-blue-600 after:transition-all after:duration-300 hover:after:w-full nav-link">About Us</a>
+
+                        <a href="/blog" class="text-white hover:text-gray-200 relative pb-1 after:absolute after:left-0 after:bottom-0 after:w-0 after:h-0.5 after:bg-blue-600 after:transition-all after:duration-300 hover:after:w-full nav-link">Blog</a>
+                        <a href="/contact" class="text-white hover:text-gray-200 relative pb-1 after:absolute after:left-0 after:bottom-0 after:w-0 after:h-0.5 after:bg-blue-600 after:transition-all after:duration-300 hover:after:w-full nav-link">Contact</a>
+                    </nav>
 
                         <!-- Auth Buttons -->
                         <div class="hidden md:flex items-center space-x-4">

@@ -19,7 +19,7 @@
     </div>
     <!-- Down Arrow -->
     <div class=" sm:block">
-        <a href="#destinations" class="absolute bottom-6 md:bottom-10 left-1/2 transform -translate-x-1/2 text-white animate-bounce">
+        <a href="#destinations" class="absolute bottom-6 md:bottom-10 left-1/2 transform -translate-x-1/2 text-white animate-bounce" onclick="event.preventDefault(); document.querySelector('#destinations').scrollIntoView({behavior: 'smooth'});">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 text-white opacity-80">
                 <path d="m6 9 6 6 6-6"></path>
             </svg>

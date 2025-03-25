@@ -3,11 +3,11 @@
 @section('content')
 <style>
     body {
-        cursor: ; /* Hide default cursor */
+        cursor: auto; /* Default cursor for body */
     }
 
     .play-reel-button {
-        position: fixed; /* Changed from absolute to fixed */
+        position: fixed;
         width: 110px;
         height: 110px;
         background-color: white;
@@ -16,9 +16,9 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        pointer-events: none; /* Ensures it doesn't interfere with clicks */
+        pointer-events: none;
         z-index: 1000;
-        transform: translate(-50%, -50%); /* Center the cursor on pointer position */
+        transform: translate(-50%, -50%);
     }
 
     .play-reel-text {
@@ -40,42 +40,45 @@
         z-index: 10;
     }
 
-    /* Make sure the cursor appears over the navbar too */
     header {
         z-index: 100;
     }
 
-    /* Hide the default cursor */
-    #home{
+    #home, #video-modal {
         cursor: none;
     }
-
-
 </style>
 
 <div class="relative h-screen overflow-hidden cursor-pointer" id="home">
-    <!-- Background Video -->
     <video autoplay muted loop class="absolute w-full h-full object-cover" id="background-video">
-        <source src="{{ asset('videos/HACK.webm') }}" type="video/webm">
+        <source src="{{ asset('videos/HA.mp4') }}" type="video/mp4">
     </video>
 
-    <!-- Overlay -->
-    <div class="absolute inset-0 bg-black/15"></div>
+    <!-- Audio element that will play with the video -->
+    <audio id="background-audio" loop>
+        <source src="{{ asset('audio/background-music.mp3') }}" type="audio/mp3">
+    </audio>
 
-    <!-- Play Reel Button Cursor -->
+    <div class="absolute inset-0 bg-black/25"></div>
+
     <div class="play-reel-button">
-        <div class="play-reel-text">PLAY<br>REEL</div>
+        <div class="play-reel-text text-black bold">LIVE the<br>MOMENT</div>
     </div>
 </div>
 
-<!-- Fullscreen Video Modal -->
-<div id="video-modal" class="fixed inset-0 bg-black z-50 hidden flex items-center justify-center">
-    <button id="close-modal" class="absolute top-4 right-4 text-white text-3xl z-50 hover:text-gray-300">&times;</button>
-    <video id="fullscreen-video" class="w-full h-full object-contain" controls>
-        <source src="https://rr5---sn-5hneknek.googlevideo.com/videoplayback?expire=1742838290&ei=skXhZ4GdDf3Qi9oPvJuawAQ&ip=176.1.205.240&id=o-AJYh9gdButPK3BCyryaqjKylYlLFoZLPCReEPeZZKI5p&itag=702&aitags=133%2C134%2C135%2C136%2C160%2C242%2C243%2C244%2C247%2C278%2C298%2C299%2C302%2C303%2C308%2C315%2C330%2C331%2C332%2C333%2C334%2C335%2C336%2C337%2C694%2C695%2C696%2C697%2C698%2C699%2C700%2C701%2C702&source=youtube&requiressl=yes&xpc=EgVo2aDSNQ%3D%3D&bui=AccgBcM4ogAzdAIKtjPvP0mzCps3JQTZiLbchh_9BHz894kISdUhxle8zpmGdOpTz4ooxqGb0mj3iWzx&spc=_S3wKp0hBAorseEw3QwFojuU7giKs_8oKdOwNWxqTxj2nrSqeA&vprv=1&svpuc=1&mime=video%2Fmp4&ns=H3IBNDdjYMnMfOHmPNbh4W4Q&rqh=1&gir=yes&clen=1857122439&dur=295.645&lmt=1726446529219555&keepalive=yes&fexp=24350590,24350737,24350778,24350827,24350961,24351146,24351173,24351283,24351353,24351394,24351396,24351398,24351466,24351468,51355912&c=WEB&sefc=1&txp=4502434&n=aE6aamogKIHT9A&sparams=expire%2Cei%2Cip%2Cid%2Caitags%2Csource%2Crequiressl%2Cxpc%2Cbui%2Cspc%2Cvprv%2Csvpuc%2Cmime%2Cns%2Crqh%2Cgir%2Cclen%2Cdur%2Clmt&sig=AJfQdSswRgIhAL2Ya9vGopaidFpBM_QA752i_-ulDxYsOCsHt9kM8jEUAiEA1k1m5-9Lrdh-d9o-Mk8bU1OcQQU_E2hWZCdVF6-70Dc%3D&pot=MpQBQsl2cPvimahC9bHQm5ecSFF9Ea4ujC-U-h82G8FxHk-t0gQbN06hDqG6cTK-H-rckdpEu1Zi6sBIpQ8ZYJ5Kw0t6efqSV-R1nvWt5FtMs_e7kxFtNWoCsCG-AQdcWpS83HwhOLqmOotiodnnJcTpj-ZZMybb5jT6x2Maw8JIreZJqReheFP1b1dYmjQ17-G6k5qbMg==&rm=sn-uxax4vopj5qx-q0n67s,sn-4g5ezd7l,sn-h5q6k76&rrc=79,104,40&req_id=2dabe07077dccc45&rms=rdu,au&ipbypass=yes&redirect_counter=3&cms_redirect=yes&cmsv=e&met=1742827563,&mh=fB&mip=197.230.119.21&mm=34&mn=sn-5hneknek&ms=ltu&mt=1742827247&mv=m&mvi=5&pl=25&tso=10858&lsparams=ipbypass,met,mh,mip,mm,mn,ms,mv,mvi,pl,rms,tso&lsig=AFVRHeAwRQIgVppmlu2jB1MWZjU-q_t33alBaAQIla_ltktkCVS3kPECIQDbFM4WdulYtD9ZikS8l2gMHwcqYqTLnwCXEKmE-nsIRA%3D%3D" type="video/mp4">
-    </video>
-</div>
+<div id="video-modal" class="fixed inset-0 bg-black z-50 hidden flex items-center justify-center transition-opacity duration-300">
+    <div class="relative w-full h-full cursor-none" id="close-modal">
+        <video autoplay loop class="absolute w-full h-full object-cover" id="fullscreen-video">
+            <source src="{{ asset('videos/HACK.webm') }}" type="video/webm">
+        </video>
 
+        <!-- Audio element for the fullscreen video -->
+        <audio id="fullscreen-audio" loop preload="auto">
+            <source src="{{ asset('audio/HACK.m4a') }}" type="audio/mp4">
+            <source src="{{ asset('audio/HACK.mp3') }}" type="audio/mpeg">
+        </audio>
+    </div>
+</div>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -86,53 +89,100 @@
         const fullscreenVideo = document.getElementById('fullscreen-video');
         const closeModalBtn = document.getElementById('close-modal');
 
+        // Get audio elements
+        const backgroundAudio = document.getElementById('background-audio');
+        const fullscreenAudio = document.getElementById('fullscreen-audio');
+
+        let isModalOpen = false;
+
+        // Add timeupdate event to check video progress
+        fullscreenVideo.addEventListener('timeupdate', function() {
+            // Check if video has reached 1:51 (111 seconds)
+            if (fullscreenVideo.currentTime >= 111) {
+                // Close the modal and return to home
+                videoModal.classList.add('hidden');
+                fullscreenVideo.pause();
+                fullscreenVideo.currentTime = 0;
+
+                // Pause fullscreen audio and resume background audio
+                fullscreenAudio.pause();
+                fullscreenAudio.currentTime = 0;
+                backgroundAudio.play();
+
+                isModalOpen = false;
+            }
+        });
+
         document.addEventListener('mousemove', function(e) {
             cursor.style.left = e.clientX + 'px';
             cursor.style.top = e.clientY + 'px';
 
+            const isInHomeSection = homeDiv.contains(e.target);
+
+            // Check if modal is open - keep cursor hidden if true
+            if (isModalOpen) {
+                cursor.style.display = 'none';
+                return;
+            }
+
             // Check if mouse is over navbar
             const navbarRect = navbar.getBoundingClientRect();
-            if (e.clientY <= navbarRect.bottom) {
-                cursor.style.display = 'none'; // Hide custom cursor over navbar
-                cursor.style.cursor = 'pointer';
-            } else {
-                cursor.style.display = 'flex'; // Show custom cursor elsewhere
+            if (e.clientY <= navbarRect.bottom || !isInHomeSection) {
+                cursor.style.display = 'none';
+            }
+            else {
+                cursor.style.display = 'flex';
             }
         });
 
-        // Open fullscreen video when clicking on home div
         homeDiv.addEventListener('click', function() {
             videoModal.classList.remove('hidden');
-            fullscreenVideo.play();
-            cursor.style.display = 'none'; // Hide custom cursor when modal is open
+            if (fullscreenVideo) {
+                fullscreenVideo.play();
+
+                // Pause background audio and play fullscreen audio
+                backgroundAudio.pause();
+                fullscreenAudio.play();
+            }
+            cursor.style.display = 'none';
+            isModalOpen = true;
         });
 
-        // Close modal when clicking close button
         closeModalBtn.addEventListener('click', function() {
             videoModal.classList.add('hidden');
             fullscreenVideo.pause();
             fullscreenVideo.currentTime = 0;
+
+            // Pause fullscreen audio and resume background audio
+            fullscreenAudio.pause();
+            fullscreenAudio.currentTime = 0;
+            backgroundAudio.play();
+
+            isModalOpen = false;
         });
 
-        // Also close modal when clicking outside the video
         videoModal.addEventListener('click', function(e) {
             if (e.target === videoModal) {
                 videoModal.classList.add('hidden');
                 fullscreenVideo.pause();
                 fullscreenVideo.currentTime = 0;
+
+                // Pause fullscreen audio and resume background audio
+                fullscreenAudio.pause();
+                fullscreenAudio.currentTime = 0;
+                backgroundAudio.play();
+
+                isModalOpen = false;
             }
         });
 
-        // Show cursor again when modal is closed
-        videoModal.addEventListener('transitionend', function() {
-            if (videoModal.classList.contains('hidden')) {
-                const navbarRect = navbar.getBoundingClientRect();
-                const mouseY = parseInt(cursor.style.top);
-                if (mouseY > navbarRect.bottom) {
-                    cursor.style.display = 'flex';
-                }
+        // Play background audio when page loads
+        // Using a user interaction to start audio (to comply with autoplay policies)
+        document.body.addEventListener('click', function() {
+            if (!backgroundAudio.playing) {
+                backgroundAudio.play();
             }
-        });
+        }, { once: true });
     });
 </script>
 @endsection
