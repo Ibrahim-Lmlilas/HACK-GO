@@ -41,7 +41,7 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- Feature 1 -->
+            <!--  1 -->
             <div class="bg-white p-8 rounded-lg shadow-md transition-transform duration-300 hover:-translate-y-2">
                 <div class="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center mb-6">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -52,7 +52,7 @@
                 <p class="text-gray-600">Our dedicated team is available 24/7 to assist you every step of the way, ensuring a worry-free experience.</p>
             </div>
 
-            <!-- Feature 2 -->
+            <!--  2 -->
             <div class="bg-white p-8 rounded-lg shadow-md transition-transform duration-300 hover:-translate-y-2">
                 <div class="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center mb-6">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -63,7 +63,7 @@
                 <p class="text-gray-600">Customize your journey to match your interests, whether it's cultural immersion, adventure, or relaxation.</p>
             </div>
 
-            <!-- Feature 3 -->
+            <!--  3 -->
             <div class="bg-white p-8 rounded-lg shadow-md transition-transform duration-300 hover:-translate-y-2">
                 <div class="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center mb-6">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -74,7 +74,7 @@
                 <p class="text-gray-600">Stay in carefully selected riads, desert camps, and boutique hotels that reflect Morocco's rich cultural heritage.</p>
             </div>
 
-            <!-- Feature 4 -->
+            <!--  4 -->
             <div class="bg-white p-8 rounded-lg shadow-md transition-transform duration-300 hover:-translate-y-2">
                 <div class="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center mb-6">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -85,7 +85,7 @@
                 <p class="text-gray-600">No hidden fees or surprise costs. Our pricing is clear and includes all accommodations, guides, and listed activities.</p>
             </div>
 
-            <!-- Feature 5 -->
+            <!--  5 -->
             <div class="bg-white p-8 rounded-lg shadow-md transition-transform duration-300 hover:-translate-y-2">
                 <div class="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center mb-6">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -96,7 +96,7 @@
                 <p class="text-gray-600">Travel with like-minded explorers in small groups to ensure personalized attention and authentic experiences.</p>
             </div>
 
-            <!-- Feature 6 -->
+            <!--  6 -->
             <div class="bg-white p-8 rounded-lg shadow-md transition-transform duration-300 hover:-translate-y-2">
                 <div class="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center mb-6">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">

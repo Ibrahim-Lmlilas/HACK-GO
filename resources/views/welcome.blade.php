@@ -14,7 +14,7 @@
         <p class="text-xl text-white mb-10 max-w-2xl">Curated Moroccan travel experiences tailored to your desires. Immerse yourself in breathtaking landscapes and rich culture.</p>
         <div class="flex flex-col sm:flex-row gap-4">
             <a href="#" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full text-lg font-medium transition-transform duration-300 hover:scale-105">Plan Your Moroccan Journey</a>
-            <a href="#" class="bg-white/20 backdrop-blur-sm hover:bg-white/50 text-white hover:text-black px-8 py-3 rounded-full text-lg font-medium transition-colors duration-300">Explore Morocco</a>
+            <a href="/blog" class="bg-white/20 backdrop-blur-sm hover:bg-white/50 text-white hover:text-black px-8 py-3 rounded-full text-lg font-medium transition-colors duration-300">Explore Morocco</a>
         </div>
     </div>
     <!-- Down Arrow -->
@@ -231,7 +231,7 @@
 </section>
 
 <!-- Newsletter Section  -->
-<section class="py-16 bg-[#075985] relative overflow-hidden  ">
+<section  class="py-16 bg-[#075985] relative overflow-hidden  ">
 
 <div class="container mx-auto px-6 py-4 relative z-1">
     <div class="max-w-3xl mx-auto bg-[#206A91] backdrop-blur-sm rounded-2xl p-10 shadow-lg border border-[#5395B8]">
