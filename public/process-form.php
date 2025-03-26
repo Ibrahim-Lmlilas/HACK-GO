@@ -19,7 +19,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $mail = new PHPMailer(true);
 
     try {
-        // Server settings
         $mail->isSMTP();
         $mail->Host       = 'smtp.gmail.com';
         $mail->SMTPAuth   = true;
@@ -33,7 +32,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $mail->addAddress('spedibra@gmail.com');
         $mail->addReplyTo($email, $name);
 
-        // Content
         $mail->isHTML(true);
         $mail->Subject = "New Contact Form: $subject";
 

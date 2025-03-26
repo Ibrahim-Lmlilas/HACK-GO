@@ -54,7 +54,6 @@
         <source src="{{ asset('videos/HA.mp4') }}" type="video/mp4">
     </video>
 
-    <!-- Audio element that will play with the video -->
     <audio id="background-audio" loop>
         <source src="{{ asset('audio/background-music.mp3') }}" type="audio/mp3">
     </audio>
@@ -72,7 +71,6 @@
             <source src="{{ asset('videos/HACK.webm') }}" type="video/webm">
         </video>
 
-        <!-- Audio element for the fullscreen video -->
         <audio id="fullscreen-audio" loop preload="auto">
             <source src="{{ asset('audio/HACK.m4a') }}" type="audio/mp4">
             <source src="{{ asset('audio/HACK.mp3') }}" type="audio/mpeg">
@@ -97,14 +95,11 @@
 
         // Add timeupdate event to check video progress
         fullscreenVideo.addEventListener('timeupdate', function() {
-            // Check if video has reached 1:51 (111 seconds)
             if (fullscreenVideo.currentTime >= 111) {
-                // Close the modal and return to home
                 videoModal.classList.add('hidden');
                 fullscreenVideo.pause();
                 fullscreenVideo.currentTime = 0;
 
-                // Pause fullscreen audio and resume background audio
                 fullscreenAudio.pause();
                 fullscreenAudio.currentTime = 0;
                 backgroundAudio.play();
@@ -119,7 +114,6 @@
 
             const isInHomeSection = homeDiv.contains(e.target);
 
-            // Check if modal is open - keep cursor hidden if true
             if (isModalOpen) {
                 cursor.style.display = 'none';
                 return;
@@ -176,8 +170,7 @@
             }
         });
 
-        // Play background audio when page loads
-        // Using a user interaction to start audio (to comply with autoplay policies)
+
         document.body.addEventListener('click', function() {
             if (!backgroundAudio.playing) {
                 backgroundAudio.play();

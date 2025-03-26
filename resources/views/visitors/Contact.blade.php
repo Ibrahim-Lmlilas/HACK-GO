@@ -20,9 +20,7 @@
                 </h2>
 
                 <form action="/process-form.php" method="POST" class="space-y-6">
-                    <!-- No need for @csrf with this approach -->
-
-                    <!-- Add success/error message display -->
+                   
                     @if(isset($_GET['success']))
                     <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
                         <span class="block sm:inline">Thank you for your message. We will get back to you soon!</span>
