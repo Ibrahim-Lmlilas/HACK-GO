@@ -2,9 +2,9 @@
 
 @section('content')
 <!-- Contact Section -->
-<section class="py-16 bg-white" style="background-image: url('https://media.cntraveler.com/photos/65dfc055e781ac22c9a500e9/16:9/w_1920,c_limit/GettyImages-1450546518.jpg');">
+<section class="py-16  " style="background-image: url('https://media.cntraveler.com/photos/65dfc055e781ac22c9a500e9/16:9/w_1920,c_limit/GettyImages-1450546518.jpg');">
     <div class="absolute inset-0 bg-black/50"></div>
-    <hr class="py-1">
+    <hr class="py-1.5">
 
     <div class="container mx-auto px-4">
         <!-- Centered Form Container -->
