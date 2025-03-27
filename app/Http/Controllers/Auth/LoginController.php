@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    protected $redirectTo = '/';
 
     public function showLoginForm()
     {
@@ -26,7 +25,11 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            return redirect()->intended($this->redirectTo);
+            if (Auth::user()->role === 'admin') {
+                return redirect('/admin/dashboard');
+            }
+
+            return redirect('/dashboard');
         }
 
         return back()->withErrors([
