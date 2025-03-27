@@ -82,13 +82,13 @@
 
                         <!-- Auth Buttons -->
                         <div class="hidden md:flex items-center space-x-4">
-                            <a href="#" class="flex items-center border-[#1f2937] border-2   bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded-lg transition-colors duration-300 nav-link " >
+                            <a href="/login" class="flex items-center border-[#1f2937] border-2   bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded-lg transition-colors duration-300 nav-link " >
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
                                 </svg>
                                 Sign In
                             </a>
-                            <a href="#" class="border-[#1f2937] border-2  bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium transition-colors duration-300 flex items-center">
+                            <a href="/register" class="border-[#1f2937] border-2  bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium transition-colors duration-300 flex items-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 8h4m-2-2v4" />
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
@@ -125,13 +125,13 @@
 
                                                             <div class="pt-4 mt-2 border-t border-gray-200">
                                                                 <div class="grid grid-cols-1 gap-3 mt-3">
-                                                                    <a href="#" class="flex items-center justify-center text-gray-800 bg-gray-100 hover:bg-gray-200 px-4 py-3 rounded-lg transition-all duration-300">
+                                                                    <a href="/login" class="flex items-center justify-center text-gray-800 bg-gray-100 hover:bg-gray-200 px-4 py-3 rounded-lg transition-all duration-300">
                                                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
                                                                         </svg>
                                                                         Sign In
                                                                     </a>
-                                                                    <a href="#" class="flex items-center justify-center text-white bg-blue-600 hover:bg-blue-700 px-4 py-3 rounded-lg transition-all duration-300 shadow-lg shadow-blue-600/30">
+                                                                    <a href="/register" class="flex items-center justify-center text-white bg-blue-600 hover:bg-blue-700 px-4 py-3 rounded-lg transition-all duration-300 shadow-lg shadow-blue-600/30">
                                                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 8h4m-2-2v4" />
                                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
