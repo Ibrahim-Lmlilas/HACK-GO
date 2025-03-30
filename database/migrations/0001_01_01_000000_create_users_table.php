@@ -21,7 +21,8 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->text('bio')->nullable();
             $table->string('phone', 20)->nullable();
-            $table->rememberToken(); // Laravel's remember me functionality
+            $table->enum('role', ['user', 'admin'])->default('user');
+            $table->rememberToken();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrentOnUpdate()->nullable();
         });
