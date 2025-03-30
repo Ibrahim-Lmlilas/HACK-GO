@@ -37,3 +37,14 @@ Route::middleware('auth')->group(function () {
 
 });
 
+// Profile routes
+// Add these profile routes to your web.php file
+Route::middleware(['auth'])->group(function () {
+    Route::get('/profile', [App\Http\Controllers\ProfileController::class, 'index'])->name('profile');
+    Route::put('/profile', [App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
+    Route::put('/profile/password', [App\Http\Controllers\ProfileController::class, 'updatePassword'])->name('profile.update.password');
+});
+Route::get('/settings', function() {
+    return view('dashboard.settings');
+})->name('settings');
+
