@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 
@@ -24,25 +27,28 @@ Route::post('/contact', function (Request $request) {
 
 // Authentication Routes
 Route::middleware('guest')->group(function () {
-    Route::get('/login', [\App\Http\Controllers\Auth\LoginController::class, 'showLoginForm'])->name('login');
-    Route::post('/login', [\App\Http\Controllers\Auth\LoginController::class, 'login']);
+    Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+    Route::post('/login', [LoginController::class, 'login']);
 
-    Route::get('/register', [\App\Http\Controllers\Auth\RegisterController::class, 'showRegistrationForm'])->name('register');
-    Route::post('/register', [\App\Http\Controllers\Auth\RegisterController::class, 'register']);
+    Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+    Route::post('/register', [RegisterController::class, 'register']);
 });
 
 // Authenticated Routes
 Route::middleware('auth')->group(function () {
-    Route::post('/logout', [\App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
+    Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 });
 
 // Profile routes
-// Add these profile routes to your web.php file
 Route::middleware(['auth'])->group(function () {
-    Route::get('/profile', [App\Http\Controllers\ProfileController::class, 'index'])->name('profile');
-    Route::put('/profile', [App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
-    Route::put('/profile/password', [App\Http\Controllers\ProfileController::class, 'updatePassword'])->name('profile.update.password');
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::put('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.update.password');
+
+    // Travel preferences routes
+    Route::get('/profile/preferences', [ProfileController::class, 'preferences'])->name('profile.preferences');
+    Route::put('/profile/preferences', [ProfileController::class, 'updatePreferences'])->name('profile.preferences.update');
 });
 Route::get('/settings', function() {
     return view('dashboard.settings');

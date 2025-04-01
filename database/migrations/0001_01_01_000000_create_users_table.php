@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('password', 255);
             $table->string('first_name', 50)->nullable();
             $table->string('last_name', 50)->nullable();
-            $table->string('image')->nullable();
             $table->text('bio')->nullable();
             $table->string('phone', 20)->nullable();
             $table->enum('role', ['user', 'admin'])->default('user');

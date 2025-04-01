@@ -25,8 +25,8 @@ class User extends Authenticatable
         'password',
         'phone',
         'bio',
-        'profile_picture',
-        'profile_picture_type',
+        'image',
+        'banner_image',
         'role',
     ];
 
@@ -49,4 +49,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+    
+    /**
+     * Get the user's travel preferences
+     */
+    public function preference()
+    {
+        return $this->hasOne(UserPreference::class);
+    }
 }

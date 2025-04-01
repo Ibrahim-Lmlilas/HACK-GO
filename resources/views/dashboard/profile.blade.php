@@ -5,10 +5,15 @@
     <div class="bg-gray-800 rounded-lg shadow-lg overflow-hidden">
         <!-- Profile Header -->
         <div class="relative bg-gradient-to-r from-blue-600 to-blue-800 p-6">
-            <div class="flex flex-col md:flex-row items-center">
+            @if($user->banner_image)
+                <div class="absolute inset-0 z-0 overflow-hidden">
+                    <img src="{{ asset('uploads/images/' . $user->banner_image) }}" alt="Banner" class="w-full h-full object-cover opacity-50">
+                </div>
+            @endif
+            <div class="flex flex-col md:flex-row items-center relative z-10">
                 <div class="relative">
-                    @if($user->profile_picture)
-                        <img src="{{ asset('uploads/profile_pictures/' . $user->profile_picture) }}" alt="{{ $user->username }}" class="w-24 h-24 rounded-full border-4 border-white">
+                    @if($user->image)
+                        <img src="{{ asset('uploads/images/' . $user->image) }}" alt="{{ $user->username }}" class="w-24 h-24 rounded-full border-4 border-white">
                     @else
                         <div class="w-24 h-24 rounded-full bg-gray-700 flex items-center justify-center text-white text-2xl font-bold border-4 border-white">
                             {{ strtoupper(substr($user->first_name, 0, 1)) }}{{ strtoupper(substr($user->last_name, 0, 1)) }}
@@ -31,6 +36,7 @@
             <div class="container mx-auto">
                 <ul class="flex overflow-x-auto">
                     <li class="px-6 py-3 font-medium border-b-2 border-blue-500">Profile</li>
+                    <li class="px-6 py-3 font-medium text-gray-400 hover:text-white"><a href="{{ route('profile.preferences') }}">Travel Preferences</a></li>
                     <li class="px-6 py-3 font-medium text-gray-400 hover:text-white">Bookings</li>
                     <li class="px-6 py-3 font-medium text-gray-400 hover:text-white">Reviews</li>
                     <li class="px-6 py-3 font-medium text-gray-400 hover:text-white">Messages</li>
@@ -88,8 +94,15 @@
                             </div>
 
                             <div class="mb-4">
-                                <label for="profile_picture" class="block text-sm font-medium text-gray-300 mb-1">Profile Picture</label>
-                                <input type="file" name="profile_picture" id="profile_picture" class="w-full px-3 py-2 bg-gray-600 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <label for="image" class="block text-sm font-medium text-gray-300 mb-1">Banner Image</label>
+                                <input type="file" name="image" id="image" class="w-full px-3 py-2 bg-gray-600 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <p class="text-xs text-gray-400 mt-1">Recommended size: 1200 x 300 pixels</p>
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="banner_image" class="block text-sm font-medium text-gray-300 mb-1">Banner Image</label>
+                                <input type="file" name="banner_image" id="banner_image" class="w-full px-3 py-2 bg-gray-600 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <p class="text-xs text-gray-400 mt-1">Recommended size: 1200 x 300 pixels</p>
                             </div>
 
                             <div class="flex justify-end">

@@ -131,8 +131,8 @@
                             <div class="relative ml-3">
                                 <div>
                                     <button type="button" class="flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white" id="user-menu-button">
-                                        @if(Auth::user()->profile_picture)
-                                            <img class="h-8 w-8 rounded-full" src="{{ asset('uploads/profile_pictures/' . Auth::user()->profile_picture) }}" alt="{{ Auth::user()->username }}">
+                                        @if(Auth::user()->image)
+                                            <img class="h-8 w-8 rounded-full" src="{{ asset('uploads/images/' . Auth::user()->image) }}" alt="{{ Auth::user()->username }}">
                                         @else
                                             <div class="h-8 w-8 rounded-full bg-blue-600 flex items-center justify-center">
                                                 <span class="text-white text-sm font-bold">{{ strtoupper(substr(Auth::user()->first_name, 0, 1)) }}</span>
