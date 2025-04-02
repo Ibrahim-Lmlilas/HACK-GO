@@ -8,8 +8,11 @@
 </head>
 <body class="bg-gray-50">
     <div class="flex h-screen bg-gray-50">
+        <!-- Mobile Sidebar Overlay -->
+        <div id="sidebar-overlay" class="fixed inset-0 bg-gray-900 bg-opacity-50 z-20 lg:hidden hidden" onclick="toggleSidebar()"></div>
+
         <!-- Sidebar -->
-        <div class="fixed inset-y-0 left-0 w-64 bg-white shadow-sm transition-transform duration-300 transform md:translate-x-0 md:relative md:flex md:flex-col">
+        <div id="sidebar" class="fixed inset-y-0 left-0 w-64 bg-white shadow-sm transition-transform duration-300 transform -translate-x-full lg:translate-x-0 z-30 lg:relative lg:flex lg:flex-col">
             <!-- Logo -->
             <div class="flex items-center h-16 px-6">
                 <div class="flex items-center">
@@ -29,7 +32,7 @@
             </div>
 
             <!-- Navigation -->
-            <nav class="flex-1 px-4 mt-6 space-y-2">
+            <nav class="flex-1 px-4 mt-6 space-y-2 overflow-y-auto">
                 <!-- Home -->
                 <a href="/overview" class="flex items-center px-4 py-2.5 text-sm font-medium text-gray-900 rounded-lg hover:bg-gray-100 transition-all duration-200">
                     <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -80,29 +83,7 @@
                 </a>
             </nav>
 
-            <!-- Weather Widget -->
-            <div class="p-4 mt-auto">
-                <div class="bg-gray-50 rounded-lg p-4">
-                    <div class="flex items-center">
-                        <svg class="w-8 h-8 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"/>
-                        </svg>
-                        <div class="ml-3">
-                            <div class="text-2xl font-semibold">30°</div>
-                            <div class="text-sm text-gray-500">Sunny</div>
-                        </div>
-                    </div>
-                    <div class="mt-3 flex justify-between text-xs text-gray-500">
-                        <span>Mon</span>
-                        <span>Tue</span>
-                        <span>Wed</span>
-                        <span>Thu</span>
-                        <span>Fri</span>
-                    </div>
-                </div>
-            </div>
-
-            
+           
         </div>
 
         <!-- Main Content -->
@@ -111,13 +92,20 @@
             <header class="bg-white shadow-sm">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="flex justify-between h-16 items-center">
+                        <!-- Mobile menu button -->
+                        <button onclick="toggleSidebar()" class="lg:hidden p-2 rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500">
+                            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                            </svg>
+                        </button>
+
                         <h2 class="text-2xl font-semibold text-gray-800">Dashboard</h2>
 
                         <!-- Profile Dropdown -->
                         <div class="relative">
                             <button class="flex items-center space-x-4 focus:outline-none">
                                 <img class="h-8 w-8 rounded-full object-cover" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="Profile">
-                                <span class="text-gray-700">John Doe</span>
+                                <span class="text-gray-700 hidden sm:inline-block">John Doe</span>
                             </button>
                         </div>
                     </div>
@@ -126,34 +114,50 @@
 
             <!-- Page Content -->
             <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-50">
-                <div class="container mx-auto px-6 py-8">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
                     @yield('content')
                 </div>
             </main>
         </div>
     </div>
 
-    <!-- Mobile Menu Button -->
-    <div class="fixed md:hidden bottom-4 right-4">
-        <button id="mobile-menu-button" class="p-2 rounded-full bg-blue-800 text-white shadow-lg hover:bg-blue-700 transition-colors duration-200">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-            </svg>
-        </button>
-    </div>
-
+    <!-- JavaScript for mobile sidebar toggle -->
     <script>
-        // Mobile menu functionality
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const sidebar = document.querySelector('.fixed');
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebar-overlay');
 
-        mobileMenuButton.addEventListener('click', () => {
             sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+
+            // Prevent body scroll when sidebar is open
+            document.body.classList.toggle('overflow-hidden', !overlay.classList.contains('hidden'));
+        }
+
+        // Close sidebar when clicking outside on mobile
+        document.addEventListener('click', (event) => {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebar-overlay');
+            const toggleButton = document.querySelector('button[onclick="toggleSidebar()"]');
+
+            if (!sidebar.contains(event.target) &&
+                !toggleButton.contains(event.target) &&
+                !overlay.classList.contains('hidden') &&
+                window.innerWidth < 1024) {
+                toggleSidebar();
+            }
         });
 
-        // Close sidebar when clicking outside
-        document.addEventListener('click', (event) => {
-            if (!sidebar.contains(event.target) && !mobileMenuButton.contains(event.target)) {
+        // Handle resize events
+        window.addEventListener('resize', () => {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebar-overlay');
+
+            if (window.innerWidth >= 1024) {
+                sidebar.classList.remove('-translate-x-full');
+                overlay.classList.add('hidden');
+                document.body.classList.remove('overflow-hidden');
+            } else {
                 sidebar.classList.add('-translate-x-full');
             }
         });
