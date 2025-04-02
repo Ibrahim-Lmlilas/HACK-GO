@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('budget_range', 50)->nullable();
             $table->string('travel_style', 50)->nullable();
             $table->text('interests')->nullable()->comment('Stored as JSON array');
-            $table->timestamp('created_at')->useCurrent();
+            $table->timestamps();
         });
     }
 

@@ -48,6 +48,6 @@ class RegisterController extends Controller
             return redirect('/admin/dashboard');
         }
 
-        return redirect('/dashboard');
+        return redirect('/profile');
     }
 }
