@@ -1,11 +1,16 @@
 <?php
 
+use App\Http\Middleware\UserMiddleware;
+use App\Http\Middleware\AdminMiddleware;
+use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TravelController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 
 // Rout visitor
@@ -51,9 +56,16 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/profile/preferences', [ProfileController::class, 'preferences'])->name('profile.preferences');
     Route::put('/profile/preferences', [ProfileController::class, 'updatePreferences'])->name('profile.preferences.update');
 
-  
+
 });
 Route::get('/settings', function() {
     return view('dashboard.settings');
 })->name('settings');
+
+// Admin Routes
+Route::middleware(['auth'])->prefix('admin')->group(function () {
+    Route::get('/dashboard', [HomeController::class, 'index'])->name('admin.home');
+});
+
+
 
