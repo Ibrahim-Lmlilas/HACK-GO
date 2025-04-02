@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ config('app.name') }} - Dashboard</title>
+    <title> Dashboard</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="bg-gray-50">
@@ -12,11 +12,11 @@
         <div id="sidebar-overlay" class="fixed inset-0 bg-gray-900 bg-opacity-50 z-20 lg:hidden hidden" onclick="toggleSidebar()"></div>
 
         <!-- Sidebar -->
-        <div id="sidebar" class="fixed inset-y-0 left-0 w-64 bg-white shadow-sm transition-transform duration-300 transform -translate-x-full lg:translate-x-0 z-30 lg:relative lg:flex lg:flex-col">
+        <div id="sidebar" class="fixed inset-y-0 left-0 w-64 bg-white shadow-sm transition-transform duration-300 transform -translate-x-full lg:translate-x-0 z-30 lg:relative lg:flex lg:flex-col border-r  lg:shadow-none">
             <!-- Logo -->
             <div class="flex items-center h-16 px-6">
                 <div class="flex items-center">
-                    <img src="images/logo.png" alt="Logo" class="h-20">
+                    <img src="{{ asset('images/logo.png') }}" alt="Logo" class="h-20">
                     <span class="ml-2 text-xl font-semibold text-[#FF5722]">HACK<span class="text-[#000000]">&</span>GO</span>
                 </div>
             </div>
@@ -32,7 +32,7 @@
             </div>
 
             <!-- Navigation -->
-            <nav class="flex-1 px-4 mt-6 space-y-2 overflow-y-auto">
+            <nav class="flex-1 px-4 mt-6 space-y-2 overflow-y-autov border-t ">
                 <!-- Home -->
                 <a href="/overview" class="flex items-center px-4 py-2.5 text-sm font-medium text-gray-900 rounded-lg hover:bg-gray-100 transition-all duration-200">
                     <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -88,13 +88,12 @@
                 <div class="flex items-center mb-4">
                     <div class="relative flex-shrink-0">
                         @if($user->image)
-                            <img src="{{ asset('uploads/images/' . $user->image) }}" alt="{{ $user->username }}" class="w-12 h-12 rounded-full border-2 border-white">
+                            <img src="{{ asset('uploads/images/' . $user->image) }}" alt="{{ $user->username }}" class="w-10 h-10 rounded-full border-2 border-white">
                         @else
                             <div class="w-12 h-12 rounded-full bg-gray-700 flex items-center justify-center text-white text-xl font-bold border-2 border-white">
                                 {{ strtoupper(substr($user->first_name, 0, 1)) }}{{ strtoupper(substr($user->last_name, 0, 1)) }}
                             </div>
                         @endif
-                        <div class="absolute bottom-0 right-0 w-3 h-3 bg-green-400 border-2 border-white rounded-full"></div>
                     </div>
                     <div class="ml-3">
                         <p class="text-sm font-medium text-gray-900">{{ $user->first_name }} {{ $user->last_name }}</p>
