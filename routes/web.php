@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Middleware\UserMiddleware;
-use App\Http\Middleware\AdminMiddleware;
+use \App\Http\Middleware\UserMiddleware as UserMiddleware;
+use \App\Http\Middleware\AdminMiddleware as AdminMiddleware;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
@@ -43,11 +43,11 @@ Route::middleware('guest')->group(function () {
 // Authenticated Routes
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-
 });
 
-// Profile routes
-Route::middleware(['auth'])->group(function () {
+// User Routes - Only accessible by regular users
+Route::middleware(['auth', UserMiddleware::class])->group(function () {
+    // Profile routes
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::put('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.update.password');
@@ -56,15 +56,15 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/profile/preferences', [ProfileController::class, 'preferences'])->name('profile.preferences');
     Route::put('/profile/preferences', [ProfileController::class, 'updatePreferences'])->name('profile.preferences.update');
 
-
+    Route::get('/settings', function() {
+        return view('dashboard.settings');
+    })->name('settings');
 });
-Route::get('/settings', function() {
-    return view('dashboard.settings');
-})->name('settings');
 
-// Admin Routes
-Route::middleware(['auth'])->prefix('admin')->group(function () {
+// Admin Routes - Only accessible by admins
+Route::middleware(['auth', AdminMiddleware::class])->prefix('admin')->group(function () {
     Route::get('/dashboard', [HomeController::class, 'index'])->name('admin.home');
+    // Add other admin routes here
 });
 
 
