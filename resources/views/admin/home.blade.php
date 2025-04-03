@@ -72,40 +72,78 @@
     </div>
 
     <!-- Recent Activity -->
-    <div class="bg-white rounded-lg shadow-sm">
-        <div class="p-6 border-b border-gray-200">
-            <h2 class="text-lg font-medium text-gray-900">Recent Activity</h2>
-        </div>
-        <div class="p-6">
-            <div class="flow-root">
-                <ul class="-mb-8">
-                    @forelse($recentActivities ?? [] as $activity)
-                    <li>
-                        <div class="relative pb-8">
-                            <span class="absolute top-4 left-4 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
-                            <div class="relative flex space-x-3">
-                                <div>
-                                    <span class="h-8 w-8 rounded-full bg-blue-500 flex items-center justify-center ring-8 ring-white">
-                                        <svg class="h-5 w-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
-                                        </svg>
-                                    </span>
-                                </div>
-                                <div class="min-w-0 flex-1 pt-1.5 flex justify-between space-x-4">
-                                    <div>
-                                        <p class="text-sm text-gray-500">{{ $activity->description }}</p>
-                                        <p class="text-xs text-gray-500">{{ $activity->created_at->diffForHumans() }}</p>
-                                    </div>
-                                </div>
-                            </div>
+    <!-- Statistics Grid with Real-time API Data and Map -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Real-time API Data -->
+        <div class="bg-white rounded-lg shadow-sm">
+            <div class="p-6 border-b border-gray-200">
+                <h2 class="text-lg font-medium text-gray-900">Real-time Statistics</h2>
+                <p class="text-sm text-gray-500">Live data from our API</p>
+            </div>
+            <div class="p-6">
+                <div id="real-time-stats" class="space-y-4">
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm font-medium text-gray-600">Active Users</span>
+                        <span id="active-users-count" class="text-lg font-semibold text-blue-600">Loading...</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-2.5">
+                        <div id="active-users-bar" class="bg-blue-600 h-2.5 rounded-full" style="width: 0%"></div>
+                    </div>
+
+                    <div class="flex items-center justify-between mt-4">
+                        <span class="text-sm font-medium text-gray-600">Server Response Time</span>
+                        <span id="server-response" class="text-lg font-semibold text-green-600">Loading...</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-2.5">
+                        <div id="server-response-bar" class="bg-green-600 h-2.5 rounded-full" style="width: 0%"></div>
+                    </div>
+
+                    <div class="flex items-center justify-between mt-4">
+                        <span class="text-sm font-medium text-gray-600">API Requests (24h)</span>
+                        <span id="api-requests" class="text-lg font-semibold text-purple-600">Loading...</span>
+                    </div>
+
+                    <div class="mt-6">
+                        <h3 class="text-sm font-medium text-gray-600 mb-3">Traffic Trend (Last 24h)</h3>
+                        <div id="traffic-chart" class="h-40 bg-gray-50 rounded flex items-center justify-center">
+                            <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                            <span class="text-gray-500">Loading chart data...</span>
                         </div>
-                    </li>
-                    @empty
-                    <li class="text-center text-gray-500 py-4">No recent activity</li>
-                    @endforelse
-                </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Map View -->
+        <div class="bg-white rounded-lg shadow-sm">
+            <div class="p-6 border-b border-gray-200">
+                <h2 class="text-lg font-medium text-gray-900">User Locations</h2>
+                <p class="text-sm text-gray-500">Live user distribution</p>
+            </div>
+            <div class="p-6">
+                <div id="map-container" class="h-64 bg-gray-100 rounded-lg flex items-center justify-center">
+                    <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    <span class="text-gray-500">Loading map data...</span>
+                </div>
+                <div class="mt-4 grid grid-cols-2 gap-4">
+                    <div class="bg-gray-50 p-3 rounded-lg">
+                        <h3 class="text-xs font-medium text-gray-500">TOP LOCATION</h3>
+                        <p id="top-location" class="text-lg font-semibold text-gray-900">Loading...</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-lg">
+                        <h3 class="text-xs font-medium text-gray-500">ACTIVE REGIONS</h3>
+                        <p id="active-regions" class="text-lg font-semibold text-gray-900">Loading...</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
 @endsection

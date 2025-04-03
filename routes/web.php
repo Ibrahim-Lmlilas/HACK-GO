@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Auth;
 
 
 
-// Rout visitor
 Route::get('/', function () {
     return view('welcome');
 });
@@ -31,7 +30,6 @@ Route::post('/contact', function (Request $request) {
 })->name('contact.submit');
 
 
-// Authentication Routes
 Route::middleware('guest')->group(function () {
     Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
     Route::post('/login', [LoginController::class, 'login']);
@@ -40,31 +38,24 @@ Route::middleware('guest')->group(function () {
     Route::post('/register', [RegisterController::class, 'register']);
 });
 
-// Authenticated Routes
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 });
 
-// User Routes - Only accessible by regular users
+
 Route::middleware(['auth', UserMiddleware::class])->group(function () {
-    // Profile routes
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::put('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.update.password');
 
-    // Travel preferences routes
     Route::get('/profile/preferences', [ProfileController::class, 'preferences'])->name('profile.preferences');
     Route::put('/profile/preferences', [ProfileController::class, 'updatePreferences'])->name('profile.preferences.update');
 
-    Route::get('/settings', function() {
-        return view('dashboard.settings');
-    })->name('settings');
+
 });
 
-// Admin Routes - Only accessible by admins
 Route::middleware(['auth', AdminMiddleware::class])->prefix('admin')->group(function () {
     Route::get('/dashboard', [HomeController::class, 'index'])->name('admin.home');
-    // Add other admin routes here
 });
 
 
