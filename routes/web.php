@@ -1,14 +1,19 @@
 <?php
 
+use \App\Http\Middleware\UserMiddleware as UserMiddleware;
+use \App\Http\Middleware\AdminMiddleware as AdminMiddleware;
+use App\Http\Controllers\Admin\HomeController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TravelController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 
-// Rout visitor
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -26,7 +31,6 @@ Route::post('/contact', function (Request $request) {
 })->name('contact.submit');
 
 
-// Authentication Routes
 Route::middleware('guest')->group(function () {
     Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
     Route::post('/login', [LoginController::class, 'login']);
@@ -35,25 +39,32 @@ Route::middleware('guest')->group(function () {
     Route::post('/register', [RegisterController::class, 'register']);
 });
 
-// Authenticated Routes
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-
 });
 
-// Profile routes
-Route::middleware(['auth'])->group(function () {
+
+Route::middleware(['auth', UserMiddleware::class])->group(function () {
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::put('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.update.password');
 
-    // Travel preferences routes
     Route::get('/profile/preferences', [ProfileController::class, 'preferences'])->name('profile.preferences');
     Route::put('/profile/preferences', [ProfileController::class, 'updatePreferences'])->name('profile.preferences.update');
 
-  
+
 });
-Route::get('/settings', function() {
-    return view('dashboard.settings');
-})->name('settings');
+
+Route::middleware(['auth', AdminMiddleware::class])->prefix('admin')->group(function () {
+    Route::get('/dashboard', [HomeController::class, 'index'])->name('admin.home');
+
+    Route::get('/users', [UserController::class, 'index'])->name('admin.users.index');
+    Route::get('/users/{user}', [UserController::class, 'show'])->name('admin.users.show');
+    Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('admin.users.edit');
+    Route::put('/users/{user}', [UserController::class, 'update'])->name('admin.users.update');
+    Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('admin.users.destroy');
+
+});
+
+
 
