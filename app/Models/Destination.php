@@ -10,20 +10,8 @@ class Destination extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name',
-        'description',
+        'location',
+        'rating',
         'image',
-        'country',
-        'city',
     ];
-
-    public function accommodations()
-    {
-        return $this->hasMany(Accommodation::class);
-    }
-
-    public function activities()
-    {
-        return $this->hasMany(Activity::class);
-    }
 }
