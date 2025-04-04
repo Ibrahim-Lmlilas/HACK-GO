@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -19,11 +20,13 @@ class UserController extends Controller
 
         return view('admin.users.index', compact('users', 'totalUsers'));
     }
-
     public function show(User $user)
     {
-        return view('admin.users.show', compact('user'));
+        $preferences = DB::table('user_preferences')->where('user_id', $user->id)->first();
+
+        return view('admin.users.show', compact('user', 'preferences'));
     }
+    
 
     public function destroy(User $user)
     {

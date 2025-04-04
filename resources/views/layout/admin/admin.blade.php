@@ -200,7 +200,7 @@
                                         </div>
                                     @endif
                                 </div>
-                                <span class="text-sm font-medium text-gray-700">{{ $user->username }}</span>
+                                <span class="text-sm font-medium text-gray-700"></span>
                             </div>
                         </div>
                     </div>
