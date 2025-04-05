@@ -5,15 +5,7 @@
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-2xl font-semibold text-indigo-800">Hotels</h1>
         <div class="flex items-center space-x-4">
-            <div class="relative">
-                <input type="text" id="searchInput" placeholder="Search hotels..."
-                    class="w-64 py-2 px-4 pl-10 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
-                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <svg class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                    </svg>
-                </div>
-            </div>
+
             <a href="{{ route('admin.hotels.create') }}" class="bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-medium py-2 px-4 rounded-lg flex items-center transition duration-300">
                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
@@ -98,7 +90,7 @@
                         <span class="text-sm truncate">{{ $hotel->location }}</span>
                     </div>
 
-                    
+
 
                     @if($hotel->amenities)
                         <div class="mt-3 flex flex-wrap gap-2">
@@ -146,7 +138,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 const name = nameElement ? nameElement.textContent.toLowerCase() : '';
                 const location = locationElement ? locationElement.textContent.toLowerCase() : '';
 
-                // Search in hotel name and location
                 if (name.includes(searchValue) || location.includes(searchValue)) {
                     card.style.display = '';
                     visibleCount++;
@@ -155,7 +146,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
 
-            // Show a message if no results found
             const noResultsMessage = document.getElementById('noResultsMessage');
             if (noResultsMessage) {
                 if (visibleCount === 0 && searchValue !== '') {
