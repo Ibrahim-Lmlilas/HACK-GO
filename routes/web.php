@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\DestinationController;
 use \App\Http\Middleware\UserMiddleware as UserMiddleware;
 use \App\Http\Middleware\AdminMiddleware as AdminMiddleware;
 use App\Http\Controllers\Admin\HomeController;
@@ -64,7 +65,11 @@ Route::middleware(['auth', AdminMiddleware::class])->prefix('admin')->group(func
     Route::put('/users/{user}', [UserController::class, 'update'])->name('admin.users.update');
     Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('admin.users.destroy');
 
+    // Add destinations routes
+    Route::resource('destinations', DestinationController::class)->names('admin.destinations');
 });
+
+
 
 
 
