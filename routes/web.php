@@ -67,6 +67,8 @@ Route::middleware(['auth', AdminMiddleware::class])->prefix('admin')->group(func
 
     // Add destinations routes
     Route::resource('destinations', DestinationController::class)->names('admin.destinations');
+    // Add this in the admin group routes
+    Route::resource('hotels', App\Http\Controllers\Admin\HotelController::class)->names('admin.hotels');
 });
 
 
