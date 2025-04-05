@@ -33,7 +33,6 @@ class DestinationController extends Controller
     {
         $validated = $request->validate([
             'location' => 'required|string|max:255',
-            'rating' => 'required|integer|min:0|max:5',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
@@ -63,7 +62,6 @@ class DestinationController extends Controller
     {
         $validated = $request->validate([
             'location' => 'required|string|max:255',
-            'rating' => 'required|integer|min:0|max:5',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 

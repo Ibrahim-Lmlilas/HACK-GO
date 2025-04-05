@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('location');
             $table->string('image')->nullable();
-            $table->integer('rating')->default(0)->nullable();
             $table->timestamps();
         });
     }

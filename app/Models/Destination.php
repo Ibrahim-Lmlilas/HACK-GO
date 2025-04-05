@@ -11,7 +11,6 @@ class Destination extends Model
 
     protected $fillable = [
         'location',
-        'rating',
         'image',
     ];
 }
