@@ -10,26 +10,24 @@ class Booking extends Model
     use HasFactory;
 
     protected $fillable = [
+        'trip_id',
         'user_id',
-        'accommodation_id',
-        'check_in_date',
-        'check_out_date',
-        'total_price',
         'status',
+        'number_of_people',
+        'total_price'
     ];
 
     protected $casts = [
-        'check_in_date' => 'date',
-        'check_out_date' => 'date',
+        'total_price' => 'decimal:2'
     ];
+
+    public function trip()
+    {
+        return $this->belongsTo(Trip::class);
+    }
 
     public function user()
     {
         return $this->belongsTo(User::class);
-    }
-
-    public function accommodation()
-    {
-        return $this->belongsTo(Accommodation::class);
     }
 }

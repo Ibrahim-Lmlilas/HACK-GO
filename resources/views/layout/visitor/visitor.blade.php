@@ -81,30 +81,118 @@
                         </nav>
 
                         <!-- Auth Buttons -->
-                        <div class="hidden md:flex items-center space-x-4">
-                            <a href="#" class="flex items-center border-[#1f2937] border-2   bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded-lg transition-colors duration-300 nav-link " >
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
-                                </svg>
-                                Sign In
-                            </a>
-                            <a href="#" class="border-[#1f2937] border-2  bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium transition-colors duration-300 flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 8h4m-2-2v4" />
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                                </svg>
-                                Sign Up
-                            </a>
-                        </div>
+                                                <!-- Auth Buttons -->
+                                                <div class="hidden md:flex items-center space-x-4">
+                                                    @guest
+                                                        <a href="/login" class="flex items-center border-[#1f2937] border-2 bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded-lg transition-colors duration-300 nav-link">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+                                                            </svg>
+                                                            Sign In
+                                                        </a>
+                                                        <a href="/register" class="border-[#1f2937] border-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium transition-colors duration-300 flex items-center">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 8h4m-2-2v4" />
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                                            </svg>
+                                                            Sign Up
+                                                        </a>
+                                                        @else
+                                                        @if(Auth::user()->role === 'admin')
+                                                            <a href="/admin/dashboard" class="border-[#1f2937] border-2 bg-[#8a2be2] hover:bg-[#7a1bd2] text-white px-6 py-2 rounded-lg font-medium transition-colors duration-300 flex items-center">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" />
+                                                                </svg>
+                                                                Dashboard
+                                                            </a>
+                                                        @else
+                                                            <a href="/dashboard" class="border-[#1f2937] border-2 bg-[#8a2be2] hover:bg-[#7a1bd2] text-white px-6 py-2 rounded-lg font-medium transition-colors duration-300 flex items-center">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" />
+                                                                </svg>
+                                                                Dashboard
+                                                            </a>
+                                                        @endif
+                                                    @endguest
+                                                </div>
 
                         <!-- Mobile Menu Button (hidden on desktop) -->
                         <div class="md:hidden">
-                            <button class="text-black mobile-menu-button">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <button class="text-black mobile-menu-button focus:outline-none hover:text-[#8a2be2]  transition-colors duration-300">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                                 </svg>
                             </button>
+
+
+                            <!-- Mobile Menu with improved styling -->
+                            <div class="mobile-menu hidden fixed top left-0 right-0 bg-white py-5 shadow-lg z-50 transition-all duration-300 border-t border-gray-200" id="mobile-menu">
+                                <div class="container mx-auto px-6">
+                                    <div class="flex flex-col space-y-4">
+                                        <a href="/" class="text-gray-800 hover:text-[#8a2be2] flex items-center py-3 px-4 rounded-lg hover:bg-gray-100 transition-all duration-300">
+                                            Home
+                                        </a>
+                                        <a href="/About" class="text-gray-800 hover:text-[#8a2be2] flex items-center py-3 px-4 rounded-lg hover:bg-gray-100 transition-all duration-300">
+                                            About Us
+                                        </a>
+                                        <a href="/blog" class="text-gray-800 hover:text-[#8a2be2] flex items-center py-3 px-4 rounded-lg hover:bg-gray-100 transition-all duration-300">
+                                            Blog
+                                        </a>
+                                        <a href="/contact" class="text-gray-800 hover:text-[#8a2be2] flex items-center py-3 px-4 rounded-lg hover:bg-gray-100 transition-all duration-300">
+                                            Contact
+                                        </a>
+
+                                        <div class="pt-4 mt-2 border-t border-gray-200">
+                                            <div class="grid grid-cols-1 gap-3 mt-3">
+                                                @guest
+                                                    <a href="/login" class="flex items-center justify-center text-gray-800 bg-gray-100 hover:bg-gray-200 px-4 py-3 rounded-lg transition-all duration-300">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+                                                        </svg>
+                                                        Sign In
+                                                    </a>
+                                                    <a href="/register" class="flex items-center justify-center text-white bg-[#8a2be2] hover:bg-[#8a2be2] px-4 py-3 rounded-lg transition-all duration-300 shadow-lg shadow-blue-600/30">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 8h4m-2-2v4" />
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                                        </svg>
+                                                        Sign Up
+                                                    </a>
+                                                @else
+                                                @if(Auth::user()->role === 'admin')
+                                                <a href="/admin/dashboard" class="border-[#1f2937] border-2 bg-[#8a2be2] hover:bg-[#7a1bd2] text-white px-6 py-2 rounded-lg font-medium transition-colors duration-300 flex items-center">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" />
+                                                    </svg>
+                                                    Dashboard
+                                                </a>
+                                            @else
+                                                <a href="/dashboard" class="border-[#1f2937] border-2 bg-[#8a2be2] hover:bg-[#7a1bd2] text-white px-6 py-2 rounded-lg font-medium transition-colors duration-300 flex items-center">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" />
+                                                    </svg>
+                                                    Dashboard
+                                                </a>
+                                            @endif
+                                                @endguest
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+
+                        <script>
+                            // Mobile menu toggle
+                            document.addEventListener('DOMContentLoaded', function() {
+                                const mobileMenuButton = document.querySelector('.mobile-menu-button');
+                                const mobileMenu = document.getElementById('mobile-menu');
+
+                                mobileMenuButton.addEventListener('click', function() {
+                                    mobileMenu.classList.toggle('hidden');
+                                });
+                            });
+                        </script>
                     </div>
                 </div>
             </header>

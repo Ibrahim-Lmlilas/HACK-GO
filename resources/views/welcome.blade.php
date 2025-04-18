@@ -13,7 +13,7 @@
         <h1 class="text-4xl md:text-6xl font-bold text-white mb-6">Experience Morocco's Most<br>Beautiful Destinations</h1>
         <p class="text-xl text-white mb-10 max-w-2xl">Curated Moroccan travel experiences tailored to your desires. Immerse yourself in breathtaking landscapes and rich culture.</p>
         <div class="flex flex-col sm:flex-row gap-4">
-            <a href="#" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full text-lg font-medium transition-transform duration-300 hover:scale-105">Plan Your Moroccan Journey</a>
+            <a href="#" class="bg-[#9370db] hover:bg-[#8a2be2] text-white px-8 py-3 rounded-full text-lg font-medium transition-transform duration-300 hover:scale-105">Plan Your Moroccan Journey</a>
             <a href="#" class="bg-white/20 backdrop-blur-sm hover:bg-white/50 text-white hover:text-black px-8 py-3 rounded-full text-lg font-medium transition-colors duration-300">Explore Morocco</a>
         </div>
     </div>
@@ -163,30 +163,30 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <!-- Feature 1 -->
             <div class="bg-white p-8 rounded-lg shadow-md transition-transform duration-300 hover:-translate-y-2">
-                <div class="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center mb-6">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div class="w-14 h-14 bg-purple-100 rounded-full flex items-center justify-center mb-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-[#9370db]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
                     </svg>
                 </div>
-                <h3 class="text-xl font-bold text-gray-800 mb-3">Best Support</h3>
-                <p class="text-gray-600">Our dedicated team is available 24/7 to assist you every step of the way, ensuring a worry-free experience.</p>
+                <h3 class="text-xl font-bold text-gray-800 mb-3">Local Expertise</h3>
+                <p class="text-gray-600">Our guides are born and raised in Morocco, offering insider knowledge and authentic cultural insights.</p>
             </div>
 
             <!-- Feature 2 -->
             <div class="bg-white p-8 rounded-lg shadow-md transition-transform duration-300 hover:-translate-y-2">
-                <div class="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center mb-6">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                <div class="w-14 h-14 bg-purple-100 rounded-full flex items-center justify-center mb-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-[#9370db]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                     </svg>
                 </div>
-                <h3 class="text-xl font-bold text-gray-800 mb-3">Flexible Itineraries</h3>
-                <p class="text-gray-600">Customize your journey to match your interests, whether it's cultural immersion, adventure, or relaxation.</p>
+                <h3 class="text-xl font-bold text-gray-800 mb-3">Safety First</h3>
+                <p class="text-gray-600">Your safety is our priority. We follow strict protocols and work only with trusted partners throughout Morocco.</p>
             </div>
 
             <!-- Feature 3 -->
             <div class="bg-white p-8 rounded-lg shadow-md transition-transform duration-300 hover:-translate-y-2">
-                <div class="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center mb-6">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div class="w-14 h-14 bg-purple-100 rounded-full flex items-center justify-center mb-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-[#9370db]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                     </svg>
                 </div>
@@ -196,8 +196,8 @@
 
             <!-- Feature 4 -->
             <div class="bg-white p-8 rounded-lg shadow-md transition-transform duration-300 hover:-translate-y-2">
-                <div class="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center mb-6">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div class="w-14 h-14 bg-purple-100 rounded-full flex items-center justify-center mb-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-[#9370db]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                 </div>
@@ -207,8 +207,8 @@
 
             <!-- Feature 5 -->
             <div class="bg-white p-8 rounded-lg shadow-md transition-transform duration-300 hover:-translate-y-2">
-                <div class="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center mb-6">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div class="w-14 h-14 bg-purple-100 rounded-full flex items-center justify-center mb-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-[#9370db]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                     </svg>
                 </div>
@@ -218,9 +218,9 @@
 
             <!-- Feature 6 -->
             <div class="bg-white p-8 rounded-lg shadow-md transition-transform duration-300 hover:-translate-y-2">
-                <div class="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center mb-6">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z" />
+                <div class="w-14 h-14 bg-purple-100 rounded-full flex items-center justify-center mb-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-[#9370db]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                 </div>
                 <h3 class="text-xl font-bold text-gray-800 mb-3">Connect with Fellow Travelers</h3>
@@ -231,19 +231,18 @@
 </section>
 
 <!-- Newsletter Section  -->
-<section class="py-16 bg-[#075985] relative overflow-hidden  ">
+<section class="py-16 bg-[#9370db] relative overflow-hidden">
 
 <div class="container mx-auto px-6 py-4 relative z-1">
-    <div class="max-w-3xl mx-auto bg-[#206A91] backdrop-blur-sm rounded-2xl p-10 shadow-lg border border-[#5395B8]">
+    <div class="max-w-3xl mx-auto bg-[#8a2be2] backdrop-blur-sm rounded-2xl p-10 shadow-lg border border-[#a98eda]">
         <h2 class="text-3xl md:text-4xl font-bold text-amber-50 mb-4 text-center">Get Inspired for Your Next Adventure</h2>
         <p class="text-lg text-amber-100/90 mb-8 text-center">Subscribe to our newsletter and receive exclusive travel tips, hidden gems, and special offers directly in your inbox.</p>
 
-        <div class="flex flex-col sm:flex-row gap-4 justify-center ">
-            <input type="email" placeholder="Your email address" class="px-4 py-3 rounded-lg w-full sm:flex-1 text-gray-800 focus:outline-none focus:ring-2 focus:ring-white border-2 border-transparent focus:border-[#5395B8]">
-            <button class="bg-white hover:scale-105 px-6 py-3 rounded-lg font-medium transition duration-300 text-[#206A91]">Subscribe Now</button>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <input type="email" placeholder="Your email address" class="px-4 py-3 rounded-lg w-full sm:flex-1 text-gray-800 focus:outline-none focus:ring-2 focus:ring-white border-2 border-transparent focus:border-[#a98eda]">
+            <button class="bg-white text-[#9370db] hover:bg-gray-100 px-6 py-3 rounded-lg font-medium">Subscribe</button>
         </div>
-
-        <p class="text-sm mt-4 text-[#5395B8] text-center">We respect your privacy and will never share your information. Unsubscribe anytime.</p>
+        <p class="text-sm mt-4 text-[#d4c4f5] text-center">We respect your privacy and will never share your information. Unsubscribe anytime.</p>
     </div>
 </div>
 </section>
