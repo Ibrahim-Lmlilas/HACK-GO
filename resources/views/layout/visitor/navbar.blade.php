@@ -22,23 +22,25 @@
 
         <style>
             .navbar-scrolled {
-                background-color: rgba(255, 255, 255, 0.808); /* Semi-transparent white */
-                backdrop-filter: blur(5px); /* Glassmorphism effect */
-                -webkit-backdrop-filter: blur(8px); /* For Safari */
-                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+                background-color: rgba(251, 251, 251, 0.808);
+                backdrop-filter: blur(5px);
+                -webkit-backdrop-filter: blur(8px);
+                margin: 8px 8px;
+                width: calc(100% - 16px);
+                border-radius: 10px;
             }
 
             .navbar-scrolled .nav-link {
-                color: #1f2937 !important;
+                color: #3A3A3A !important; /* Changed to dark gray */
                 text-align: bold;
             }
 
             .navbar-scrolled .nav-link:hover {
-                color: #2563eb !important; /* text-blue-600 */
+                color: #92472B !important; /* Changed to brown */
             }
 
             .navbar-scrolled .book-btn {
-                background-color: #2563eb;
+                background-color: #92472B; /* Changed to brown */
                 color: white;
             }
 
@@ -47,7 +49,7 @@
             }
         </style>
     </head>
-    <body class="font-sans antialiased">
+    <body class="font-sans antialiased bg-[#FEFBEA]">
         <!-- Main Container -->
         <div class="relative min-h-screen">
             <!-- Navigation Bar - Updated with scroll effect -->
@@ -73,11 +75,11 @@
 
                        <!-- Navigation Links -->
                        <nav class="hidden md:flex ml-48 space-x-10">
-                        <a href="/" class="text-white hover:text-gray-200 relative pb-1 after:absolute after:left-0 after:bottom-0 after:w-0 after:h-0.5 after:bg-blue-600 after:transition-all after:duration-300 hover:after:w-full nav-link">Home</a>
-                        <a href="/About" class="text-white hover:text-gray-200 relative pb-1 after:absolute after:left-0 after:bottom-0 after:w-0 after:h-0.5 after:bg-blue-600 after:transition-all after:duration-300 hover:after:w-full nav-link">About Us</a>
+                        <a href="/" class="text-white hover:text-gray-200 relative pb-1 after:absolute after:left-0 after:bottom-0 after:w-0 after:h-0.5 after:bg-[#9e3c2e] after:transition-all after:duration-300 hover:after:w-full nav-link">Home</a>
+                        <a href="/About" class="text-white hover:text-gray-200 relative pb-1 after:absolute after:left-0 after:bottom-0 after:w-0 after:h-0.5 after:bg-[#9e3c2e] after:transition-all after:duration-300 hover:after:w-full nav-link">About Us</a>
 
-                        <a href="/blog" class="text-white hover:text-gray-200 relative pb-1 after:absolute after:left-0 after:bottom-0 after:w-0 after:h-0.5 after:bg-blue-600 after:transition-all after:duration-300 hover:after:w-full nav-link">Blog</a>
-                        <a href="/contact" class="text-white hover:text-gray-200 relative pb-1 after:absolute after:left-0 after:bottom-0 after:w-0 after:h-0.5 after:bg-blue-600 after:transition-all after:duration-300 hover:after:w-full nav-link">Contact</a>
+                        <a href="/blog" class="text-white hover:text-gray-200 relative pb-1 after:absolute after:left-0 after:bottom-0 after:w-0 after:h-0.5 after:bg-[#9e3c2e] after:transition-all after:duration-300 hover:after:w-full nav-link">Blog</a>
+                        <a href="/contact" class="text-white hover:text-gray-200 relative pb-1 after:absolute after:left-0 after:bottom-0 after:w-0 after:h-0.5 after:bg-[#9e3c2e] after:transition-all after:duration-300 hover:after:w-full nav-link">Contact</a>
                     </nav>
 
                                                 <!-- Auth Buttons -->
@@ -89,7 +91,7 @@
                                                             </svg>
                                                             Sign In
                                                         </a>
-                                                        <a href="/register" class="border-[#1f2937] border-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium transition-colors duration-300 flex items-center">
+                                                        <a href="/register" class="border-[#1f2937] border-2 bg-[#92472B] hover:bg-[#582918] text-white px-6 py-2 rounded-lg font-medium transition-colors duration-300 flex items-center">
                                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 8h4m-2-2v4" />
                                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
@@ -98,14 +100,14 @@
                                                         </a>
                                                         @else
                                                         @if(Auth::user()->role === 'admin')
-                                                            <a href="/admin/dashboard" class="border-[#1f2937] border-2 bg-[#8a2be2] hover:bg-[#7a1bd2] text-white px-6 py-2 rounded-lg font-medium transition-colors duration-300 flex items-center">
+                                                            <a href="/admin/dashboard" class="flex items-center  border-2 bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded-lg transition-colors duration-300 nav-link">
                                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" />
                                                                 </svg>
                                                                 Dashboard
                                                             </a>
                                                         @else
-                                                            <a href="/dashboard" class="border-[#1f2937] border-2 bg-[#8a2be2] hover:bg-[#7a1bd2] text-white px-6 py-2 rounded-lg font-medium transition-colors duration-300 flex items-center">
+                                                            <a href="/dashboard" class="flex items-center  border-2 bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded-lg transition-colors duration-300 nav-link">
                                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" />
                                                                 </svg>
@@ -117,7 +119,7 @@
 
                          <!-- Mobile Menu Button (hidden on desktop) -->
                          <div class="md:hidden">
-                            <button class="text-black mobile-menu-button focus:outline-none hover:text-[#8a2be2]  transition-colors duration-300">
+                            <button class="text-black mobile-menu-button focus:outline-none hover:text-[#92472B]  transition-colors duration-300">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                                 </svg>
@@ -128,16 +130,16 @@
                             <div class="mobile-menu hidden fixed top left-0 right-0 bg-white py-5 shadow-lg z-50 transition-all duration-300 border-t border-gray-200" id="mobile-menu">
                                 <div class="container mx-auto px-6">
                                     <div class="flex flex-col space-y-4">
-                                        <a href="/" class="text-gray-800 hover:text-[#8a2be2] flex items-center py-3 px-4 rounded-lg hover:bg-gray-100 transition-all duration-300">
+                                        <a href="/" class="text-gray-800 hover:text-[#92472B] flex items-center py-3 px-4 rounded-lg hover:bg-gray-100 transition-all duration-300">
                                             Home
                                         </a>
-                                        <a href="/About" class="text-gray-800 hover:text-[#8a2be2] flex items-center py-3 px-4 rounded-lg hover:bg-gray-100 transition-all duration-300">
+                                        <a href="/About" class="text-gray-800 hover:text-[#92472B] flex items-center py-3 px-4 rounded-lg hover:bg-gray-100 transition-all duration-300">
                                             About Us
                                         </a>
-                                        <a href="/blog" class="text-gray-800 hover:text-[#8a2be2] flex items-center py-3 px-4 rounded-lg hover:bg-gray-100 transition-all duration-300">
+                                        <a href="/blog" class="text-gray-800 hover:text-[#92472B] flex items-center py-3 px-4 rounded-lg hover:bg-gray-100 transition-all duration-300">
                                             Blog
                                         </a>
-                                        <a href="/contact" class="text-gray-800 hover:text-[#8a2be2] flex items-center py-3 px-4 rounded-lg hover:bg-gray-100 transition-all duration-300">
+                                        <a href="/contact" class="text-gray-800 hover:text-[#92472B] flex items-center py-3 px-4 rounded-lg hover:bg-gray-100 transition-all duration-300">
                                             Contact
                                         </a>
 
@@ -150,7 +152,7 @@
                                                         </svg>
                                                         Sign In
                                                     </a>
-                                                    <a href="/register" class="flex items-center justify-center text-white bg-[#8a2be2] hover:bg-[#8a2be2] px-4 py-3 rounded-lg transition-all duration-300 shadow-lg shadow-blue-600/30">
+                                                    <a href="/register" class="flex items-center justify-center text-white bg-[#92472B] hover:bg-[#92472B] px-4 py-3 rounded-lg transition-all duration-300 shadow-lg shadow-blue-600/30">
                                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 8h4m-2-2v4" />
                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
@@ -159,14 +161,14 @@
                                                     </a>
                                                 @else
                                                 @if(Auth::user()->role === 'admin')
-                                                <a href="/admin/dashboard" class="border-[#1f2937] border-2 bg-[#8a2be2] hover:bg-[#7a1bd2] text-white px-6 py-2 rounded-lg font-medium transition-colors duration-300 flex items-center">
+                                                <a href="/admin/dashboard" class="flex items-center justify-center text-gray-800 bg-gray-100 hover:bg-gray-200 px-4 py-3 rounded-lg transition-all duration-300">
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" />
                                                     </svg>
                                                     Dashboard
                                                 </a>
                                             @else
-                                                <a href="/dashboard" class="border-[#1f2937] border-2 bg-[#8a2be2] hover:bg-[#7a1bd2] text-white px-6 py-2 rounded-lg font-medium transition-colors duration-300 flex items-center">
+                                                <a href="/dashboard" class="flex items-center justify-center text-gray-800 bg-gray-100 hover:bg-gray-200 px-4 py-3 rounded-lg transition-all duration-300">
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" />
                                                     </svg>
