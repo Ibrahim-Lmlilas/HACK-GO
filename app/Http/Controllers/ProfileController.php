@@ -29,28 +29,34 @@ class ProfileController extends Controller
 
         try {
             $validated = $request->validate([
+                'username' => ['required', 'string', 'max:255'],
                 'first_name' => ['required', 'string', 'max:255'],
                 'last_name' => ['required', 'string', 'max:255'],
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $user->id],
+                'role' => ['required', 'in:user,admin'],
                 'profile_photo' => ['nullable', 'image', 'max:2048'],
             ]);
 
             if ($request->hasFile('profile_photo')) {
+                // Delete old photo if exists
                 if ($user->profile_photo) {
                     Storage::delete('public/profile-photos/' . $user->profile_photo);
                 }
-                $path = $request->file('profile_photo')->store('public/profile-photos');
-                $validated['profile_photo'] = basename($path);
+
+                // Store new photo
+                $path = $request->file('profile_photo')->store('profile-photos', 'public');
+                $validated['profile_photo'] = $path;
             }
 
-            // Update the name field by combining first_name and last_name
-            $validated['name'] = $validated['first_name'] . ' ' . $validated['last_name'];
+            // Update the name field with username
+            $validated['name'] = $validated['username'];
 
             $user->update($validated);
 
             return response()->json([
                 'success' => true,
-                'message' => 'Profile updated successfully.'
+                'message' => 'Profile updated successfully.',
+                'profile_photo' => $validated['profile_photo'] ?? $user->profile_photo
             ]);
         } catch (\Illuminate\Validation\ValidationException $e) {
             return response()->json([

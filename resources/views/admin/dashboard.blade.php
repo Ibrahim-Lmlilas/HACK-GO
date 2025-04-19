@@ -16,9 +16,15 @@
             <div class="p-6">
                 <div class="flex items-center justify-center mb-6">
                     <div class="w-24 h-24 rounded-full bg-gray-200 overflow-hidden">
-                        <img src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name ?? 'Admin') }}"
-                             alt="Profile"
-                             class="w-full h-full object-cover">
+                        @if(Auth::user()->profile_photo)
+                            <img src="{{ Storage::url(Auth::user()->profile_photo) }}"
+                                 alt="Profile"
+                                 class="w-full h-full object-cover">
+                        @else
+                            <img src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name ?? 'Admin') }}"
+                                 alt="Profile"
+                                 class="w-full h-full object-cover">
+                        @endif
                     </div>
                 </div>
                 <div class="space-y-4">
@@ -57,7 +63,7 @@
     </div>
 </div>
 
-<!-- Edit Profile Modal -->
+
 <div id="editProfileModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
     <div class="flex items-center justify-center min-h-screen p-4">
         <div class="bg-white rounded-lg shadow-xl w-full max-w-md">
@@ -76,10 +82,17 @@
                     <div class="flex items-center justify-center mb-6">
                         <div class="relative">
                             <div class="w-24 h-24 rounded-full bg-gray-200 overflow-hidden">
-                                <img src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name ?? 'Admin') }}"
-                                     alt="Profile"
-                                     class="w-full h-full object-cover"
-                                     id="profileImage">
+                                @if(Auth::user()->profile_photo)
+                                    <img src="{{ Storage::url(Auth::user()->profile_photo) }}"
+                                         alt="Profile"
+                                         class="w-full h-full object-cover"
+                                         id="profileImage">
+                                @else
+                                    <img src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name ?? 'Admin') }}"
+                                         alt="Profile"
+                                         class="w-full h-full object-cover"
+                                         id="profileImage">
+                                @endif
                             </div>
                             <label for="profile_photo" class="absolute bottom-0 right-0 bg-[#9370db] text-white p-2 rounded-full cursor-pointer hover:bg-purple-700">
                                 <i class="fas fa-camera"></i>
@@ -108,6 +121,7 @@
                             <input type="email" name="email" id="email" value="{{ Auth::user()->email }}"
                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#9370db] focus:ring-[#9370db]">
                         </div>
+
                     </div>
                     <!-- Modal Footer -->
                     <div class="flex items-center justify-end p-4 border-t gap-3 mt-6">
@@ -400,10 +414,18 @@ document.getElementById('editProfileForm').addEventListener('submit', function(e
     })
     .then(data => {
         if (data.success) {
+            // Update profile image if a new one was uploaded
+            if (data.profile_photo) {
+                const profileImage = document.getElementById('profileImage');
+                profileImage.src = `/storage/profile-photos/${data.profile_photo}`;
+            }
+
             // Close the modal
             closeEditProfileModal();
+
             // Show success message
             alert('Profile updated successfully!');
+
             // Reload the page to show updated data
             window.location.reload();
         } else {
