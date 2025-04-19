@@ -90,52 +90,34 @@
             </div>
         </div>
 
-        <!-- Recent Bookings -->
-        <div class="bg-white rounded-2xl p-5">
-            <h3 class="text-gray-700 mb-4">Recent Bookings</h3>
-            <div class="space-y-4">
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center">
-                        <div class="w-10 h-10 rounded-full bg-blue-100 overflow-hidden mr-3">
-                            <img src="https://ui-avatars.com/api/?name=John+Doe" alt="John Doe" class="w-full h-full object-cover">
-                        </div>
-                        <div>
-                            <h4 class="font-medium">John Doe</h4>
-                            <p class="text-sm text-gray-600">Marrakech, Morocco</p>
-                        </div>
-                    </div>
-                    <span class="text-sm text-gray-600">Mar 15, 2024</span>
-                </div>
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center">
-                        <div class="w-10 h-10 rounded-full bg-blue-100 overflow-hidden mr-3">
-                            <img src="https://ui-avatars.com/api/?name=Jane+Smith" alt="Jane Smith" class="w-full h-full object-cover">
-                        </div>
-                        <div>
-                            <h4 class="font-medium">Jane Smith</h4>
-                            <p class="text-sm text-gray-600">Fes, Morocco</p>
-                        </div>
-                    </div>
-                    <span class="text-sm text-gray-600">Mar 14, 2024</span>
-                </div>
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center">
-                        <div class="w-10 h-10 rounded-full bg-blue-100 overflow-hidden mr-3">
-                            <img src="https://ui-avatars.com/api/?name=Mike+Johnson" alt="Mike Johnson" class="w-full h-full object-cover">
-                        </div>
-                        <div>
-                            <h4 class="font-medium">Mike Johnson</h4>
-                            <p class="text-sm text-gray-600">Chefchaouen, Morocco</p>
-                        </div>
-                    </div>
-                    <span class="text-sm text-gray-600">Mar 13, 2024</span>
-                </div>
-            </div>
-        </div>
+        
     </div>
 
     <!-- Right sidebar -->
     <div class="w-80 space-y-5">
+
+        <!-- weather -->
+
+    <div class="bg-white rounded-2xl p-5 mb-5">
+        <h3 class="text-gray-700 mb-4">Weather Watcher <i class="fas fa-cloud-sun text-[#9370db]"></i></h3>
+        <div class="flex items-center space-x-2 mb-4">
+            <input type="text" id="city-input" placeholder="Enter city name" class="flex-1 p-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <button id="search-btn" class="text-black p-2 rounded-lg transition" : ><i class="fas fa-search"></i></button>
+        </div>
+        <div class="weather-info hidden">
+            <div class="flex justify-between items-center mb-3">
+                <h4 id="city-name" class="text-lg font-medium"></h4>
+                <p id="temperature" class="text-2xl font-bold"></p>
+            </div>
+            <div class="space-y-2 text-sm text-gray-600">
+                <p id="description" class="py-1"></p>
+                <p id="humidity" class="py-1"></p>
+                <p id="wind" class="py-1"></p>
+            </div>
+        </div>
+        <p id="error-message" class="hidden mt-2 text-sm text-red-500 font-medium"></p>
+    </div>
+
         <!-- Popular Destinations -->
         <div class="bg-white rounded-lg shadow overflow-hidden mb-8" id="calendar-section">
             <div class="p-6">
@@ -146,49 +128,80 @@
             </div>
         </div>
 
-        <!-- To-Do list -->
-        <div class="bg-white rounded-2xl p-5">
-            <h3 class="font-medium mb-4">Your to-Do list</h3>
-            <div class="space-y-3">
-                <div class="flex items-center">
-                    <div class="w-10 h-10 bg-black text-white rounded-lg flex items-center justify-center mr-3">
-                        <i class="fas fa-plane"></i>
-                    </div>
-                    <div>
-                        <h4 class="font-medium">Plan Marrakech trip</h4>
-                        <p class="text-xs text-gray-500">Mar 20 at 10:00 AM</p>
-                    </div>
-                </div>
-                <div class="flex items-center">
-                    <div class="w-10 h-10 bg-black text-white rounded-lg flex items-center justify-center mr-3">
-                        <i class="fas fa-hotel"></i>
-                    </div>
-                    <div>
-                        <h4 class="font-medium">Book hotel rooms</h4>
-                        <p class="text-xs text-gray-500">Mar 21 at 2:00 PM</p>
-                    </div>
-                </div>
-                <div class="flex items-center">
-                    <div class="w-10 h-10 bg-black text-white rounded-lg flex items-center justify-center mr-3">
-                        <i class="fas fa-car"></i>
-                    </div>
-                    <div>
-                        <h4 class="font-medium">Arrange transportation</h4>
-                        <p class="text-xs text-gray-500">Mar 22 at 9:00 AM</p>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-        <!-- Upcoming Trip -->
-        <div class="bg-black text-white rounded-2xl p-5">
-            <h3 class="font-medium mb-2">Next Trip</h3>
-            <div class="flex items-center mb-3">
-                <div class="w-2 h-2 rounded-full bg-green-500 mr-2"></div>
-                <p class="text-sm">Mar 25 at 8:00 AM</p>
-            </div>
-            <p class="text-sm text-gray-300">Marrakech, Morocco</p>
-        </div>
+
+
     </div>
 </div>
+
+<script >
+
+const apiKey = 'c1d1fd315ae3d987ee0cf68509d9f96b';
+
+const apiKey1 = 'your_openweathermap_api_key';
+const searchBtn = document.getElementById('search-btn');
+const cityInput = document.getElementById('city-input');
+const cityName = document.getElementById('city-name');
+const temperature = document.getElementById('temperature');
+const description = document.getElementById('description');
+const humidity = document.getElementById('humidity');
+const wind = document.getElementById('wind');
+const weatherInfo = document.querySelector('.weather-info');
+const errorMessage = document.getElementById('error-message');
+searchBtn.addEventListener('click', () => {
+const city = cityInput.value.trim();
+if (city) {
+    getWeather(city);
+} else {
+    displayError('Please enter a valid city name.');
+}
+});
+function getWeather(city) {
+const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+
+fetch(url)
+    .then(response => response.json())
+    .then(data => {
+        if (data.cod === 200) {
+            updateWeatherInfo(data);
+
+            clearError();
+        } else {
+            displayError('City not found. Please try another city.');
+        }
+    })
+    .catch(error => {
+        displayError('An error occurred. Please try again later.');
+        console.error(error);
+    });
+}
+
+function updateWeatherInfo(data) {
+console.log(data)
+cityName.textContent = data.name;
+temperature.textContent = `${data.main.temp.toFixed(1)}°C`;
+description.innerHTML = `<i class="fas fa-cloud-sun text-[#9370db] mr-2"></i> ${capitalize(data.weather[0].description)}`;
+humidity.innerHTML = `<i class="fas fa-tint text-[#9370db] mr-2"></i> Humidity: ${data.main.humidity}%`;
+wind.innerHTML = `<i class="fas fa-wind text-[#9370db] mr-2"></i> Wind Speed: ${data.wind.speed.toFixed(1)} m/s`;
+
+weatherInfo.style.display = 'block';
+}
+
+function capitalize(str) {
+return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+function displayError(message) {
+errorMessage.textContent = message;
+errorMessage.style.display = 'block';
+weatherInfo.style.display = 'none';
+}
+
+function clearError() {
+errorMessage.textContent = '';
+errorMessage.style.display = 'none';
+}
+
+</script>
+
 @endsection
