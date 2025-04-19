@@ -1,6 +1,129 @@
 @extends('layout.admin.admin')
 
 @section('content')
+<!-- Add Modal -->
+<div id="profileModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
+    <div class="flex items-center justify-center min-h-screen p-4">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-md">
+            <!-- Modal Header -->
+            <div class="flex items-center justify-between p-4 border-b">
+                <h3 class="text-xl font-semibold text-gray-900">Profile Information</h3>
+                <button onclick="closeProfileModal()" class="text-gray-400 hover:text-gray-500">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <!-- Modal Body -->
+            <div class="p-6">
+                <div class="flex items-center justify-center mb-6">
+                    <div class="w-24 h-24 rounded-full bg-gray-200 overflow-hidden">
+                        <img src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name ?? 'Admin') }}"
+                             alt="Profile"
+                             class="w-full h-full object-cover">
+                    </div>
+                </div>
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Username</label>
+                        <p class="mt-1 text-sm text-gray-900">{{ Auth::user()->name }}</p>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">First Name</label>
+                        <p class="mt-1 text-sm text-gray-900">{{ Auth::user()->first_name }}</p>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Last Name</label>
+                        <p class="mt-1 text-sm text-gray-900">{{ Auth::user()->last_name }}</p>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Email</label>
+                        <p class="mt-1 text-sm text-gray-900">{{ Auth::user()->email }}</p>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Role</label>
+                        <p class="mt-1 text-sm text-gray-900">{{ ucfirst(Auth::user()->role) }}</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal Footer -->
+            <div class="flex items-center justify-end p-4 border-t gap-3">
+                <button onclick="openEditProfileModal()" class="px-4 py-2 bg-[#9370db] text-white rounded-md hover:bg-purple-700">
+                    Edit Profile
+                </button>
+                <button onclick="closeProfileModal()" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Profile Modal -->
+<div id="editProfileModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
+    <div class="flex items-center justify-center min-h-screen p-4">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-md">
+            <!-- Modal Header -->
+            <div class="flex items-center justify-between p-4 border-b">
+                <h3 class="text-xl font-semibold text-gray-900">Edit Profile</h3>
+                <button onclick="closeEditProfileModal()" class="text-gray-400 hover:text-gray-500">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <!-- Modal Body -->
+            <div class="p-6">
+                <form id="editProfileForm" action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    @method('PUT')
+                    <div class="flex items-center justify-center mb-6">
+                        <div class="relative">
+                            <div class="w-24 h-24 rounded-full bg-gray-200 overflow-hidden">
+                                <img src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name ?? 'Admin') }}"
+                                     alt="Profile"
+                                     class="w-full h-full object-cover"
+                                     id="profileImage">
+                            </div>
+                            <label for="profile_photo" class="absolute bottom-0 right-0 bg-[#9370db] text-white p-2 rounded-full cursor-pointer hover:bg-purple-700">
+                                <i class="fas fa-camera"></i>
+                                <input type="file" name="profile_photo" id="profile_photo" class="hidden" accept="image/*">
+                            </label>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <div>
+                            <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
+                            <input type="text" name="username" id="username" value="{{ Auth::user()->name }}"
+                                   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#9370db] focus:ring-[#9370db]">
+                        </div>
+                        <div>
+                            <label for="first_name" class="block text-sm font-medium text-gray-700">First Name</label>
+                            <input type="text" name="first_name" id="first_name" value="{{ Auth::user()->first_name }}"
+                                   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#9370db] focus:ring-[#9370db]">
+                        </div>
+                        <div>
+                            <label for="last_name" class="block text-sm font-medium text-gray-700">Last Name</label>
+                            <input type="text" name="last_name" id="last_name" value="{{ Auth::user()->last_name }}"
+                                   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#9370db] focus:ring-[#9370db]">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                            <input type="email" name="email" id="email" value="{{ Auth::user()->email }}"
+                                   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#9370db] focus:ring-[#9370db]">
+                        </div>
+                    </div>
+                    <!-- Modal Footer -->
+                    <div class="flex items-center justify-end p-4 border-t gap-3 mt-6">
+                        <button type="submit" class="px-4 py-2 bg-[#9370db] text-white rounded-md hover:bg-purple-700">
+                            Save Changes
+                        </button>
+                        <button type="button" onclick="closeEditProfileModal()" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300">
+                            Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="flex gap-6 h-full">
     <div class="flex-1 space-y-6">
         <!-- First row of cards -->
@@ -90,7 +213,7 @@
             </div>
         </div>
 
-        
+
     </div>
 
     <!-- Right sidebar -->
@@ -153,7 +276,7 @@ const city = cityInput.value.trim();
 if (city) {
     getWeather(city);
 } else {
-    displayError('Please enter a valid city name.');
+    displayError('Please enter a city name.');
 }
 });
 function getWeather(city) {
@@ -201,6 +324,101 @@ function clearError() {
 errorMessage.textContent = '';
 errorMessage.style.display = 'none';
 }
+
+function openProfileModal() {
+    document.getElementById('profileModal').classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeProfileModal() {
+    document.getElementById('profileModal').classList.add('hidden');
+    document.body.style.overflow = 'auto';
+}
+
+function openEditProfileModal() {
+    document.getElementById('editProfileModal').classList.remove('hidden');
+    document.getElementById('profileModal').classList.add('hidden');
+}
+
+function closeEditProfileModal() {
+    document.getElementById('editProfileModal').classList.add('hidden');
+    document.body.style.overflow = 'auto';
+}
+
+// Profile photo preview
+document.getElementById('profile_photo').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            document.getElementById('profileImage').src = e.target.result;
+        }
+        reader.readAsDataURL(file);
+    }
+});
+
+// Close modals when clicking outside
+document.getElementById('profileModal').addEventListener('click', function(e) {
+    if (e.target === this) {
+        closeProfileModal();
+    }
+});
+
+document.getElementById('editProfileModal').addEventListener('click', function(e) {
+    if (e.target === this) {
+        closeEditProfileModal();
+    }
+});
+
+// Close modals with Escape key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeProfileModal();
+        closeEditProfileModal();
+    }
+});
+
+// Handle form submission
+document.getElementById('editProfileForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const formData = new FormData(this);
+
+    fetch(this.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+            'Accept': 'application/json'
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            return response.json().then(err => { throw err; });
+        }
+        return response.json();
+    })
+    .then(data => {
+        if (data.success) {
+            // Close the modal
+            closeEditProfileModal();
+            // Show success message
+            alert('Profile updated successfully!');
+            // Reload the page to show updated data
+            window.location.reload();
+        } else {
+            alert('Error updating profile: ' + data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        if (error.errors) {
+            alert('Validation errors: ' + Object.values(error.errors).join('\n'));
+        } else {
+            alert('An error occurred while updating the profile.');
+        }
+    });
+});
 
 </script>
 

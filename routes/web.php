@@ -7,6 +7,8 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Admin\UserController;
 
 
 // Rout visitor
@@ -40,10 +42,26 @@ Route::post('/register', [RegisterController::class, 'register']);
 Route::middleware(['auth', UserMiddleware::class])->group(function () {
 });
 
+// Profile routes
+Route::middleware(['auth'])->group(function () {
+    Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::put('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.password');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
 // Admin routes - fixed the nested middleware and path issue
 Route::middleware(['auth', AdminMiddleware::class])->prefix('admin')->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
     Route::get('calendar', [App\Http\Controllers\Admin\CalendarController::class, 'getCalendar'])->name('admin.calendar');
+
+    // Admin user management routes
+    Route::get('users', [UserController::class, 'index'])->name('admin.users.index');
+    Route::get('users/{user}/edit', [UserController::class, 'edit'])->name('admin.users.edit');
+    Route::put('users/{user}', [UserController::class, 'update'])->name('admin.users.update');
+    Route::put('users/{user}/password', [UserController::class, 'updatePassword'])->name('admin.users.password');
+    Route::delete('users/{user}', [UserController::class, 'destroy'])->name('admin.users.destroy');
 });
 
 Route::get('/privacy', function () {

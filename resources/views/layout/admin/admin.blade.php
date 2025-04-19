@@ -124,13 +124,13 @@
             <!-- Header -->
             <div class="flex justify-between mb-6">
                 <h1 class="text-2xl font-bold">Welcome, {{ Auth::user()->name ?? 'Admin' }}!</h1>
-                        <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4">
                     <button class="p-2 rounded-md bg-white"><i class="far fa-calendar text-gray-600"></i></button>
                     <button class="p-2 rounded-md bg-white"><i class="far fa-copy text-gray-600"></i></button>
                     <button class="p-2 rounded-md bg-white"><i class="far fa-bell text-gray-600"></i></button>
-                    <div class="w-8 h-8 rounded-full bg-gray-300 overflow-hidden">
+                    <button onclick="openProfileModal()" class="w-8 h-8 rounded-full bg-gray-300 overflow-hidden hover:ring-2 hover:ring-[#9370db] transition-all duration-200">
                         <img src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name ?? 'Admin') }}" alt="Profile" class="w-full h-full object-cover">
-                    </div>
+                    </button>
                     <form method="POST" action="{{ route('logout') }}" class="ml-2">
                         @csrf
                         <button type="submit" class="p-2 rounded-md bg-white text-gray-600 hover:bg-gray-100">
@@ -140,8 +140,87 @@
                 </div>
             </div>
 
-                @yield('content')
+            @yield('content')
         </div>
     </div>
+
+    <!-- Profile Modal -->
+    <div id="profileModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-white rounded-lg shadow-xl w-full max-w-md">
+                <!-- Modal Header -->
+                <div class="flex items-center justify-between p-4 border-b">
+                    <h3 class="text-xl font-semibold text-gray-900">Profile Information</h3>
+                    <button onclick="closeProfileModal()" class="text-gray-400 hover:text-gray-500">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <!-- Modal Body -->
+                <div class="p-6">
+                    <div class="flex items-center justify-center mb-6">
+                        <div class="w-24 h-24 rounded-full bg-gray-200 overflow-hidden">
+                            <img src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name ?? 'Admin') }}"
+                                 alt="Profile"
+                                 class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Name</label>
+                            <p class="mt-1 text-sm text-gray-900">{{ Auth::user()->name }}</p>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Email</label>
+                            <p class="mt-1 text-sm text-gray-900">{{ Auth::user()->email }}</p>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Role</label>
+                            <p class="mt-1 text-sm text-gray-900">{{ ucfirst(Auth::user()->role) }}</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Modal Footer -->
+                <div class="flex items-center justify-end p-4 border-t gap-3">
+                    <a href="{{ route('profile.edit') }}" class="px-4 py-2 bg-[#9370db] text-white rounded-md hover:bg-purple-700">
+                        Edit Profile
+                    </a>
+                    <button onclick="closeProfileModal()" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openProfileModal() {
+            document.getElementById('profileModal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeProfileModal() {
+            document.getElementById('profileModal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('profileModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeProfileModal();
+            }
+        });
+
+        // Prevent modal close when clicking inside modal content
+        document.querySelector('#profileModal > div').addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+
+        // Close modal on escape key press
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeProfileModal();
+            }
+        });
+    </script>
 </body>
 </html>
