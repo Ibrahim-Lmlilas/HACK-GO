@@ -13,8 +13,16 @@
         <h1 class="text-4xl md:text-6xl font-bold text-white mb-6">Experience Morocco's Most<br>Beautiful Destinations</h1>
         <p class="text-xl text-white mb-10 max-w-2xl">Curated Moroccan travel experiences tailored to your desires. Immerse yourself in breathtaking landscapes and rich culture.</p>
         <div class="flex flex-col sm:flex-row gap-4">
-            <a href="#" class="bg-[#92472B] hover:bg-[#9e3c2e] text-white px-8 py-3 rounded-full text-lg font-medium transition-transform duration-300 hover:scale-105">Plan Your Moroccan Journey</a>
-            <a href="#" class="bg-white/20 backdrop-blur-sm hover:bg-white/50 text-white hover:text-black px-8 py-3 rounded-full text-lg font-medium transition-colors duration-300">Explore Morocco</a>
+            @auth
+                @if(auth()->user()->role === 'admin')
+                    <a href="/admin/dashboard" class="bg-[#92472B] hover:bg-[#9e3c2e] text-white px-8 py-3 rounded-full text-lg font-medium transition-transform duration-300 hover:scale-105">Plan Your Moroccan Journey</a>
+                @else
+                    <a href="/dashboard" class="bg-[#92472B] hover:bg-[#9e3c2e] text-white px-8 py-3 rounded-full text-lg font-medium transition-transform duration-300 hover:scale-105">Plan Your Moroccan Journey</a>
+                @endif
+            @else
+                <a href="/login" class="bg-[#92472B] hover:bg-[#9e3c2e] text-white px-8 py-3 rounded-full text-lg font-medium transition-transform duration-300 hover:scale-105">Plan Your Moroccan Journey</a>
+            @endauth
+            <a href="/blog" class="bg-white/20 backdrop-blur-sm hover:bg-white/50 text-white hover:text-black px-8 py-3 rounded-full text-lg font-medium transition-colors duration-300">Explore Morocco</a>
         </div>
     </div>
     <!-- Down Arrow -->
@@ -28,7 +36,7 @@
 
 </div>
 
-<!-- Destinations Section -->
+<!-- Hotels Section -->
 <section   id="destinations" class="py-16 bg-white">
     <div class="container mx-auto px-8 md:px-16 lg:px-24">
         <div class="text-center mb-16">
