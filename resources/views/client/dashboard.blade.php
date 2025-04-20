@@ -1,4 +1,4 @@
-@extends('layout.admin.admin')
+@extends('layout.client.client')
 
 @section('content')
 @extends('partials.profile.Profile_Information')

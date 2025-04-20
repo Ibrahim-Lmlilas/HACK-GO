@@ -7,14 +7,22 @@
  <div class="relative h-screen bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1469041797191-50ace28483c3?q=80&w=2000&auto=format&fit=crop');">
     <div class="absolute inset-0 bg-black/50"></div>
     <div class="container mx-auto px-6 relative z-1 h-full flex flex-col justify-center items-center text-center">
-        <div class="bg-gray-800/30 backdrop-blur-sm py-2 px-6 rounded-full mb-6">
+        <div class="bg-[#3A3A3A]/30 backdrop-blur-sm py-2 px-6 rounded-full mb-6">
             <p class="text-white uppercase tracking-wider text-sm">DISCOVER THE MAGIC OF MOROCCO</p>
         </div>
         <h1 class="text-4xl md:text-6xl font-bold text-white mb-6">Experience Morocco's Most<br>Beautiful Destinations</h1>
         <p class="text-xl text-white mb-10 max-w-2xl">Curated Moroccan travel experiences tailored to your desires. Immerse yourself in breathtaking landscapes and rich culture.</p>
         <div class="flex flex-col sm:flex-row gap-4">
-            <a href="#" class="bg-[#9370db] hover:bg-[#8a2be2] text-white px-8 py-3 rounded-full text-lg font-medium transition-transform duration-300 hover:scale-105">Plan Your Moroccan Journey</a>
-            <a href="#" class="bg-white/20 backdrop-blur-sm hover:bg-white/50 text-white hover:text-black px-8 py-3 rounded-full text-lg font-medium transition-colors duration-300">Explore Morocco</a>
+            @auth
+                @if(auth()->user()->role === 'admin')
+                    <a href="/admin/dashboard" class="bg-[#92472B] hover:bg-[#9e3c2e] text-white px-8 py-3 rounded-full text-lg font-medium transition-transform duration-300 hover:scale-105">Plan Your Moroccan Journey</a>
+                @else
+                    <a href="/dashboard" class="bg-[#92472B] hover:bg-[#9e3c2e] text-white px-8 py-3 rounded-full text-lg font-medium transition-transform duration-300 hover:scale-105">Plan Your Moroccan Journey</a>
+                @endif
+            @else
+                <a href="/login" class="bg-[#92472B] hover:bg-[#9e3c2e] text-white px-8 py-3 rounded-full text-lg font-medium transition-transform duration-300 hover:scale-105">Plan Your Moroccan Journey</a>
+            @endauth
+            <a href="/blog" class="bg-white/20 backdrop-blur-sm hover:bg-white/50 text-white hover:text-black px-8 py-3 rounded-full text-lg font-medium transition-colors duration-300">Explore Morocco</a>
         </div>
     </div>
     <!-- Down Arrow -->
@@ -28,7 +36,7 @@
 
 </div>
 
-<!-- Destinations Section -->
+<!-- Hotels Section -->
 <section   id="destinations" class="py-16 bg-white">
     <div class="container mx-auto px-8 md:px-16 lg:px-24">
         <div class="text-center mb-16">
@@ -164,7 +172,7 @@
             <!-- Feature 1 -->
             <div class="bg-white p-8 rounded-lg shadow-md transition-transform duration-300 hover:-translate-y-2">
                 <div class="w-14 h-14 bg-purple-100 rounded-full flex items-center justify-center mb-6">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-[#9370db]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-[#92472B]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
                     </svg>
                 </div>
@@ -175,7 +183,7 @@
             <!-- Feature 2 -->
             <div class="bg-white p-8 rounded-lg shadow-md transition-transform duration-300 hover:-translate-y-2">
                 <div class="w-14 h-14 bg-purple-100 rounded-full flex items-center justify-center mb-6">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-[#9370db]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-[#9e3c2e]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                     </svg>
                 </div>
@@ -186,7 +194,7 @@
             <!-- Feature 3 -->
             <div class="bg-white p-8 rounded-lg shadow-md transition-transform duration-300 hover:-translate-y-2">
                 <div class="w-14 h-14 bg-purple-100 rounded-full flex items-center justify-center mb-6">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-[#9370db]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-[#92472B]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                     </svg>
                 </div>
@@ -197,7 +205,7 @@
             <!-- Feature 4 -->
             <div class="bg-white p-8 rounded-lg shadow-md transition-transform duration-300 hover:-translate-y-2">
                 <div class="w-14 h-14 bg-purple-100 rounded-full flex items-center justify-center mb-6">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-[#9370db]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-[#92472B]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                 </div>
@@ -208,7 +216,7 @@
             <!-- Feature 5 -->
             <div class="bg-white p-8 rounded-lg shadow-md transition-transform duration-300 hover:-translate-y-2">
                 <div class="w-14 h-14 bg-purple-100 rounded-full flex items-center justify-center mb-6">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-[#9370db]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-[#92472B]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                     </svg>
                 </div>
@@ -219,7 +227,7 @@
             <!-- Feature 6 -->
             <div class="bg-white p-8 rounded-lg shadow-md transition-transform duration-300 hover:-translate-y-2">
                 <div class="w-14 h-14 bg-purple-100 rounded-full flex items-center justify-center mb-6">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-[#9370db]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-[#92472B]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                 </div>
@@ -231,20 +239,19 @@
 </section>
 
 <!-- Newsletter Section  -->
-<section class="py-16 bg-[#9370db] relative overflow-hidden">
+<section class="py-16 bg-[#3A3A3A] relative overflow-hidden">
+    <div class="container mx-auto px-6 py-4 relative z-1">
+        <div class="max-w-3xl mx-auto bg-[#92472B] backdrop-blur-sm rounded-2xl p-10 shadow-lg border border-[#a06e5a]">
+            <h2 class="text-3xl md:text-4xl font-bold text-[#FEFBEA] mb-4 text-center">Get Inspired for Your Next Adventure</h2>
+            <p class="text-lg text-[#FEFBEA]/90 mb-8 text-center">Subscribe to our newsletter and receive exclusive travel tips, hidden gems, and special offers directly in your inbox.</p>
 
-<div class="container mx-auto px-6 py-4 relative z-1">
-    <div class="max-w-3xl mx-auto bg-[#8a2be2] backdrop-blur-sm rounded-2xl p-10 shadow-lg border border-[#a98eda]">
-        <h2 class="text-3xl md:text-4xl font-bold text-amber-50 mb-4 text-center">Get Inspired for Your Next Adventure</h2>
-        <p class="text-lg text-amber-100/90 mb-8 text-center">Subscribe to our newsletter and receive exclusive travel tips, hidden gems, and special offers directly in your inbox.</p>
-
-        <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <input type="email" placeholder="Your email address" class="px-4 py-3 rounded-lg w-full sm:flex-1 text-gray-800 focus:outline-none focus:ring-2 focus:ring-white border-2 border-transparent focus:border-[#a98eda]">
-            <button class="bg-white text-[#9370db] hover:bg-gray-100 px-6 py-3 rounded-lg font-medium">Subscribe</button>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <input type="email" placeholder="Your email address" class="px-4 py-3 rounded-lg w-full sm:flex-1 text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#3A3A3A] border-2 border-transparent focus:border-[#3A3A3A]">
+                <button class="bg-[#FEFBEA] text-[#92472B] hover:bg-[#f5f1dc] px-6 py-3 rounded-lg font-medium">Subscribe</button>
+            </div>
+            <p class="text-sm mt-4 text-[#FEFBEA]/80 text-center">We respect your privacy and will never share your information. Unsubscribe anytime.</p>
         </div>
-        <p class="text-sm mt-4 text-[#d4c4f5] text-center">We respect your privacy and will never share your information. Unsubscribe anytime.</p>
     </div>
-</div>
 </section>
 
 @endsection
