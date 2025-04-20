@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\DestinationController;
 use \App\Http\Middleware\UserMiddleware as UserMiddleware;
 use \App\Http\Middleware\AdminMiddleware as AdminMiddleware;
 use App\Http\Controllers\Auth\LoginController;
@@ -13,9 +14,7 @@ use App\Http\Controllers\Client\DashboardController as ClientDashboardController
 
 
 // Rout visitor
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [DestinationController::class, 'index'])->name('welcome');
 Route::get('/blog', function () {
     return view('visitors.Blog');
 });

@@ -36,8 +36,8 @@
 
 </div>
 
-<!-- Hotels Section -->
-<section   id="destinations" class="py-16 bg-white">
+<!-- Destinations Section -->
+<section id="destinations" class="py-16 bg-white">
     <div class="container mx-auto px-8 md:px-16 lg:px-24">
         <div class="text-center mb-16">
             <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6">Explore Magical Morocco</h2>
@@ -45,118 +45,26 @@
         </div>
 
         <!-- Destinations Grid -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-            <!-- Destination Card 1 -->
-            <div class="bg-white rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:shadow-xl hover:-translate-y-2">
-                <div class="relative">
-                    <img src="https://media.audleytravel.com/-/media/images/home/north-africa-and-the-middle-east/morocco/places/istock_41519458_morocco_djemaa_el_fna_marrakesh_1500x1500.webp?q=60&w=828&h=828" alt="Marrakech" class="w-full h-64 object-cover">
-
-                </div>
-                <div class="p-6">
-                    <div class="flex items-center mb-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600 mr-1" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
-                        </svg>
-                        <h3 class="text-xl font-bold text-gray-800">Marrakech</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+            @foreach($destinations as $destination)
+            <div class="bg-gradient-to-t from-black/60 to-transparent rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:shadow-xl ">
+                <div class="relative h-64">
+                    <img src="{{ $destination->image_url }}" alt="{{ $destination->name }}" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                    <div class="bg-gradient-to-t from-black/60 to-transparent absolute bottom-0 left-0 right-0 p-6 text-white">
+                        <p class="text-sm font-medium mb-1">{{ $destination->city }}</p>
+                        <h3 class="text-2xl font-bold">{{ $destination->name }}</h3>
+                        <div class="flex items-center mt-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-400" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                            </svg>
+                            <span class="ml-1 text-sm">{{ number_format($destination->rating, 1) }}</span>
+                        </div>
                     </div>
-                    <p class="text-gray-600 mb-4">Explore the vibrant markets and ornate palaces of Morocco's Red City.</p>
-
                 </div>
             </div>
-
-            <!-- Destination Card 2 -->
-            <div class="bg-white rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:shadow-xl hover:-translate-y-2">
-                <div class="relative">
-                    <img src="https://images.unsplash.com/photo-1469041797191-50ace28483c3?q=80&w=2000&auto=format&fit=crop" alt="Sahara Desert" class="w-full h-64 object-cover">
-                    <div class="absolute top-4 left-4">
-                    </div>
-                </div>
-                <div class="p-6">
-                    <div class="flex items-center mb-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600 mr-1" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
-                        </svg>
-                        <h3 class="text-xl font-bold text-gray-800">Sahara Desert</h3>
-                    </div>
-                    <p class="text-gray-600 mb-4">Experience the magic of the dunes and camp under the stars in the world's largest hot desert.</p>
-
-                </div>
-            </div>
-
-            <!-- Destination Card 3 -->
-            <div class="bg-white rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:shadow-xl hover:-translate-y-2">
-                <div class="relative">
-                    <img src="https://aml.ma/sites/default/files/2022-05/chefchaouen-destinations-au-maroc-bateau-ferry-espagne-maroc-ferry-bateau-maroc-espagne-aml.jpg" alt="Chefchaouen" class="w-full h-64 object-cover">
-
-                </div>
-                <div class="p-6">
-                    <div class="flex items-center mb-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600 mr-1" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
-                        </svg>
-                        <h3 class="text-xl font-bold text-gray-800">Chefchaouen</h3>
-                    </div>
-                    <p class="text-gray-600 mb-4">Wander through the stunning blue streets of Morocco's famous Blue Pearl in the Rif Mountains.</p>
-
-                </div>
-            </div>
-
-            <!-- Destination Card 4 -->
-            <div class="bg-white rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:shadow-xl hover:-translate-y-2">
-                <div class="relative">
-                    <img src="https://www.specialholidaysmorocco.com/uploads/images/blog/352575_le-haut-atlas-1.jpg" alt="Atlas Mountains" class="w-full h-64 object-cover">
-
-                </div>
-                <div class="p-6">
-                    <div class="flex items-center mb-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600 mr-1" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
-                        </svg>
-                        <h3 class="text-xl font-bold text-gray-800">Atlas Mountains</h3>
-                    </div>
-                    <p class="text-gray-600 mb-4">Hike through breathtaking landscapes and traditional Berber villages in North Africa's highest mountain range.</p>
-
-                </div>
-            </div>
-
-            <!-- Destination Card 5 -->
-            <div class="bg-white rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:shadow-xl hover:-translate-y-2">
-                <div class="relative">
-                    <img src="https://st.depositphotos.com/1004221/2533/i/450/depositphotos_25335607-stock-photo-essaouira-fortress-morocco-africa.jpg" alt="Essaouira" class="w-full h-64 object-cover">
-
-                </div>
-                <div class="p-6">
-                    <div class="flex items-center mb-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600 mr-1" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
-                        </svg>
-                        <h3 class="text-xl font-bold text-gray-800">Essaouira</h3>
-                    </div>
-                    <p class="text-gray-600 mb-4">Relax in this charming coastal town known for its fortified medina and refreshing ocean breezes.</p>
-
-                </div>
-            </div>
-
-            <!-- Destination Card 6 -->
-            <div class="bg-white rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:shadow-xl hover:-translate-y-2">
-                <div class="relative">
-                    <img src="https://www.bonplanvoyage.net/wordpress2012/wp-content/uploads/que-faire-a-fes-e1691347398442.jpg" alt="Fes" class="w-full h-64 object-cover">
-
-                </div>
-                <div class="p-6">
-                    <div class="flex items-center mb-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600 mr-1" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
-                        </svg>
-                        <h3 class="text-xl font-bold text-gray-800">Fes</h3>
-                    </div>
-                    <p class="text-gray-600 mb-4">Step back in time in the world's largest car-free urban area with its ancient medina and traditional tanneries.</p>
-
-                </div>
-            </div>
+            @endforeach
         </div>
-
-
     </div>
 </section>
 
@@ -253,5 +161,50 @@
         </div>
     </div>
 </section>
+
+@push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const grid = document.getElementById('destinationsGrid');
+    const cards = Array.from(grid.getElementsByClassName('destination-card'));
+    const totalCards = cards.length;
+    const cardsPerPage = 8;
+    let currentPage = 0;
+
+    // Hide all cards initially except first 8
+    cards.forEach((card, index) => {
+        card.style.display = index < cardsPerPage ? 'block' : 'none';
+    });
+
+    document.getElementById('nextBtn').addEventListener('click', () => {
+        if ((currentPage + 1) * cardsPerPage < totalCards) {
+            currentPage++;
+            updateDisplay();
+        }
+    });
+
+    document.getElementById('prevBtn').addEventListener('click', () => {
+        if (currentPage > 0) {
+            currentPage--;
+            updateDisplay();
+        }
+    });
+
+    function updateDisplay() {
+        const startIndex = currentPage * cardsPerPage;
+        cards.forEach((card, index) => {
+            card.style.display = (index >= startIndex && index < startIndex + cardsPerPage) ? 'block' : 'none';
+        });
+
+        // Update button states
+        document.getElementById('prevBtn').style.opacity = currentPage === 0 ? '0.5' : '1';
+        document.getElementById('nextBtn').style.opacity = (currentPage + 1) * cardsPerPage >= totalCards ? '0.5' : '1';
+    }
+
+    // Initial button states
+    updateDisplay();
+});
+</script>
+@endpush
 
 @endsection

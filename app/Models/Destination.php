@@ -11,10 +11,11 @@ class Destination extends Model
 
     protected $fillable = [
         'name',
-        'description',
-        'image',
-        'country',
         'city',
+        'image_url',
+        'rating',
+        'location',
+        'is_featured'
     ];
 
     public function accommodations()
