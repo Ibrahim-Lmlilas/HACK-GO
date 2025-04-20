@@ -33,7 +33,6 @@ class ProfileController extends Controller
                 'first_name' => ['required', 'string', 'max:255'],
                 'last_name' => ['required', 'string', 'max:255'],
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $user->id],
-                'role' => ['required', 'in:user,admin'],
                 'profile_photo' => ['nullable', 'image', 'max:2048'],
             ]);
 

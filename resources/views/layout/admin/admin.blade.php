@@ -12,8 +12,9 @@
             theme: {
                 extend: {
                     colors: {
-                        primary: '#9370db',
-                        secondary: '#f8f9fa',
+                        primary: '#92472B',
+                        secondary: '#3A3A3A',
+                        light: '#FEFBEA'
                     }
                 }
             }
@@ -53,12 +54,12 @@
             align-items: center;
             text-decoration: none;
             padding: 0.5rem;
-            color: #fff;
+            color: #FEFBEA;
             transition: all 0.3s ease;
         }
 
         .sidebar-link:hover {
-            background-color: rgba(255, 255, 255, 0.1);
+            background-color: rgba(254, 251, 234, 0.1);
         }
 
         .sidebar-link i {
@@ -72,6 +73,10 @@
             white-space: nowrap;
             font-size: 0.875rem;
         }
+
+        body {
+            background-color: #FEFBEA;
+        }
     </style>
 </head>
 <body class="bg-gray-100">
@@ -79,7 +84,7 @@
         <!-- Sidebar container with z-index -->
         <div class="sidebar-container">
             <!-- Sidebar -->
-            <div class="sidebar bg-[#9370db] text-white flex flex-col items-start py-6 relative">
+            <div class="sidebar bg-[#92472B] text-white flex flex-col items-start py-6 relative">
                 <div class="flex items-center justify-center mb-6">
                     <a href="#" class="transition-transform duration-300 hover:scale-125">
                         <svg width="60"  height="60" viewBox="0 0 117 110" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -116,6 +121,16 @@
                         <span class="sidebar-content">Settings</span>
                     </a>
                 </div>
+                <!-- Logout button at bottom of sidebar -->
+                <div class="mt-auto pt-4 absolute bottom-6 left-0 right-0 px-2">
+                    <form method="POST" action="{{ route('logout') }}" class="w-full">
+                        @csrf
+                        <button type="submit" class="sidebar-link flex items-center text-red-500 hover:bg-red-100 w-full">
+                            <i class="fas fa-sign-out-alt ml-1.5"></i>
+                            <span class="sidebar-content">Logout</span>
+                        </button>
+                    </form>
+                </div>
             </div>
         </div>
 
@@ -125,72 +140,27 @@
             <div class="flex justify-between mb-6">
                 <h1 class="text-2xl font-bold">Welcome, {{ Auth::user()->name ?? 'Admin' }}!</h1>
                 <div class="flex items-center space-x-4">
-                    <button class="p-2 rounded-md bg-white"><i class="far fa-calendar text-gray-600"></i></button>
-                    <button class="p-2 rounded-md bg-white"><i class="far fa-copy text-gray-600"></i></button>
-                    <button class="p-2 rounded-md bg-white"><i class="far fa-bell text-gray-600"></i></button>
-                    <button onclick="openProfileModal()" class="w-8 h-8 rounded-full bg-gray-300 overflow-hidden hover:ring-2 hover:ring-[#9370db] transition-all duration-200">
-                        <img src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name ?? 'Admin') }}" alt="Profile" class="w-full h-full object-cover">
+                    <button class="p-2 rounded-md "><i class="far fa-bell text-black"></i></button>
+                    <button onclick="openProfileModal()" class="w-8 h-8 rounded-full bg-gray-300 overflow-hidden hover:ring-2 hover:ring-gray-600 transition-all duration-200">
+                        @if(Auth::user()->profile_photo)
+                            <img src="{{ Storage::url(Auth::user()->profile_photo) }}"
+                                 alt="Profile"
+                                 class="w-full h-full object-cover">
+                        @else
+                            <img src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name ?? 'Admin') }}"
+                                 alt="Profile"
+                                 class="w-full h-full object-cover">
+                        @endif
                     </button>
-                    <form method="POST" action="{{ route('logout') }}" class="ml-2">
-                        @csrf
-                        <button type="submit" class="p-2 rounded-md bg-white text-gray-600 hover:bg-gray-100">
-                            <i class="fas fa-sign-out-alt"></i>
-                        </button>
-                    </form>
+
                 </div>
             </div>
-
             @yield('content')
         </div>
     </div>
 
-    <!-- Profile Modal -->
-    <div id="profileModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
-        <div class="flex items-center justify-center min-h-screen p-4">
-            <div class="bg-white rounded-lg shadow-xl w-full max-w-md">
-                <!-- Modal Header -->
-                <div class="flex items-center justify-between p-4 border-b">
-                    <h3 class="text-xl font-semibold text-gray-900">Profile Information</h3>
-                    <button onclick="closeProfileModal()" class="text-gray-400 hover:text-gray-500">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
-                <!-- Modal Body -->
-                <div class="p-6">
-                    <div class="flex items-center justify-center mb-6">
-                        <div class="w-24 h-24 rounded-full bg-gray-200 overflow-hidden">
-                            <img src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name ?? 'Admin') }}"
-                                 alt="Profile"
-                                 class="w-full h-full object-cover">
-                        </div>
-                    </div>
-                    <div class="space-y-4">
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700">Name</label>
-                            <p class="mt-1 text-sm text-gray-900">{{ Auth::user()->name }}</p>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700">Email</label>
-                            <p class="mt-1 text-sm text-gray-900">{{ Auth::user()->email }}</p>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700">Role</label>
-                            <p class="mt-1 text-sm text-gray-900">{{ ucfirst(Auth::user()->role) }}</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Modal Footer -->
-                <div class="flex items-center justify-end p-4 border-t gap-3">
-                    <a href="{{ route('profile.edit') }}" class="px-4 py-2 bg-[#9370db] text-white rounded-md hover:bg-purple-700">
-                        Edit Profile
-                    </a>
-                    <button onclick="closeProfileModal()" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300">
-                        Close
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
+
+
 
     <script>
         function openProfileModal() {
@@ -215,7 +185,6 @@
             e.stopPropagation();
         });
 
-        // Close modal on escape key press
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 closeProfileModal();
