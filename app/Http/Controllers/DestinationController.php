@@ -9,7 +9,7 @@ class DestinationController extends Controller
 {
     public function index()
     {
-        $destinations = Destination::take(8)->get();
+        $destinations = Destination::take(4)->get();
         return view('welcome', compact('destinations'));
     }
 }
