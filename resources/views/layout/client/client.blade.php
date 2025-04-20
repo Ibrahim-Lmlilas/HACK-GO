@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ config('app.name', 'HACK&GO') }} - Admin</title>
+    <title>{{ config('app.name', 'HACK&GO') }} - Client</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>
@@ -126,7 +126,7 @@
                     <span class="sidebar-content">HACK&GO</span>
                 </div>
                 <div class="space-y-1 w-full mt-10">
-                    <a href="{{ route('admin.dashboard') }}" class="sidebar-link flex items-center">
+                    <a href="{{ route('client.dashboard') }}" class="sidebar-link flex items-center">
                         <i class="fas fa-home ml-2.5"></i>
                         <span class="sidebar-content">Dashboard</span>
                     </a>

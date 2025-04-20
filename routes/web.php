@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Client\DashboardController as ClientDashboardController;
 
 
 // Rout visitor
@@ -40,6 +41,7 @@ Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->na
 Route::post('/register', [RegisterController::class, 'register']);
 
 Route::middleware(['auth', UserMiddleware::class])->group(function () {
+    Route::get('/dashboard', [ClientDashboardController::class, 'index'])->name('client.dashboard');
 });
 
 // Profile routes
@@ -71,4 +73,7 @@ Route::get('/privacy', function () {
 Route::get('/terms', function () {
     return view('legal.terms');
 })->name('terms');
+
+// Client Routes
+
 
