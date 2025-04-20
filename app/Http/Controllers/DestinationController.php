@@ -12,4 +12,6 @@ class DestinationController extends Controller
         $destinations = Destination::take(4)->get();
         return view('welcome', compact('destinations'));
     }
+
+  
 }
