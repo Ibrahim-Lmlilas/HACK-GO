@@ -74,5 +74,6 @@ Route::get('/terms', function () {
 })->name('terms');
 
 // Client Routes
+Route::get('/api/destinations/{id}', [DestinationController::class, 'show']);
 
 

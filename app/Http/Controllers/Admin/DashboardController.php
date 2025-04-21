@@ -3,9 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Trip;
-use App\Models\User;
-use App\Models\Booking;
+use App\Models\Destination;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -36,13 +34,18 @@ class DashboardController extends Controller
                 'icon' => 'M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5',
                 'color' => 'green'
             ],
-            'averagePrice' => [
-                'value' => '$1,245',
-                'change' => 5,
-                'icon' => 'M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
+            'totalDestinations' => [
+                'value' => Destination::count(),
+                'change' => $this->calculateChange(Destination::class),
+                'icon' => 'M9 6.75V15m6-6v8.25m.503 3.498 4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 0 0-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0Z',
                 'color' => 'yellow'
             ]
         ];
+
+        $destinations = Destination::select('name', 'city', 'rating', 'image_url')
+            ->orderBy('rating', 'desc')
+            ->take(23)
+            ->get();
 
         $popularDestinations = [
             (object)[
@@ -65,7 +68,7 @@ class DashboardController extends Controller
         $averagePrice = 1245;
         $successRate = 85;
 
-        return view('admin.dashboard', compact('stats', 'popularDestinations', 'averagePrice', 'successRate'));
+        return view('admin.dashboard', compact('stats', 'destinations', 'popularDestinations', 'averagePrice', 'successRate'));
     }
 
     private function calculateChange($model)
