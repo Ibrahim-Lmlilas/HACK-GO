@@ -52,17 +52,14 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// Admin routes - fixed the nested middleware and path issue
+// Admin routes
 Route::middleware(['auth', AdminMiddleware::class])->prefix('admin')->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
     Route::get('calendar', [App\Http\Controllers\Admin\CalendarController::class, 'getCalendar'])->name('admin.calendar');
 
-    // Admin user management routes
-    Route::get('users', [UserController::class, 'index'])->name('admin.users.index');
-    Route::get('users/{user}/edit', [UserController::class, 'edit'])->name('admin.users.edit');
-    Route::put('users/{user}', [UserController::class, 'update'])->name('admin.users.update');
-    Route::put('users/{user}/password', [UserController::class, 'updatePassword'])->name('admin.users.password');
-    Route::delete('users/{user}', [UserController::class, 'destroy'])->name('admin.users.destroy');
+    // Fix: Remove the extra /admin/ from the paths
+    Route::get('users', [UserController::class, 'index'])->name('admin.users');
+    Route::delete('users/{id}', [UserController::class, 'destroy'])->name('admin.users.destroy');
 });
 
 Route::get('/privacy', function () {

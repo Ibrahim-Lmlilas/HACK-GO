@@ -13,58 +13,20 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::all();
+        $users = User::paginate(10);
         return view('admin.users.index', compact('users'));
     }
-
-    public function edit(User $user)
+    public function destroy($id)
     {
-        return view('admin.users.edit', compact('user'));
-    }
+        $user = User::findOrFail($id);
 
-    public function update(Request $request, User $user)
-    {
-        $validated = $request->validate([
-            'first_name' => ['required', 'string', 'max:255'],
-            'last_name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $user->id],
-            'role' => ['required', 'in:user,admin'],
-            'profile_photo' => ['nullable', 'image', 'max:2048'],
-        ]);
-
-        if ($request->hasFile('profile_photo')) {
-            if ($user->profile_photo) {
-                Storage::delete('public/profile-photos/' . $user->profile_photo);
-            }
-            $path = $request->file('profile_photo')->store('public/profile-photos');
-            $validated['profile_photo'] = basename($path);
-        }
-
-        $user->update($validated);
-
-        return redirect()->route('admin.users.index')->with('success', 'User updated successfully.');
-    }
-
-    public function updatePassword(Request $request, User $user)
-    {
-        $request->validate([
-            'password' => ['required', Password::defaults(), 'confirmed'],
-        ]);
-
-        $user->update([
-            'password' => Hash::make($request->password),
-        ]);
-
-        return redirect()->route('admin.users.index')->with('success', 'User password updated successfully.');
-    }
-
-    public function destroy(User $user)
-    {
+        // Delete user's profile photo if exists
         if ($user->profile_photo) {
-            Storage::delete('public/profile-photos/' . $user->profile_photo);
+            Storage::delete($user->profile_photo);
         }
+
         $user->delete();
 
-        return redirect()->route('admin.users.index')->with('success', 'User deleted successfully.');
+        return redirect()->route('admin.users')->with('success', 'User deleted successfully');
     }
 }

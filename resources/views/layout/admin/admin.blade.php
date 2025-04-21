@@ -130,7 +130,7 @@
                         <i class="fas fa-chart-line ml-2.5"></i>
                         <span class="sidebar-content">Dashboard</span>
                     </a>
-                    <a href="" class="sidebar-link">
+                    <a href="{{ route('admin.users') }}" class="sidebar-link">
                         <i class="fas fa-users ml-2.5"></i>
                         <span class="sidebar-content">User Management</span>
                     </a>
@@ -193,6 +193,232 @@
     </div>
 
     <script>
+
+const apiKey = 'c1d1fd315ae3d987ee0cf68509d9f96b';
+
+const searchBtn = document.getElementById('search-btn');
+const cityInput = document.getElementById('city-input');
+const cityName = document.getElementById('city-name');
+const temperature = document.getElementById('temperature');
+const description = document.getElementById('description');
+const humidity = document.getElementById('humidity');
+const wind = document.getElementById('wind');
+const weatherInfo = document.querySelector('.weather-info');
+const errorMessage = document.getElementById('error-message');
+
+searchBtn.addEventListener('click', () => {
+    const city = cityInput.value.trim();
+    if (city) {
+        getWeather(city);
+    } else {
+        displayError('Please enter a city name.');
+    }
+});
+
+function getWeather(city) {
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            if (data.cod === 200) {
+                updateWeatherInfo(data);
+                clearError();
+            } else {
+                displayError('City not found. Please try another city.');
+            }
+        })
+        .catch(error => {
+            displayError('An error occurred. Please try again later.');
+            console.error(error);
+        });
+}
+
+function updateWeatherInfo(data) {
+    cityName.textContent = data.name;
+    temperature.textContent = `${data.main.temp.toFixed(1)}°C`;
+    description.innerHTML = `<i class="fas fa-cloud-sun text-[#9370db] mr-2"></i> ${capitalize(data.weather[0].description)}`;
+    humidity.innerHTML = `<i class="fas fa-tint text-[#9370db] mr-2"></i> Humidity: ${data.main.humidity}%`;
+    wind.innerHTML = `<i class="fas fa-wind text-[#9370db] mr-2"></i> Wind Speed: ${data.wind.speed.toFixed(1)} m/s`;
+
+    weatherInfo.style.display = 'block';
+}
+
+function capitalize(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+function displayError(message) {
+    errorMessage.textContent = message;
+    errorMessage.style.display = 'block';
+    weatherInfo.style.display = 'none';
+}
+
+function clearError() {
+    errorMessage.textContent = '';
+    errorMessage.style.display = 'none';
+}
+
+function openProfileModal() {
+    document.getElementById('profileModal').classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeProfileModal() {
+    document.getElementById('profileModal').classList.add('hidden');
+    document.body.style.overflow = 'auto';
+}
+
+function openEditProfileModal() {
+    document.getElementById('editProfileModal').classList.remove('hidden');
+    document.getElementById('profileModal').classList.add('hidden');
+}
+
+function closeEditProfileModal() {
+    document.getElementById('editProfileModal').classList.add('hidden');
+    document.body.style.overflow = 'auto';
+}
+
+// Profile photo preview
+document.getElementById('profile_photo').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            document.getElementById('profileImage').src = e.target.result;
+        }
+        reader.readAsDataURL(file);
+    }
+});
+
+// Close modals when clicking outside
+document.getElementById('profileModal').addEventListener('click', function(e) {
+    if (e.target === this) {
+        closeProfileModal();
+    }
+});
+
+document.getElementById('editProfileModal').addEventListener('click', function(e) {
+    if (e.target === this) {
+        closeEditProfileModal();
+    }
+});
+
+// Close modals with Escape key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeProfileModal();
+        closeEditProfileModal();
+    }
+});
+
+// Handle form submission
+document.getElementById('editProfileForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const formData = new FormData(this);
+
+    fetch(this.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+            'Accept': 'application/json'
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            return response.json().then(err => { throw err; });
+        }
+        return response.json();
+    })
+    .then(data => {
+        if (data.success) {
+            // Update profile image if a new one was uploaded
+            if (data.profile_photo) {
+                const profileImage = document.getElementById('profileImage');
+                profileImage.src = `/storage/profile-photos/${data.profile_photo}`;
+            }
+
+            // Close the modal
+            closeEditProfileModal();
+
+            // Show success message
+            alert('Profile updated successfully!');
+
+            // Reload the page to show updated data
+            window.location.reload();
+        } else {
+            alert('Error updating profile: ' + data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        if (error.errors) {
+            alert('Validation errors: ' + Object.values(error.errors).join('\n'));
+        } else {
+            alert('An error occurred while updating the profile.');
+        }
+    });
+});
+
+function showDestinationDetails(destinationId) {
+    // Fetch destination details
+    fetch(`/api/destinations/${destinationId}`)
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('modalDestinationName').textContent = data.name;
+            document.getElementById('modalDestinationImage').src = data.image_url;
+            document.getElementById('modalDestinationRating').textContent = `Rating: ${data.rating}`;
+            document.getElementById('modalDestinationDescription').textContent = data.description || 'No description available';
+            document.getElementById('destinationModal').classList.remove('hidden');
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+}
+
+function closeDestinationModal() {
+    document.getElementById('destinationModal').classList.add('hidden');
+}
+
+// Close modal when clicking outside
+document.getElementById('destinationModal').addEventListener('click', function(e) {
+    if (e.target === this) {
+        closeDestinationModal();
+    }
+});
+
+// Close modal with Escape key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeDestinationModal();
+    }
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    const cards = document.querySelectorAll('.destination-card');
+    let currentIndex = 0;
+    const totalCards = cards.length;
+
+    function rotateCards() {
+        // Hide current card
+        cards[currentIndex].classList.remove('opacity-100');
+        cards[currentIndex].classList.add('opacity-0');
+
+        // Move to next card
+        currentIndex = (currentIndex + 1) % totalCards;
+
+        // Show next card
+        cards[currentIndex].classList.remove('opacity-0');
+        cards[currentIndex].classList.add('opacity-100');
+    }
+
+    // Rotate cards every second
+    setInterval(rotateCards, 3000);
+});
+
+
         function toggleSidebar() {
             const sidebar = document.querySelector('.sidebar');
             sidebar.classList.toggle('active');
