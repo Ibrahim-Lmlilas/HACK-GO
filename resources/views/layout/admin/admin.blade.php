@@ -134,9 +134,9 @@
                         <i class="fas fa-users ml-2.5"></i>
                         <span class="sidebar-content">User Management</span>
                     </a>
-                    <a href="" class="sidebar-link">
+                    <a href="{{ route('admin.trips') }}" class="sidebar-link">
                         <i class="fas fa-plane ml-2.5"></i>
-                        <span class="sidebar-content">Activities</span>
+                        <span class="sidebar-content">Trips</span>
                     </a>
                     <a href="" class="sidebar-link">
                         <i class="fas fa-calendar-check ml-2.5"></i>
