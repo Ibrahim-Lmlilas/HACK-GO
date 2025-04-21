@@ -138,18 +138,19 @@
                         <i class="fas fa-ticket-alt ml-2.5"></i>
                         <span class="sidebar-content">My Bookings</span>
                     </a>
-                    <a href="/client/profile" class="sidebar-link">
-                        <i class="fas fa-user ml-2.5"></i>
-                        <span class="sidebar-content">Profile</span>
-                    </a>
                     <a href="/client/explore" class="sidebar-link">
                         <i class="fas fa-compass ml-2.5"></i>
                         <span class="sidebar-content">Explore</span>
                     </a>
-                    <a href="/client/support" class="sidebar-link">
-                        <i class="fas fa-question-circle ml-2.5"></i>
-                        <span class="sidebar-content">Support</span>
+                    <a href="/client/chat" class="sidebar-link">
+                        <i class="fas fa-comments ml-2.5"></i>
+                        <span class="sidebar-content">Messages</span>
                     </a>
+                    <a href="/client/travel-buddies" class="sidebar-link">
+                        <i class="fas fa-users ml-2.5"></i>
+                        <span class="sidebar-content">Travel Buddies</span>
+                    </a>
+                    
                 </div>
                 <!-- Logout button at bottom of sidebar -->
                 <div class="mt-auto pt-4 absolute bottom-6 left-0 right-0 px-2">

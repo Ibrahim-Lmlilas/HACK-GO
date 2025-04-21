@@ -127,28 +127,32 @@
                 </div>
                 <div class="space-y-1 w-full mt-10">
                     <a href="{{ route('admin.dashboard') }}" class="sidebar-link flex items-center">
-                        <i class="fas fa-home ml-2.5"></i>
+                        <i class="fas fa-chart-line ml-2.5"></i>
                         <span class="sidebar-content">Dashboard</span>
                     </a>
-                    <a href="/client/my-trips" class="sidebar-link">
-                        <i class="fas fa-suitcase ml-2.5"></i>
-                        <span class="sidebar-content">My Trips</span>
+                    <a href="" class="sidebar-link">
+                        <i class="fas fa-users ml-2.5"></i>
+                        <span class="sidebar-content">User Management</span>
                     </a>
-                    <a href="/client/my-bookings" class="sidebar-link">
-                        <i class="fas fa-ticket-alt ml-2.5"></i>
-                        <span class="sidebar-content">My Bookings</span>
+                    <a href="" class="sidebar-link">
+                        <i class="fas fa-plane ml-2.5"></i>
+                        <span class="sidebar-content">Activities</span>
                     </a>
-                    <a href="/client/profile" class="sidebar-link">
-                        <i class="fas fa-user ml-2.5"></i>
-                        <span class="sidebar-content">Profile</span>
+                    <a href="" class="sidebar-link">
+                        <i class="fas fa-calendar-check ml-2.5"></i>
+                        <span class="sidebar-content">Reservations</span>
                     </a>
-                    <a href="/client/explore" class="sidebar-link">
-                        <i class="fas fa-compass ml-2.5"></i>
-                        <span class="sidebar-content">Explore</span>
+                    <a href="" class="sidebar-link">
+                        <i class="fas fa-comment-dots ml-2.5"></i>
+                        <span class="sidebar-content">Messages</span>
                     </a>
-                    <a href="/client/support" class="sidebar-link">
-                        <i class="fas fa-question-circle ml-2.5"></i>
-                        <span class="sidebar-content">Support</span>
+                    <a href="" class="sidebar-link">
+                        <i class="fas fa-chart-bar ml-2.5"></i>
+                        <span class="sidebar-content">Statistics</span>
+                    </a>
+                    <a href="" class="sidebar-link">
+                        <i class="fas fa-cog ml-2.5"></i>
+                        <span class="sidebar-content">Settings</span>
                     </a>
                 </div>
                 <!-- Logout button at bottom of sidebar -->

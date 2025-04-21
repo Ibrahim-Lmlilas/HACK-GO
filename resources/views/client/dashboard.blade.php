@@ -46,66 +46,11 @@
             </div>
         </div>
 
-        <!-- Upcoming Trips -->
-        <div class="bg-white rounded-2xl p-5">
-            <h3 class="text-lg font-semibold mb-4">Upcoming Trips</h3>
-            <div class="space-y-4">
-                <div class="flex items-center p-4 bg-gray-50 rounded-lg">
-                    <div class="w-16 h-16 rounded-lg overflow-hidden mr-4">
-                        <img src="https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Nador" class="w-full h-full object-cover">
-                    </div>
-                    <div class="flex-1">
-                        <h4 class="font-medium">Marrakech Palace</h4>
-                        <p class="text-sm text-gray-600">Marrakech, Morocco</p>
-                        <div class="flex items-center mt-1">
-                            <i class="fas fa-calendar-alt text-gray-400 text-sm mr-2"></i>
-                            <span class="text-sm text-gray-600">Mar 15, 2024 - Mar 20, 2024</span>
-                        </div>
-                    </div>
-                    <div class="text-right">
-                        <span class="text-lg font-semibold">2,500 MAD</span>
-                        <div class="mt-1">
-                            <span class="px-2 py-1 rounded-full text-xs bg-green-100 text-green-800">
-                                Confirmed
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+
 
         <!-- Recent Activity -->
         <div class="bg-white rounded-2xl p-5">
-            <h3 class="text-lg font-semibold mb-4">Recent Activity</h3>
-            <div class="space-y-4">
-                <div class="flex items-start">
-                    <div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center mr-3">
-                        <i class="fas fa-calendar-check text-gray-600"></i>
-                    </div>
-                    <div class="flex-1">
-                        <p class="text-sm">Booked a trip to Atlas Mountains Resort</p>
-                        <span class="text-xs text-gray-500">2 hours ago</span>
-                    </div>
-                </div>
-                <div class="flex items-start">
-                    <div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center mr-3">
-                        <i class="fas fa-star text-gray-600"></i>
-                    </div>
-                    <div class="flex-1">
-                        <p class="text-sm">Earned 100 loyalty points</p>
-                        <span class="text-xs text-gray-500">1 day ago</span>
-                    </div>
-                </div>
-                <div class="flex items-start">
-                    <div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center mr-3">
-                        <i class="fas fa-plane text-gray-600"></i>
-                    </div>
-                    <div class="flex-1">
-                        <p class="text-sm">Completed trip to Marrakech Palace</p>
-                        <span class="text-xs text-gray-500">3 days ago</span>
-                    </div>
-                </div>
-            </div>
+
         </div>
     </div>
 
@@ -142,24 +87,7 @@
             </div>
         </div>
 
-        <!-- Quick Actions -->
-        <div class="bg-white rounded-2xl p-5">
-            <h3 class="text-lg font-semibold mb-4">Quick Actions</h3>
-            <div class="space-y-3">
-                <a href="" class="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition">
-                    <i class="fas fa-plus-circle text-gray-600 mr-3"></i>
-                    <span>Book a Trip</span>
-                </a>
-                <a href="" class="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition">
-                    <i class="fas fa-user-edit text-gray-600 mr-3"></i>
-                    <span>Edit Profile</span>
-                </a>
-                <a href="" class="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition">
-                    <i class="fas fa-wallet text-gray-600 mr-3"></i>
-                    <span>My Wallet</span>
-                </a>
-            </div>
-        </div>
+
     </div>
 </div>
 
