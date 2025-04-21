@@ -4,92 +4,107 @@
 @extends('partials.profile.Profile_Information')
 @extends('partials.profile.Edit_Profile')
 
-<div class="flex flex-col lg:flex-row gap-6 h-full">
+<div class="flex flex-col lg:flex-row gap-6">
     <div class="flex-1 space-y-6">
-        <!-- First row of cards -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            <div class="bg-white rounded-2xl p-5 flex flex-col">
-                <div class="flex justify-between mb-3">
-                    <div class="bg-gray-100 rounded-md p-2"><i class="fas fa-plane text-gray-600"></i></div>
-                    <button class="text-gray-400"><i class="fas fa-ellipsis-h"></i></button>
+        <div class="flex flex-col md:flex-row gap-5">
+            <!-- destination chart-->
+            <div class="relative h-64 w-full md:w-1/2 bg-white rounded-2xl p-5">
+                @foreach($destinations as $index => $destination)
+                <div class="destination-card absolute inset-0 transition-opacity duration-1000 {{ $index === 0 ? 'opacity-100' : 'opacity-0' }}"
+                     data-index="{{ $index }}">
+                    <div class="relative h-full rounded-lg overflow-hidden shadow-lg">
+                        <img src="{{ $destination->image_url }}" alt="{{ $destination->name }}"
+                             class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 right-0 p-4 text-white">
+                            <h4 class="font-bold text-xl mb-1">{{ $destination->name }}</h4>
+                            <p class="text-sm mb-1">{{ $destination->city }}</p>
+                            <div class="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-yellow-400" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                </svg>
+                                <span class="ml-1 text-sm">{{ number_format($destination->rating, 1) }}</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <h2 class="text-2xl font-bold">24</h2>
-                <p class="text-sm text-gray-600 mt-1">Total Trips</p>
+                @endforeach
             </div>
 
-            <div class="bg-white rounded-2xl p-5 flex flex-col">
-                <div class="flex justify-between mb-3">
-                    <div class="bg-gray-100 rounded-md p-2"><i class="fas fa-users text-gray-600"></i></div>
-                    <button class="text-gray-400"><i class="fas fa-ellipsis-h"></i></button>
-                </div>
-                <h2 class="text-2xl font-bold">156</h2>
-                <p class="text-sm text-gray-600 mt-1">Active Users</p>
-            </div>
-
-            <div class="bg-white rounded-2xl p-5 flex flex-col">
-                <div class="flex justify-between mb-3">
-                    <div class="bg-gray-100 rounded-md p-2"><i class="fas fa-calendar-check text-gray-600"></i></div>
-                    <button class="text-gray-400"><i class="fas fa-ellipsis-h"></i></button>
-                </div>
-                <h2 class="text-2xl font-bold">89</h2>
-                <p class="text-sm text-gray-600 mt-1">Total Bookings</p>
-            </div>
-
-            <div class="bg-white rounded-2xl p-5 flex flex-col">
-                <div class="flex justify-between mb-3">
-                    <div class="bg-gray-100 rounded-md p-2"><i class="fas fa-dollar-sign text-gray-600"></i></div>
-                    <button class="text-gray-400"><i class="fas fa-ellipsis-h"></i></button>
-                </div>
-                <h2 class="text-2xl font-bold">brahiiiim</h2>
-                <p class="text-sm text-gray-600 mt-1">Average Trip Price</p>
-            </div>
-        </div>
-
-        <!-- Second row of cards -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-            <div class="bg-white rounded-2xl p-5">
-                <h3 class="text-gray-700 mb-2">Upcoming Trips</h3>
-                <div class="flex items-end">
-                    <span class="text-5xl font-bold mr-3">12</span>
-                    <span class="text-green-500 text-sm bg-green-50 px-2 py-1 rounded-md mb-1">+ 15%</span>
-                </div>
-            </div>
-
-            <div class="bg-white rounded-2xl p-5">
-                <h3 class="text-gray-700 mb-2">Pending Bookings</h3>
-                <div class="flex items-end">
-                    <span class="text-5xl font-bold mr-3">8</span>
-                    <span class="text-red-500 text-sm bg-red-50 px-2 py-1 rounded-md mb-1">+ 5%</span>
+            <!-- Stats Grid -->
+            <div class="grid grid-cols-1  gap-5 w-full md:w-1/2">
+                <div class="h-full w-full rounded-lg overflow-hidden">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d10189.2012012012!2d-2.9277072!3d35.1684723!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd7b8d4d6f1f5d%3A0x3b9c9a3b8c9c9c9c!2sNador%2C%20Morocco!5e0!3m2!1sen!2sma!4v1640000000000!5m2!1sen!2sma"
+                        width="100%"
+                        height="100%"
+                        style="border:0;"
+                        allowfullscreen=""
+                        loading="lazy">
+                    </iframe>
                 </div>
             </div>
         </div>
 
-        <!-- Revenue Chart -->
+        <!-- Upcoming Trips -->
         <div class="bg-white rounded-2xl p-5">
-            <div class="flex flex-col sm:flex-row justify-between mb-4">
-                <h3 class="text-gray-700">Revenue</h3>
-                <span class="text-sm text-gray-600">Last 7 days VS prior week</span>
-            </div>
-            <div class="h-40 w-full border-b border-gray-200">
-                <!-- Placeholder for chart -->
-                <div class="relative h-full w-full">
-                    <div class="absolute bottom-0 left-0 right-0 h-24 bg-gray-50 rounded-lg overflow-hidden">
-                        <div class="w-full h-full relative">
-                            <div class="absolute bottom-0 w-full h-12 bg-blue-50"></div>
-                            <div class="absolute bottom-8 left-1/4 h-1 w-3/4 bg-blue-400 rounded-full"></div>
-                            <div class="absolute bottom-12 left-1/4 h-1 w-3/4 bg-gray-300 rounded-full"></div>
+            <h3 class="text-lg font-semibold mb-4">Upcoming Trips</h3>
+            <div class="space-y-4">
+                <div class="flex items-center p-4 bg-gray-50 rounded-lg">
+                    <div class="w-16 h-16 rounded-lg overflow-hidden mr-4">
+                        <img src="https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Nador" class="w-full h-full object-cover">
+                    </div>
+                    <div class="flex-1">
+                        <h4 class="font-medium">Marrakech Palace</h4>
+                        <p class="text-sm text-gray-600">Marrakech, Morocco</p>
+                        <div class="flex items-center mt-1">
+                            <i class="fas fa-calendar-alt text-gray-400 text-sm mr-2"></i>
+                            <span class="text-sm text-gray-600">Mar 15, 2024 - Mar 20, 2024</span>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <span class="text-lg font-semibold">2,500 MAD</span>
+                        <div class="mt-1">
+                            <span class="px-2 py-1 rounded-full text-xs bg-green-100 text-green-800">
+                                Confirmed
+                            </span>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="flex justify-between mt-2 text-xs text-gray-500 overflow-x-auto">
-                <span>Feb 14</span>
-                <span>Feb 15</span>
-                <span>Feb 16</span>
-                <span>Feb 17</span>
-                <span>Feb 18</span>
-                <span>Feb 19</span>
-                <span>Feb 20</span>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="bg-white rounded-2xl p-5">
+            <h3 class="text-lg font-semibold mb-4">Recent Activity</h3>
+            <div class="space-y-4">
+                <div class="flex items-start">
+                    <div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center mr-3">
+                        <i class="fas fa-calendar-check text-gray-600"></i>
+                    </div>
+                    <div class="flex-1">
+                        <p class="text-sm">Booked a trip to Atlas Mountains Resort</p>
+                        <span class="text-xs text-gray-500">2 hours ago</span>
+                    </div>
+                </div>
+                <div class="flex items-start">
+                    <div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center mr-3">
+                        <i class="fas fa-star text-gray-600"></i>
+                    </div>
+                    <div class="flex-1">
+                        <p class="text-sm">Earned 100 loyalty points</p>
+                        <span class="text-xs text-gray-500">1 day ago</span>
+                    </div>
+                </div>
+                <div class="flex items-start">
+                    <div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center mr-3">
+                        <i class="fas fa-plane text-gray-600"></i>
+                    </div>
+                    <div class="flex-1">
+                        <p class="text-sm">Completed trip to Marrakech Palace</p>
+                        <span class="text-xs text-gray-500">3 days ago</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -97,9 +112,9 @@
     <!-- Right sidebar -->
     <div class="w-full lg:w-80 space-y-5">
         <!-- Weather -->
-        <div class="bg-white rounded-2xl p-5">
+        <div class="bg-white rounded-2xl p-3">
             <h3 class="text-gray-700 mb-4">Weather Watcher <i class="fas fa-cloud-sun text-[#9370db]"></i></h3>
-            <div class="flex items-center space-x-2 mb-4">
+            <div class="flex items-center space-x-2 mb-3">
                 <input type="text" id="city-input" placeholder="Enter city name" class="flex-1 p-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
                 <button id="search-btn" class="text-black p-2 rounded-lg transition"><i class="fas fa-search"></i></button>
             </div>
@@ -124,6 +139,25 @@
                     :month="request('month')"
                     :year="request('year')"
                 />
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="bg-white rounded-2xl p-5">
+            <h3 class="text-lg font-semibold mb-4">Quick Actions</h3>
+            <div class="space-y-3">
+                <a href="" class="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition">
+                    <i class="fas fa-plus-circle text-gray-600 mr-3"></i>
+                    <span>Book a Trip</span>
+                </a>
+                <a href="" class="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition">
+                    <i class="fas fa-user-edit text-gray-600 mr-3"></i>
+                    <span>Edit Profile</span>
+                </a>
+                <a href="" class="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition">
+                    <i class="fas fa-wallet text-gray-600 mr-3"></i>
+                    <span>My Wallet</span>
+                </a>
             </div>
         </div>
     </div>
@@ -296,6 +330,44 @@ document.getElementById('editProfileForm').addEventListener('submit', function(e
             alert('An error occurred while updating the profile.');
         }
     });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    const cards = document.querySelectorAll('.destination-card');
+    let currentIndex = 0;
+    const totalCards = cards.length;
+
+    function rotateCards() {
+        // Hide current card
+        cards[currentIndex].classList.remove('opacity-100');
+        cards[currentIndex].classList.add('opacity-0');
+
+        // Move to next card
+        currentIndex = (currentIndex + 1) % totalCards;
+
+        // Show next card
+        cards[currentIndex].classList.remove('opacity-0');
+        cards[currentIndex].classList.add('opacity-100');
+    }
+
+    // Rotate cards every second
+    setInterval(rotateCards, 3000);
+
+    // Get current location
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+
+            // Update map iframe with current location
+            const mapFrame = document.getElementById('mapFrame');
+            mapFrame.src = `https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2000!2d${longitude}!3d${latitude}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzXCsDA5JzQ2LjUiTiAywrA1NSc0Mi4xIlc!5e0!3m2!1sen!2sma!4v1640000000000!5m2!1sen!2sma`;
+        }, function(error) {
+            console.error('Error getting location:', error);
+        });
+    } else {
+        console.error('Geolocation is not supported by this browser.');
+    }
 });
 </script>
 
