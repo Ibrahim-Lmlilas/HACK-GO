@@ -1,6 +1,9 @@
 @extends('layout.admin.admin')
 
 @section('content')
+<!-- Leaflet CSS & JS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 @extends('partials.profile.Profile_Information')
 @extends('partials.profile.Edit_Profile')
 
@@ -35,11 +38,11 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 w-full md:w-1/2">
                 <div class="bg-white rounded-2xl p-5 flex flex-col">
                     <div class="flex justify-between mb-3">
-                        <div class="bg-gray-100 rounded-md p-2"><i class="fas fa-calendar-check text-gray-600"></i></div>
-                        <h2 class="text-2xl font-bold">89</h2>
+                        <div class="bg-gray-100 rounded-md p-2"><i class="fas fa-hotel text-gray-600"></i></div>
+                        <h2 class="text-2xl font-bold">{{ count($hotels) }}</h2>
                     </div>
 
-                    <p class="text-sm text-gray-600 mt-1">Total Bookings</p>
+                    <p class="text-sm text-gray-600 mt-1">Total Hotels</p>
                 </div>
 
                 <div class="bg-white rounded-2xl p-5 flex flex-col">
@@ -53,10 +56,11 @@
 
                 <div class="bg-white rounded-2xl p-5 flex flex-col">
                     <div class="flex justify-between mb-3">
-                        <div class="bg-gray-100 rounded-md p-2"><i class="fas fa-plane text-gray-600"></i></div>
-                        <h2 class="text-2xl font-bold">24</h2>                    </div>
+                        <div class="bg-gray-100 rounded-md p-2"><i class="fas fa-user text-gray-600"></i></div>
+                        <h2 class="text-2xl font-bold">{{ $stats['totalUsers']['value'] }}</h2>
+                    </div>
 
-                    <p class="text-sm text-gray-600 mt-1">Total Trips</p>
+                    <p class="text-sm text-gray-600 mt-1">Total Users</p>
                 </div>
 
                 <div class="bg-white rounded-2xl p-5 flex flex-col">
@@ -76,6 +80,7 @@
                     <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Hotel</th>
                     <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Location</th>
                     <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Details</th>
+<th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Map</th>
                 </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
@@ -104,6 +109,42 @@
                         </div>
                         <span class="text-xs text-gray-600 font-medium">{{ number_format($hotel->price_mad, 2) }} MAD</span>
                     </div>
+                    </td>
+                    <td class="px-4 py-3 whitespace-nowrap mx-auto">
+                        @if($hotel->latitude && $hotel->longitude)
+                            <div id="map-{{ $hotel->id }}" style="height: 65px; width: 120px;"></div>
+                            <script>
+                                document.addEventListener('DOMContentLoaded', function() {
+                                    var map = L.map('map-{{ $hotel->id }}', {
+                                        center: [{{ $hotel->latitude }}, {{ $hotel->longitude }}],
+                                        zoom: 13,
+                                        zoomControl: false,
+                                        attributionControl: false,
+                                        dragging: true,
+                                        scrollWheelZoom: true,
+                                        doubleClickZoom: false,
+                                        boxZoom: true,
+                                        keyboard: false,
+                                        tap: false,
+                                    });
+                                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                                        maxZoom: 19,
+                                    }).addTo(map);
+
+                                    var redIcon = L.divIcon({
+                                        html: '<i class="fas fa-map-marker-alt text-red-600" style="font-size: 20px;"></i>',
+                                        className: 'custom-div-icon',
+                                        iconSize: [20, 20],
+                                        iconAnchor: [10, 10]
+                                    });
+
+                                    L.marker([{{ $hotel->latitude }}, {{ $hotel->longitude }}], {icon: redIcon}).addTo(map)
+                                        .bindPopup('{{ $hotel->name }}');
+                                });
+                            </script>
+                        @else
+                            <span class="text-xs text-gray-400">No location</span>
+                        @endif
                     </td>
                 </tr>
                 @endforeach
