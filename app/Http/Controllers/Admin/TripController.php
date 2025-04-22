@@ -45,8 +45,10 @@ class TripController extends Controller
         ]);
 
         $trip = Trip::create($validated);
-        return redirect()->route('admin.trips.show', $trip)
-            ->with('success', 'Trip created successfully');
+
+        // Redirect to hotel selection page instead of trip details
+        return redirect()->route('admin.trips.select-hotel', $trip)
+            ->with('success', 'Trip created successfully. Now you can select a hotel if needed.');
     }
 
     public function update(Request $request, Trip $trip)
@@ -71,5 +73,34 @@ class TripController extends Controller
         $trip->delete();
         return redirect()->route('admin.trips')
             ->with('success', 'Trip deleted successfully');
+    }
+
+    /**
+     * Show hotel selection form for a trip
+     */
+    public function selectHotel(Trip $trip)
+    {
+        // Get the destination city
+        $destination = Destination::find($trip->destination_id);
+
+        // Find hotels in the same city as the destination
+        $hotels = \App\Models\Hotel::where('city', $destination->city)->get();
+
+        return view('admin.trips.select-hotel', compact('trip', 'hotels', 'destination'));
+    }
+
+    /**
+     * Update trip with selected hotel
+     */
+    public function saveHotel(Request $request, Trip $trip)
+    {
+        $validated = $request->validate([
+            'hotel_id' => 'nullable|exists:hotels,id',
+        ]);
+
+        $trip->update($validated);
+
+        return redirect()->route('admin.trips.show', $trip)
+            ->with('success', 'Trip updated with hotel selection.');
     }
 }

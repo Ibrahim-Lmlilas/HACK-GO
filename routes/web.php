@@ -70,6 +70,10 @@ Route::middleware(['auth', AdminMiddleware::class])->prefix('admin')->group(func
         'update' => 'admin.trips.update',
         'destroy' => 'admin.trips.destroy',
     ]);
+
+    // Add routes for hotel selection after trip creation
+    Route::get('trips/{trip}/select-hotel', [AdminTripController::class, 'selectHotel'])->name('admin.trips.select-hotel');
+    Route::post('trips/{trip}/save-hotel', [AdminTripController::class, 'saveHotel'])->name('admin.trips.save-hotel');
 });
 
 Route::get('/privacy', function () {
@@ -82,5 +86,6 @@ Route::get('/terms', function () {
 
 // Client Routes
 Route::get('/api/destinations/{id}', [DestinationController::class, 'show']);
+Route::get('/api/hotels', [\App\Http\Controllers\HotelController::class, 'getByCity']);
 
 

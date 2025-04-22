@@ -16,7 +16,8 @@ class Trip extends Model
         'destination_id',
         'start_date',
         'end_date',
-        'capacity'
+        'capacity',
+        'hotel_id' // Added hotel_id to fillable attributes
     ];
 
     protected $casts = [
@@ -28,5 +29,11 @@ class Trip extends Model
     public function destination()
     {
         return $this->belongsTo(Destination::class);
+    }
+
+    // Add relationship to Hotel
+    public function hotel()
+    {
+        return $this->belongsTo(Hotel::class);
     }
 }

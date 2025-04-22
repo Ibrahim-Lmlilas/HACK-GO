@@ -31,7 +31,8 @@
                                 <option value="">Select Destination</option>
                                 @foreach($destinations as $destination)
                                     <option value="{{ $destination->id }}"
-                                        {{ old('destination_id', $trip->destination_id ?? '') == $destination->id ? 'selected' : '' }}>
+                                        {{ old('destination_id', $trip->destination_id ?? '') == $destination->id ? 'selected' : '' }}
+                                        data-city="{{ $destination->city }}">
                                         {{ $destination->name }}
                                     </option>
                                 @endforeach
@@ -39,6 +40,22 @@
                             @error('destination_id')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
+                        </div>
+
+                        <!-- Hotel selection dropdown, will be shown/hidden dynamically -->
+                        <div class="mb-3" id="hotel-section" style="display: none;">
+                            <label for="hotel_id" class="form-label">Hotel (Optional)</label>
+                            <select class="form-control @error('hotel_id') is-invalid @enderror" id="hotel_id" name="hotel_id">
+                                <option value="">Select Hotel</option>
+                            </select>
+                            @error('hotel_id')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <!-- Alert for no hotels -->
+                        <div class="alert alert-info mb-3" id="no-hotels-alert" style="display: none;">
+                            No hotels are available in this destination's city.
                         </div>
 
                         <div class="mb-3">
@@ -100,4 +117,107 @@
         </div>
     </div>
 </div>
+
+@push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const destinationSelect = document.getElementById('destination_id');
+    const hotelSection = document.getElementById('hotel-section');
+    const hotelSelect = document.getElementById('hotel_id');
+    
+    // Track if user has already been asked about adding hotels
+    let hotelPromptShown = false;
+    
+    // Function to check for hotels in the destination city
+    function checkAndPromptForHotels(city) {
+        if (!city) {
+            hotelSection.style.display = 'none';
+            return;
+        }
+        
+        // Reset the hotel selection when destination changes
+        hotelSelect.innerHTML = '<option value="">Select Hotel</option>';
+        hotelSection.style.display = 'none';
+        
+        // Skip prompt if editing a trip that already has a hotel selected
+        const existingHotelId = "{{ isset($trip) && $trip->hotel_id ? $trip->hotel_id : '' }}";
+        
+        // Check if there are hotels in this city
+        fetch(`/api/hotels?city=${encodeURIComponent(city)}`)
+            .then(response => response.json())
+            .then(hotels => {
+                if (hotels.length > 0) {
+                    // We have hotels in this city
+                    
+                    // If editing a trip with an existing hotel, just show the hotels without prompting
+                    if (existingHotelId) {
+                        populateHotels(hotels, existingHotelId);
+                        hotelSection.style.display = 'block';
+                        return;
+                    }
+                    
+                    // For new trips or when changing destination, show the prompt
+                    if (!hotelPromptShown) {
+                        const addHotel = confirm("Hotels are available in this destination city. Would you like to add a hotel to this trip?");
+                        hotelPromptShown = true;
+                        
+                        if (addHotel) {
+                            // User wants to add a hotel
+                            populateHotels(hotels);
+                            hotelSection.style.display = 'block';
+                        }
+                    }
+                }
+            })
+            .catch(error => {
+                console.error('Error checking for hotels:', error);
+            });
+    }
+    
+    // Function to populate the hotel dropdown
+    function populateHotels(hotels, selectedHotelId = null) {
+        // Clear existing options first
+        hotelSelect.innerHTML = '<option value="">Select Hotel</option>';
+        
+        // Add each hotel to the dropdown
+        hotels.forEach(hotel => {
+            const option = document.createElement('option');
+            option.value = hotel.id;
+            option.textContent = hotel.name;
+            
+            // Set as selected if it matches the selectedHotelId or previous form submission
+            if (hotel.id == selectedHotelId || hotel.id == "{{ old('hotel_id') }}") {
+                option.selected = true;
+            }
+            
+            hotelSelect.appendChild(option);
+        });
+    }
+    
+    // When destination changes, check for hotels
+    destinationSelect.addEventListener('change', function() {
+        // Reset the prompt status when destination changes
+        hotelPromptShown = false;
+        
+        // Get the city from the selected destination
+        const selectedOption = this.options[this.selectedIndex];
+        if (selectedOption && selectedOption.value) {
+            const city = selectedOption.getAttribute('data-city');
+            checkAndPromptForHotels(city);
+        } else {
+            // If no destination selected, hide hotel section
+            hotelSection.style.display = 'none';
+        }
+    });
+    
+    // On page load, if a destination is already selected, check for hotels
+    if (destinationSelect.value) {
+        const selectedOption = destinationSelect.options[destinationSelect.selectedIndex];
+        const city = selectedOption.getAttribute('data-city');
+        checkAndPromptForHotels(city);
+    }
+});
+</script>
+@endpush
+
 @endsection
