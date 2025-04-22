@@ -12,24 +12,24 @@ class TripController extends Controller
     public function index()
     {
         $trips = Trip::with('destination')->get();
-        return view('trips.index', compact('trips'));
+        return view('admin.trips.index', compact('trips'));
     }
 
     public function create()
     {
         $destinations = Destination::all();
-        return view('trips.form', compact('destinations'));
+        return view('admin.trips.form', compact('destinations'));
     }
 
     public function show(Trip $trip)
     {
-        return view('trips.show', compact('trip'));
+        return view('admin.trips.show', compact('trip'));
     }
 
     public function edit(Trip $trip)
     {
         $destinations = Destination::all();
-        return view('trips.form', compact('trip', 'destinations'));
+        return view('admin.trips.form', compact('trip', 'destinations'));
     }
 
     public function store(Request $request)
