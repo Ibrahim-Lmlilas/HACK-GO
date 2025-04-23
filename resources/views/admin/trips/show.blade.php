@@ -1,16 +1,16 @@
 @extends('layout.admin.admin')
 
 @section('content')
-<div class=" bg-gray-100 py-4">
+<div class="bg-gray-100 py-4">
     <!-- Lightbox Modal -->
-    <div id="lightbox-modal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-75 flex items-center justify-center">
-        <div class="relative max-w-3xl mx-auto">
+    <div id="lightbox-modal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-75 flex items-center justify-center p-4">
+        <div class="relative w-full max-w-3xl mx-auto">
             <button class="absolute top-2 right-2 text-white hover:text-gray-300" onclick="closeLightbox()">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                 </svg>
             </button>
-            <img id="lightbox-image" src="" alt="" class="max-h-[70vh] w-auto">
+            <img id="lightbox-image" src="" alt="" class="max-h-[70vh] w-auto mx-auto">
             <p id="lightbox-caption" class="text-white text-center mt-2 text-sm"></p>
         </div>
     </div>
@@ -26,7 +26,7 @@
                     </div>
 
                     @if($trip->hotel)
-                    <div class="mt-2 grid grid-cols-5 gap-1">
+                    <div class="mt-2 grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-1">
                         <!-- Main Hotel Image -->
                         <div class="aspect-w-1 aspect-h-1">
                             <img src="{{ $trip->hotel->image_url }}"
@@ -52,8 +52,8 @@
                 <div class="p-4">
                     <div class="mb-4">
                         <!-- Back Button -->
-                        <div class="mb-4 flex items-center justify-between">
-                            <h1 class="text-2xl font-bold text-gray-900 mb-2">{{ $trip->name }}</h1>
+                        <div class="mb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                            <h1 class="text-xl sm:text-2xl font-bold text-gray-900">{{ $trip->name }}</h1>
                             <a href="{{ route('admin.trips') }}"
                                class="inline-flex items-center space-x-1 text-sm text-gray-600 hover:text-gray-900">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -61,18 +61,16 @@
                                 </svg>
                                 <span>Back to Trips</span>
                             </a>
-
-
                         </div>
 
                         <div class="flex items-center gap-2 mb-3">
-                            <span class="text-xl font-bold text-gray-900">{{ number_format($trip->price, 2) }} MAD</span>
+                            <span class="text-lg sm:text-xl font-bold text-gray-900">{{ number_format($trip->price, 2) }} MAD</span>
                         </div>
 
                         <p class="text-sm text-gray-600 mb-4">{{ $trip->description }}</p>
 
                         <!-- Trip Details Grid -->
-                        <div class="grid grid-cols-2 gap-2 mb-4">
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-4">
                             <div class="bg-gray-50 p-2 rounded">
                                 <div class="text-xs text-gray-500">Start Date</div>
                                 <div class="text-sm font-medium">{{ $trip->start_date->format('M d, Y') }}</div>
@@ -92,7 +90,7 @@
                         </div>
 
                         <!-- Action Buttons -->
-                        <div class="flex gap-2">
+                        <div class="flex flex-col sm:flex-row gap-2">
                             <a href="{{ route('admin.trips.edit', $trip) }}"
                                class="flex-1 bg-gray-900 text-white px-3 py-2 rounded text-sm text-center hover:bg-gray-800 transition-all">
                                 Edit Trip
@@ -112,9 +110,9 @@
                     @if($trip->hotel)
                     <!-- Hotel Information -->
                     <div class="border-t pt-4">
-                        <div class="flex items-center justify-between mb-3">
+                        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-3">
                             <h3 class="text-base font-semibold">Hotel Information</h3>
-                            <div class="flex items-center space-x-2">
+                            <div class="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-2">
                                 <a href="{{ route('admin.trips.select-hotel', $trip) }}"
                                    class="text-sm text-blue-600 hover:text-blue-800">
                                     Change Hotel
@@ -127,7 +125,7 @@
                         </div>
 
                         <div class="bg-gray-50 rounded p-3">
-                            <div class="flex items-center justify-between mb-2">
+                            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-2">
                                 <div>
                                     <h4 class="text-base font-medium text-gray-900">{{ $trip->hotel->name }}</h4>
                                     <p class="text-xs text-gray-600">{{ $trip->hotel->address }}</p>
@@ -146,7 +144,7 @@
 
                             <p class="text-xs text-gray-600 mb-3">{{ $trip->hotel->description }}</p>
 
-                            <div class="grid grid-cols-2 gap-2">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div>
                                     <h5 class="text-xs font-medium text-gray-900 mb-1">Location</h5>
                                     <p class="text-xs text-gray-600">{{ $trip->hotel->city }}</p>
@@ -187,8 +185,6 @@
                 </div>
             </div>
         </div>
-
-
     </div>
 </div>
 @endsection

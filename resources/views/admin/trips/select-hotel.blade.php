@@ -28,14 +28,14 @@
         <div class="modal-content w-full max-w-lg bg-white rounded-2xl shadow-xl">
             <div class="p-4 border-b border-gray-100">
                 <div class="flex justify-between items-center">
-                    <h2 class="text-xl font-bold text-gray-800">Select Hotel for "{{ $trip->name }}"</h2>
+                    <h2 class="text-lg sm:text-xl font-bold text-gray-800">Select Hotel for "{{ $trip->name }}"</h2>
                     <a href="{{ route('admin.trips.show', $trip) }}" class="text-gray-400 hover:text-gray-500 transition">
                         <i class="fas fa-times"></i>
                     </a>
                 </div>
             </div>
 
-            <div class="p-4">
+            <div class="p-4 sm:p-6">
                 @if(session('success'))
                     <div class="mb-4 p-3 bg-green-50 text-green-700 rounded-lg text-sm">
                         {{ session('success') }}
@@ -78,7 +78,7 @@
                                 <p id="hotel-address" class="text-sm text-gray-600"></p>
                                 <p id="hotel-description" class="text-sm text-gray-600"></p>
 
-                                <div class="grid grid-cols-2 gap-4 mt-4">
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700 mb-1">Check-in Date</label>
                                         <input type="date" name="check_in_date" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent" value="{{ $trip->start_date->format('Y-m-d') }}">
@@ -89,7 +89,7 @@
                                     </div>
                                 </div>
 
-                                <div class="grid grid-cols-2 gap-4 mt-4">
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700 mb-1">Number of Rooms</label>
                                         <input type="number" name="number_of_rooms" min="1" value="1" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent">
@@ -116,13 +116,13 @@
                             </div>
                         </div>
 
-                        <div class="flex justify-end space-x-2 pt-4">
+                        <div class="flex flex-col sm:flex-row justify-end space-y-2 sm:space-y-0 sm:space-x-2 pt-4">
                             <a href="{{ route('admin.trips.show', $trip) }}"
-                               class="px-4 py-2 border border-gray-300 rounded-lg text-sm text-gray-700 hover:bg-gray-50 transition">
+                               class="w-full sm:w-auto px-4 py-2 border border-gray-300 rounded-lg text-sm text-gray-700 hover:bg-gray-50 transition text-center">
                                 Skip Hotel Selection
                             </a>
                             <button type="submit"
-                                    class="px-4 py-2 bg-black text-white text-sm rounded-lg hover:bg-gray-800 transition">
+                                    class="w-full sm:w-auto px-4 py-2 bg-black text-white text-sm rounded-lg hover:bg-gray-800 transition">
                                 Save Hotel Selection
                             </button>
                         </div>
@@ -133,7 +133,7 @@
                     </div>
                     <div class="mt-4 flex justify-end">
                         <a href="{{ route('admin.trips.show', $trip) }}"
-                           class="px-4 py-2 bg-black text-white text-sm rounded-lg hover:bg-gray-800 transition">
+                           class="w-full sm:w-auto px-4 py-2 bg-black text-white text-sm rounded-lg hover:bg-gray-800 transition text-center">
                             Continue to Trip Details
                         </a>
                     </div>
