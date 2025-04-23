@@ -65,10 +65,11 @@
 
                 <div class="bg-white rounded-2xl p-5 flex flex-col">
                     <div class="flex justify-between mb-3">
-                        <div class="bg-gray-100 rounded-md p-2"><i class="fas fa-users text-gray-600"></i></div>
-                        <h2 class="text-2xl font-bold">156</h2>
+                        <div class="bg-gray-100 rounded-md p-2"><i class="fas fa-plane text-gray-600"></i></div>
+                        <h2 class="text-2xl font-bold">{{ $stats['totalTrips']['value'] }}</h2>
                     </div>
-                    <p class="text-sm text-gray-600 mt-1">Active Users</p>
+
+                    <p class="text-sm text-gray-600 mt-1">Total Trips</p>
                 </div>
             </div>
         </div>
