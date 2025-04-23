@@ -23,6 +23,7 @@ class TripController extends Controller
 
     public function show(Trip $trip)
     {
+        $trip->load(['destination', 'hotel.hotelImages']);
         return view('admin.trips.show', compact('trip'));
     }
 
@@ -62,6 +63,19 @@ class TripController extends Controller
             'end_date' => 'sometimes|date|after:start_date',
             'capacity' => 'sometimes|integer|min:1'
         ]);
+
+        // Check if destination has changed
+        if (isset($validated['destination_id']) && $validated['destination_id'] != $trip->destination_id) {
+            // Reset hotel selection
+            $validated['hotel_id'] = null;
+
+            // Update the trip first
+            $trip->update($validated);
+
+            // Redirect to hotel selection page
+            return redirect()->route('admin.trips.select-hotel', $trip)
+                ->with('success', 'Destination changed. Please select a new hotel for the new destination.');
+        }
 
         $trip->update($validated);
         return redirect()->route('admin.trips.show', $trip)

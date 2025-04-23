@@ -67,7 +67,7 @@
                                 <option value="{{ $destination->id }}"
                                     {{ old('destination_id', $trip->destination_id ?? '') == $destination->id ? 'selected' : '' }}
                                     data-city="{{ $destination->city }}">
-                                    {{ $destination->name }}
+                                    {{ $destination->city }}
                                 </option>
                             @endforeach
                         </select>
