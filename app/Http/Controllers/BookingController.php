@@ -111,6 +111,9 @@ class BookingController extends Controller
             'status' => 'completed'
         ]);
 
+        // Add user to the trip's channel
+        $booking->trip->channel->users()->attach(Auth::id());
+
         return redirect()->route('client.dashboard')
             ->with('success', 'Your booking has been confirmed!');
     }

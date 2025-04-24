@@ -19,4 +19,9 @@ class Channel extends Model
     {
         return $this->belongsTo(Trip::class);
     }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
+    }
 }

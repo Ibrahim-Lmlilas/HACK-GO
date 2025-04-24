@@ -88,7 +88,7 @@
                             </div>
                             <div class="bg-gray-50 p-2 rounded">
                                 <div class="text-xs text-gray-500">Duration</div>
-                                <div class="text-sm font-medium">{{ $trip->start_date->diffInDays($trip->end_date) + 1 }} days</div>
+                                <div class="text-sm font-medium">{{ (int)($trip->start_date->diffInDays($trip->end_date) + 1) }} days</div>
                             </div>
                         </div>
 
