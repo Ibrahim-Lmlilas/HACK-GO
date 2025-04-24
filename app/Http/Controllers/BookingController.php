@@ -117,11 +117,27 @@ class BookingController extends Controller
 
     public function cancel(Booking $booking)
     {
+        // Check if user owns this booking
+        if ($booking->user_id !== Auth::id()) {
+            return back()->with('error', 'You are not authorized to cancel this booking.');
+        }
+
+        // Check if booking is already cancelled
+        if ($booking->status === 'cancelled') {
+            return back()->with('error', 'This booking is already cancelled.');
+        }
+
+        // Check if trip starts in more than 2 days
+        $daysUntilTrip = now()->startOfDay()->diffInDays($booking->trip->start_date->startOfDay(), false);
+        if ($daysUntilTrip <= 2) {
+            return back()->with('error', 'Bookings can only be cancelled at least 2 days before the trip starts.');
+        }
+
+        // Cancel the booking
         $booking->update([
             'status' => 'cancelled'
         ]);
 
-        return redirect()->route('client.trips.show', $booking->trip)
-            ->with('error', 'The booking was cancelled.');
+        return back()->with('success', 'Your booking has been cancelled successfully.');
     }
 }

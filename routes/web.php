@@ -64,7 +64,7 @@ Route::middleware(['auth'])->group(function () {
     // Booking routes
     Route::post('/trips/{trip}/checkout', [BookingController::class, 'checkout'])->name('booking.checkout');
     Route::get('/booking/{booking}/success', [BookingController::class, 'success'])->name('booking.success');
-    Route::get('/booking/{booking}/cancel', [BookingController::class, 'cancel'])->name('booking.cancel');
+    Route::put('/booking/{booking}/cancel', [BookingController::class, 'cancel'])->name('booking.cancel');
 });
 
 // Admin routes

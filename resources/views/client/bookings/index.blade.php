@@ -4,6 +4,18 @@
 <div class="container mx-auto px-3 py-4">
     <h1 class="text-xl font-bold mb-4">My Bookings</h1>
 
+    @if(session('success'))
+        <div class="mb-4 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+            <span class="block sm:inline">{{ session('success') }}</span>
+        </div>
+    @endif
+
+    @if(session('error'))
+        <div class="mb-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+            <span class="block sm:inline">{{ session('error') }}</span>
+        </div>
+    @endif
+
     <div class="flex flex-col lg:flex-row gap-4">
         <div class="lg:w-1/3">
             <div class="bg-white rounded-lg shadow p-2 sticky top-4">
@@ -33,8 +45,8 @@
             transition: all 0.3s ease;
             }
             </style>
-            
-            @if(count($bookings) > 0)
+
+            @if($bookings->count() > 0)
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                 @foreach($bookings as $booking)
                 <div class="trip-card bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl relative group">
@@ -77,16 +89,75 @@
 
                     <div class="hidden sm:flex hover-content absolute inset-0 flex-col items-center justify-center text-center p-4">
                         <div class="space-y-2 mb-4">
-                        <a href="{{ route('client.trips.show', $booking->trip) }}"
-                            class="inline-block bg-white text-black px-4 py-2 rounded-full text-xs hover:bg-gray-100 transition">
-                            View Details
-                        </a>
+                            <a href="{{ route('client.trips.show', $booking->trip) }}"
+                                class="inline-block bg-white text-black px-4 py-2 rounded-full text-xs hover:bg-gray-100 transition">
+                                View Details
+                            </a>
+                            @php
+                                $daysUntilTrip = now()->startOfDay()->diffInDays($booking->trip->start_date->startOfDay(), false);
+                                $canCancel = $booking->status !== 'cancelled' && $daysUntilTrip > 2;
+                            @endphp
+                            @if($canCancel)
+                                <form action="{{ route('booking.cancel', $booking) }}" method="POST" class="inline-block mt-2">
+                                    @csrf
+                                    @method('PUT')
+                                    <button type="submit"
+                                        onclick="return confirm('Are you sure you want to cancel this booking? This action cannot be undone.')"
+                                        class="bg-red-500 text-white px-4 py-2 rounded-full text-xs hover:bg-red-600 transition">
+                                        Cancel Booking
+                                    </button>
+                                </form>
+                            @endif
                         </div>
                     </div>
                     </div>
                 </div>
                 </div>
                 @endforeach
+            </div>
+
+            <!-- Pagination -->
+            <div class="mt-6">
+                <div class="flex items-center justify-center">
+                    @if($bookings->hasPages())
+                        <nav role="navigation" aria-label="Pagination Navigation" class="flex justify-between">
+                            {{-- Previous Page Link --}}
+                            @if($bookings->onFirstPage())
+                                <span class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 cursor-default rounded-l-md">
+                                    Previous
+                                </span>
+                            @else
+                                <a href="{{ $bookings->previousPageUrl() }}" rel="prev" class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-l-md hover:bg-gray-50">
+                                    Previous
+                                </a>
+                            @endif
+
+                            {{-- Pagination Elements --}}
+                            @foreach($bookings->getUrlRange(1, $bookings->lastPage()) as $page => $url)
+                                @if($page == $bookings->currentPage())
+                                    <span class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-[#9370db] border border-[#9370db]">
+                                        {{ $page }}
+                                    </span>
+                                @else
+                                    <a href="{{ $url }}" class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 hover:bg-gray-50">
+                                        {{ $page }}
+                                    </a>
+                                @endif
+                            @endforeach
+
+                            {{-- Next Page Link --}}
+                            @if($bookings->hasMorePages())
+                                <a href="{{ $bookings->nextPageUrl() }}" rel="next" class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-r-md hover:bg-gray-50">
+                                    Next
+                                </a>
+                            @else
+                                <span class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 cursor-default rounded-r-md">
+                                    Next
+                                </span>
+                            @endif
+                        </nav>
+                    @endif
+                </div>
             </div>
             @else
             <div class="bg-white rounded-lg shadow p-6 text-center">
