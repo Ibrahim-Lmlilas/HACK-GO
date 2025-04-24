@@ -41,4 +41,9 @@ class Trip extends Model
     {
         return $this->hasMany(Booking::class);
     }
+
+    public function channel()
+    {
+        return $this->hasOne(Channel::class);
+    }
 }

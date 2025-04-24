@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Trip;
 use App\Models\Destination;
+use App\Models\Channel;
 use Illuminate\Http\Request;
 
 class TripController extends Controller
@@ -23,7 +24,7 @@ class TripController extends Controller
 
     public function show(Trip $trip)
     {
-        $trip->load(['destination', 'hotel.hotelImages']);
+        $trip->load(['destination', 'hotel.hotelImages', 'channel']);
         return view('admin.trips.show', compact('trip'));
     }
 
@@ -46,6 +47,13 @@ class TripController extends Controller
         ]);
 
         $trip = Trip::create($validated);
+
+        // Create a channel for the trip
+        Channel::create([
+            'trip_id' => $trip->id,
+            'name' => $trip->name . ' Channel',
+            'description' => 'Channel for ' . $trip->name . ' trip'
+        ]);
 
         // Redirect to hotel selection page instead of trip details
         return redirect()->route('admin.trips.select-hotel', $trip)
