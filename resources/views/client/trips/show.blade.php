@@ -91,10 +91,12 @@
 
                         <!-- Book Now Button -->
                         <div class="flex flex-col sm:flex-row gap-2">
-                            <a href="{{ route('client.trips.book', $trip) }}"
-                               class="flex-1 bg-[#9370db] text-white px-3 py-2 rounded text-sm text-center hover:bg-[#8a6acd] transition-all">
-                                Book Now
-                            </a>
+                            <form action="{{ route('booking.checkout', $trip) }}" method="POST" class="flex-1">
+                                @csrf
+                                <button type="submit" class="w-full bg-[#9370db] text-white px-3 py-2 rounded text-sm text-center hover:bg-[#8a6acd] transition-all">
+                                    Book Now
+                                </button>
+                            </form>
                         </div>
                     </div>
 
