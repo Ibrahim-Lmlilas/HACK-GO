@@ -7,22 +7,32 @@ use App\Models\Booking;
 use Illuminate\Http\Request;
 use Stripe\Stripe;
 use Stripe\Checkout\Session;
+use Illuminate\Support\Facades\Auth;
 
 class BookingController extends Controller
 {
     public function checkout(Trip $trip, Request $request)
     {
+        // Validate number of persons
+        $request->validate([
+            'number_of_persons' => 'required|integer|min:1'
+        ]);
+
+        $numberOfPersons = $request->number_of_persons;
+
         // Check if trip is already fully booked
         $currentBookings = Booking::where('trip_id', $trip->id)
             ->where('status', '!=', 'cancelled')
-            ->count();
+            ->sum('number_of_persons');
 
-        if ($currentBookings >= $trip->capacity) {
-            return back()->with('error', 'Sorry, this trip is fully booked.');
+        $availableSpots = $trip->capacity - $currentBookings;
+
+        if ($availableSpots < $numberOfPersons) {
+            return back()->with('error', "Sorry, only {$availableSpots} spots available for this trip.");
         }
 
         // Check if user already has a booking for this trip
-        $existingBooking = Booking::where('user_id', auth()->id())
+        $existingBooking = Booking::where('user_id', Auth::id())
             ->where('trip_id', $trip->id)
             ->where('status', '!=', 'cancelled')
             ->first();
@@ -32,7 +42,7 @@ class BookingController extends Controller
         }
 
         // Check if user has any overlapping trips
-        $hasOverlappingBooking = Booking::where('user_id', auth()->id())
+        $hasOverlappingBooking = Booking::where('user_id', Auth::id())
             ->where('status', '!=', 'cancelled')
             ->whereHas('trip', function ($query) use ($trip) {
                 $query->where(function ($q) use ($trip) {
@@ -54,13 +64,16 @@ class BookingController extends Controller
         Stripe::setApiKey(config('services.stripe.secret'));
 
         try {
+            // Calculate total amount
+            $totalAmount = $trip->price * $numberOfPersons;
+
             // Create a new booking record
             $booking = Booking::create([
-                'user_id' => auth()->id(),
+                'user_id' => Auth::id(),
                 'trip_id' => $trip->id,
-                'amount' => $trip->price,
+                'amount' => $totalAmount,
                 'status' => 'pending',
-                'number_of_persons' => 1, // You can make this dynamic if needed
+                'number_of_persons' => $numberOfPersons,
             ]);
 
             // Create Stripe Checkout Session
@@ -69,14 +82,14 @@ class BookingController extends Controller
                 'line_items' => [[
                     'price_data' => [
                         'currency' => 'mad',
-                        'unit_amount' => $trip->price * 100, // Stripe expects amounts in cents
+                        'unit_amount' => $trip->price * 100,
                         'product_data' => [
                             'name' => $trip->name,
                             'description' => $trip->description,
                             'images' => [$trip->destination->image_url],
                         ],
                     ],
-                    'quantity' => 1,
+                    'quantity' => $numberOfPersons,
                 ]],
                 'mode' => 'payment',
                 'success_url' => route('booking.success', ['booking' => $booking->id]),

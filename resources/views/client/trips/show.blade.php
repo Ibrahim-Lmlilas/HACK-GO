@@ -132,6 +132,16 @@
                             @else
                                 <form action="{{ route('booking.checkout', $trip) }}" method="POST" class="flex-1">
                                     @csrf
+                                    <div class="mb-3">
+                                        <label for="number_of_persons" class="block text-sm text-gray-600 mb-1">Number of Persons</label>
+                                        <select name="number_of_persons" id="number_of_persons"
+                                                class="w-full rounded border-gray-300 text-sm"
+                                                required>
+                                            @for($i = 1; $i <= min($availableSpots, 10); $i++)
+                                                <option value="{{ $i }}">{{ $i }} {{ $i === 1 ? 'person' : 'persons' }}</option>
+                                            @endfor
+                                        </select>
+                                    </div>
                                     <button type="submit" class="w-full bg-[#9370db] text-white px-3 py-2 rounded text-sm text-center hover:bg-[#8a6acd] transition-all">
                                         Book Now
                                     </button>
