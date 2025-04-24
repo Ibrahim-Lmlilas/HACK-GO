@@ -42,6 +42,9 @@ Route::post('/register', [RegisterController::class, 'register']);
 
 Route::middleware(['auth', UserMiddleware::class])->group(function () {
     Route::get('/dashboard', [ClientDashboardController::class, 'index'])->name('client.dashboard');
+
+    Route::get('/trips/{trip}', [App\Http\Controllers\Client\TripController::class, 'show'])->name('client.trips.show');
+    Route::get('/trips/{trip}/book', [App\Http\Controllers\Client\TripController::class, 'book'])->name('client.trips.book');
 });
 
 // Profile routes
@@ -71,7 +74,6 @@ Route::middleware(['auth', AdminMiddleware::class])->prefix('admin')->group(func
         'destroy' => 'admin.trips.destroy',
     ]);
 
-    // Add routes for hotel selection after trip creation
     Route::get('trips/{trip}/select-hotel', [AdminTripController::class, 'selectHotel'])->name('admin.trips.select-hotel');
     Route::post('trips/{trip}/save-hotel', [AdminTripController::class, 'saveHotel'])->name('admin.trips.save-hotel');
 });
@@ -84,8 +86,6 @@ Route::get('/terms', function () {
     return view('legal.terms');
 })->name('terms');
 
-// Client Routes
-Route::get('/api/destinations/{id}', [DestinationController::class, 'show']);
-Route::get('/api/hotels', [\App\Http\Controllers\HotelController::class, 'getByCity']);
+
 
 
