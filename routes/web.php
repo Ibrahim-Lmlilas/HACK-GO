@@ -13,6 +13,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Client\DashboardController as ClientDashboardController;
 use App\Http\Controllers\Admin\TripController as AdminTripController;
+use App\Http\Controllers\BookingController;
+use App\Http\Controllers\Client\MyBookingsController;
 
 // Rout visitor
 Route::get('/', [DestinationController::class, 'index'])->name('welcome');
@@ -42,6 +44,13 @@ Route::post('/register', [RegisterController::class, 'register']);
 
 Route::middleware(['auth', UserMiddleware::class])->group(function () {
     Route::get('/dashboard', [ClientDashboardController::class, 'index'])->name('client.dashboard');
+
+    Route::get('/trips', [App\Http\Controllers\Client\TripController::class, 'index'])->name('client.trips.index');
+    Route::get('/trips/{trip}', [App\Http\Controllers\Client\TripController::class, 'show'])->name('client.trips.show');
+    Route::get('/trips/{trip}/book', [App\Http\Controllers\Client\TripController::class, 'book'])->name('client.trips.book');
+
+    // Add My Bookings route
+    Route::get('/my-bookings', [MyBookingsController::class, 'index'])->name('client.bookings.index');
 });
 
 // Profile routes
@@ -51,6 +60,11 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::put('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.password');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    // Booking routes
+    Route::post('/trips/{trip}/checkout', [BookingController::class, 'checkout'])->name('booking.checkout');
+    Route::get('/booking/{booking}/success', [BookingController::class, 'success'])->name('booking.success');
+    Route::put('/booking/{booking}/cancel', [BookingController::class, 'cancel'])->name('booking.cancel');
 });
 
 // Admin routes
@@ -71,7 +85,6 @@ Route::middleware(['auth', AdminMiddleware::class])->prefix('admin')->group(func
         'destroy' => 'admin.trips.destroy',
     ]);
 
-    // Add routes for hotel selection after trip creation
     Route::get('trips/{trip}/select-hotel', [AdminTripController::class, 'selectHotel'])->name('admin.trips.select-hotel');
     Route::post('trips/{trip}/save-hotel', [AdminTripController::class, 'saveHotel'])->name('admin.trips.save-hotel');
 });
@@ -84,8 +97,6 @@ Route::get('/terms', function () {
     return view('legal.terms');
 })->name('terms');
 
-// Client Routes
-Route::get('/api/destinations/{id}', [DestinationController::class, 'show']);
-Route::get('/api/hotels', [\App\Http\Controllers\HotelController::class, 'getByCity']);
+
 
 

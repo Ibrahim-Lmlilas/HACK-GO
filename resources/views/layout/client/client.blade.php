@@ -7,6 +7,18 @@
     <title>{{ config('app.name', 'HACK&GO') }} - Client</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.17/index.global.min.js'></script>
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function() {
+          var calendarEl = document.getElementById('calendar');
+          var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth'
+          });
+          calendar.render();
+        });
+
+      </script>
     <script>
         tailwind.config = {
             theme: {
@@ -110,7 +122,7 @@
         <!-- Sidebar container with z-index -->
         <div class="sidebar-container">
             <!-- Sidebar -->
-            <div class="sidebar bg-[#92472B] text-white flex flex-col items-start py-6 relative">
+            <div class="sidebar bg-[#92472B] text-white flex flex-col items-start py-6 ">
                 <div class="flex items-center justify-center mb-6">
                     <a href="#" class="transition-transform duration-300 hover:scale-125">
                         <svg width="60"  height="60" viewBox="0 0 117 110" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -130,18 +142,16 @@
                         <i class="fas fa-home ml-2.5"></i>
                         <span class="sidebar-content">Dashboard</span>
                     </a>
-                    <a href="/client/my-trips" class="sidebar-link">
-                        <i class="fas fa-suitcase ml-2.5"></i>
-                        <span class="sidebar-content">My Trips</span>
+                    <a href="{{ route('client.trips.index') }}" class="sidebar-link">
+                        <i class="fas fa-plane ml-2.5"></i>
+                        <span class="sidebar-content">Trips</span>
                     </a>
-                    <a href="/client/my-bookings" class="sidebar-link">
-                        <i class="fas fa-ticket-alt ml-2.5"></i>
+                    
+                    <a href="{{ route('client.bookings.index') }}" class="sidebar-link">
+                        <i class="fas fa-suitcase ml-2.5"></i>
                         <span class="sidebar-content">My Bookings</span>
                     </a>
-                    <a href="/client/explore" class="sidebar-link">
-                        <i class="fas fa-compass ml-2.5"></i>
-                        <span class="sidebar-content">Explore</span>
-                    </a>
+
                     <a href="/client/chat" class="sidebar-link">
                         <i class="fas fa-comments ml-2.5"></i>
                         <span class="sidebar-content">Messages</span>
@@ -150,7 +160,7 @@
                         <i class="fas fa-users ml-2.5"></i>
                         <span class="sidebar-content">Travel Buddies</span>
                     </a>
-                    
+
                 </div>
                 <!-- Logout button at bottom of sidebar -->
                 <div class="mt-auto pt-4 absolute bottom-6 left-0 right-0 px-2">
