@@ -1,6 +1,9 @@
 @extends('layout.admin.admin')
 
 @section('content')
+<!-- Leaflet CSS & JS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 @extends('partials.profile.Profile_Information')
 @extends('partials.profile.Edit_Profile')
 
@@ -35,11 +38,11 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 w-full md:w-1/2">
                 <div class="bg-white rounded-2xl p-5 flex flex-col">
                     <div class="flex justify-between mb-3">
-                        <div class="bg-gray-100 rounded-md p-2"><i class="fas fa-calendar-check text-gray-600"></i></div>
-                        <h2 class="text-2xl font-bold">89</h2>
+                        <div class="bg-gray-100 rounded-md p-2"><i class="fas fa-hotel text-gray-600"></i></div>
+                        <h2 class="text-2xl font-bold">{{ count($hotels) }}</h2>
                     </div>
 
-                    <p class="text-sm text-gray-600 mt-1">Total Bookings</p>
+                    <p class="text-sm text-gray-600 mt-1">Total Hotels</p>
                 </div>
 
                 <div class="bg-white rounded-2xl p-5 flex flex-col">
@@ -53,19 +56,104 @@
 
                 <div class="bg-white rounded-2xl p-5 flex flex-col">
                     <div class="flex justify-between mb-3">
-                        <div class="bg-gray-100 rounded-md p-2"><i class="fas fa-plane text-gray-600"></i></div>
-                        <h2 class="text-2xl font-bold">24</h2>                    </div>
+                        <div class="bg-gray-100 rounded-md p-2"><i class="fas fa-user text-gray-600"></i></div>
+                        <h2 class="text-2xl font-bold">{{ $stats['totalUsers']['value'] }}</h2>
+                    </div>
 
-                    <p class="text-sm text-gray-600 mt-1">Total Trips</p>
+                    <p class="text-sm text-gray-600 mt-1">Total Users</p>
                 </div>
 
                 <div class="bg-white rounded-2xl p-5 flex flex-col">
                     <div class="flex justify-between mb-3">
-                        <div class="bg-gray-100 rounded-md p-2"><i class="fas fa-users text-gray-600"></i></div>
-                        <h2 class="text-2xl font-bold">156</h2>
+                        <div class="bg-gray-100 rounded-md p-2"><i class="fas fa-plane text-gray-600"></i></div>
+                        <h2 class="text-2xl font-bold">{{ $stats['totalTrips']['value'] }}</h2>
                     </div>
-                    <p class="text-sm text-gray-600 mt-1">Active Users</p>
+
+                    <p class="text-sm text-gray-600 mt-1">Total Trips</p>
                 </div>
+            </div>
+        </div>
+        <div class="bg-white rounded-2xl p-4">
+            <div class="overflow-x-auto">
+            <table class="min-w-full table-auto text-sm">
+                <thead class="bg-gray-50">
+                <tr>
+                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Hotel</th>
+                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Location</th>
+                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Details</th>
+                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Rating</th>
+                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider ">Map</th>
+                </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                @foreach($hotels as $hotel)
+                <tr class="hover:bg-gray-50">
+                    <td class="px-4 py-3 whitespace-nowrap">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0 h-12 w-12">
+                        <img class="h-12 w-12 rounded-lg object-cover" src="{{ $hotel->image_url }}" alt="{{ $hotel->name }}">
+                        </div>
+                        <div class="ml-3">
+                        <div class="text-xs font-medium text-gray-900">{{ $hotel->name }}</div>
+                        </div>
+                    </div>
+                    </td>
+                    <td class="px-4 py-3 whitespace-nowrap">
+                    <div class="text-xs text-gray-900">{{ $hotel->city }}</div>
+                    </td>
+                    <td class="px-4 py-3 whitespace-nowrap">
+                    <div class="flex items-center space-x-3">
+                        <span class="text-xs text-gray-600 font-medium">{{ number_format($hotel->price_mad, 2) }} MAD</span>
+                    </div>
+                    </td>
+                    <td class="px-4 py-3 whitespace-nowrap">
+                    <div class="flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-yellow-400" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                        <span class="ml-1 text-xs text-gray-600">{{ number_format($hotel->rating ?? 0, 1) }}</span>
+                    </div>
+                    </td>
+                    <td class="px-2 py-3 whitespace-nowrap ">
+                        @if($hotel->latitude && $hotel->longitude)
+                            <div id="map-{{ $hotel->id }}" style="height: 65px; width: 120px;"></div>
+                            <script>
+                                document.addEventListener('DOMContentLoaded', function() {
+                                    var map = L.map('map-{{ $hotel->id }}', {
+                                        center: [{{ $hotel->latitude }}, {{ $hotel->longitude }}],
+                                        zoom: 13,
+                                        zoomControl: false,
+                                        attributionControl: false,
+                                        dragging: true,
+                                        scrollWheelZoom: true,
+                                        doubleClickZoom: false,
+                                        boxZoom: true,
+                                        keyboard: false,
+                                        tap: false,
+                                    });
+                                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                                        maxZoom: 19,
+                                    }).addTo(map);
+
+                                    var redIcon = L.divIcon({
+                                        html: '<i class="fas fa-map-marker-alt text-red-600" style="font-size: 20px;"></i>',
+                                        className: 'custom-div-icon',
+                                        iconSize: [20, 20],
+                                        iconAnchor: [10, 10]
+                                    });
+
+                                    L.marker([{{ $hotel->latitude }}, {{ $hotel->longitude }}], {icon: redIcon}).addTo(map)
+                                        .bindPopup('{{ $hotel->name }}');
+                                });
+                            </script>
+                        @else
+                            <span class="text-xs text-gray-400">No location</span>
+                        @endif
+                    </td>
+                </tr>
+                @endforeach
+                </tbody>
+            </table>
             </div>
         </div>
     </div>

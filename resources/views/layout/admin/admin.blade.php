@@ -103,14 +103,14 @@
 <body class="bg-gray-100">
     <div class="flex h-screen">
         <!-- Mobile menu button -->
-        <button class="lg:hidden fixed top-4 left-4 z-20 p-2 rounded-md bg-[#92472B] text-white" onclick="toggleSidebar()">
+        <button class="lg:hidden fixed top-4 left-4 z-50 p-2 rounded-md bg-[#92472B] text-white shadow-lg" onclick="toggleSidebar()">
             <i class="fas fa-bars"></i>
         </button>
 
         <!-- Sidebar container with z-index -->
-        <div class="sidebar-container">
+        <div class="sidebar-container ">
             <!-- Sidebar -->
-            <div class="sidebar bg-[#92472B] text-white flex flex-col items-start py-6 relative">
+            <div class="sidebar bg-[#92472B] text-white flex flex-col items-start py-6 ">
                 <div class="flex items-center justify-center mb-6">
                     <a href="#" class="transition-transform duration-300 hover:scale-125">
                         <svg width="60"  height="60" viewBox="0 0 117 110" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -134,9 +134,9 @@
                         <i class="fas fa-users ml-2.5"></i>
                         <span class="sidebar-content">User Management</span>
                     </a>
-                    <a href="" class="sidebar-link">
+                    <a href="{{ route('admin.trips') }}" class="sidebar-link">
                         <i class="fas fa-plane ml-2.5"></i>
-                        <span class="sidebar-content">Activities</span>
+                        <span class="sidebar-content">Trips</span>
                     </a>
                     <a href="" class="sidebar-link">
                         <i class="fas fa-calendar-check ml-2.5"></i>

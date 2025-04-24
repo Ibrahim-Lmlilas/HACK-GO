@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CalendarController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\DestinationController;
 use \App\Http\Middleware\UserMiddleware as UserMiddleware;
@@ -11,7 +12,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Client\DashboardController as ClientDashboardController;
-
+use App\Http\Controllers\Admin\TripController as AdminTripController;
 
 // Rout visitor
 Route::get('/', [DestinationController::class, 'index'])->name('welcome');
@@ -55,11 +56,24 @@ Route::middleware(['auth'])->group(function () {
 // Admin routes
 Route::middleware(['auth', AdminMiddleware::class])->prefix('admin')->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
-    Route::get('calendar', [App\Http\Controllers\Admin\CalendarController::class, 'getCalendar'])->name('admin.calendar');
+    Route::get('calendar', [CalendarController::class, 'getCalendar'])->name('admin.calendar');
 
-    // Fix: Remove the extra /admin/ from the paths
     Route::get('users', [UserController::class, 'index'])->name('admin.users');
     Route::delete('users/{id}', [UserController::class, 'destroy'])->name('admin.users.destroy');
+
+    Route::resource('trips', AdminTripController::class)->names([
+        'index' => 'admin.trips',
+        'create' => 'admin.trips.create',
+        'store' => 'admin.trips.store',
+        'show' => 'admin.trips.show',
+        'edit' => 'admin.trips.edit',
+        'update' => 'admin.trips.update',
+        'destroy' => 'admin.trips.destroy',
+    ]);
+
+    // Add routes for hotel selection after trip creation
+    Route::get('trips/{trip}/select-hotel', [AdminTripController::class, 'selectHotel'])->name('admin.trips.select-hotel');
+    Route::post('trips/{trip}/save-hotel', [AdminTripController::class, 'saveHotel'])->name('admin.trips.save-hotel');
 });
 
 Route::get('/privacy', function () {
@@ -72,5 +86,6 @@ Route::get('/terms', function () {
 
 // Client Routes
 Route::get('/api/destinations/{id}', [DestinationController::class, 'show']);
+Route::get('/api/hotels', [\App\Http\Controllers\HotelController::class, 'getByCity']);
 
 
