@@ -12,6 +12,44 @@ class BookingController extends Controller
 {
     public function checkout(Trip $trip, Request $request)
     {
+        // Check if trip is already fully booked
+        $currentBookings = Booking::where('trip_id', $trip->id)
+            ->where('status', '!=', 'cancelled')
+            ->count();
+
+        if ($currentBookings >= $trip->capacity) {
+            return back()->with('error', 'Sorry, this trip is fully booked.');
+        }
+
+        // Check if user already has a booking for this trip
+        $existingBooking = Booking::where('user_id', auth()->id())
+            ->where('trip_id', $trip->id)
+            ->where('status', '!=', 'cancelled')
+            ->first();
+
+        if ($existingBooking) {
+            return back()->with('error', 'You already have a booking for this trip.');
+        }
+
+        // Check if user has any overlapping trips
+        $hasOverlappingBooking = Booking::where('user_id', auth()->id())
+            ->where('status', '!=', 'cancelled')
+            ->whereHas('trip', function ($query) use ($trip) {
+                $query->where(function ($q) use ($trip) {
+                    $q->whereBetween('start_date', [$trip->start_date, $trip->end_date])
+                        ->orWhereBetween('end_date', [$trip->start_date, $trip->end_date])
+                        ->orWhere(function ($q) use ($trip) {
+                            $q->where('start_date', '<=', $trip->start_date)
+                                ->where('end_date', '>=', $trip->end_date);
+                        });
+                });
+            })
+            ->exists();
+
+        if ($hasOverlappingBooking) {
+            return back()->with('error', 'You already have a booking that overlaps with these dates.');
+        }
+
         // Set your Stripe secret key
         Stripe::setApiKey(config('services.stripe.secret'));
 

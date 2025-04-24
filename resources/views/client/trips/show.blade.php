@@ -81,7 +81,13 @@
                             </div>
                             <div class="bg-gray-50 p-2 rounded">
                                 <div class="text-xs text-gray-500">Capacity</div>
-                                <div class="text-sm font-medium">{{ $trip->capacity }} persons</div>
+                                <div class="text-sm font-medium">
+                                    @php
+                                        $currentBookings = $trip->bookings->where('status', '!=', 'cancelled')->count();
+                                        $availableSpots = max(0, $trip->capacity - $currentBookings);
+                                    @endphp
+                                    {{ $availableSpots }} spots available
+                                </div>
                             </div>
                             <div class="bg-gray-50 p-2 rounded">
                                 <div class="text-xs text-gray-500">Duration</div>
@@ -91,12 +97,46 @@
 
                         <!-- Book Now Button -->
                         <div class="flex flex-col sm:flex-row gap-2">
-                            <form action="{{ route('booking.checkout', $trip) }}" method="POST" class="flex-1">
-                                @csrf
-                                <button type="submit" class="w-full bg-[#9370db] text-white px-3 py-2 rounded text-sm text-center hover:bg-[#8a6acd] transition-all">
-                                    Book Now
+                            @php
+                                $userHasBooking = $trip->bookings->where('user_id', auth()->id())
+                                    ->where('status', '!=', 'cancelled')
+                                    ->isNotEmpty();
+
+                                $hasOverlappingBooking = auth()->user()->bookings()
+                                    ->where('status', '!=', 'cancelled')
+                                    ->whereHas('trip', function ($query) use ($trip) {
+                                        $query->where(function ($q) use ($trip) {
+                                            $q->whereBetween('start_date', [$trip->start_date, $trip->end_date])
+                                                ->orWhereBetween('end_date', [$trip->start_date, $trip->end_date])
+                                                ->orWhere(function ($q) use ($trip) {
+                                                    $q->where('start_date', '<=', $trip->start_date)
+                                                        ->where('end_date', '>=', $trip->end_date);
+                                                });
+                                        });
+                                    })
+                                    ->exists();
+                            @endphp
+
+                            @if($availableSpots === 0)
+                                <button disabled class="flex-1 bg-gray-400 text-white px-3 py-2 rounded text-sm text-center cursor-not-allowed">
+                                    Fully Booked
                                 </button>
-                            </form>
+                            @elseif($userHasBooking)
+                                <button disabled class="flex-1 bg-gray-400 text-white px-3 py-2 rounded text-sm text-center cursor-not-allowed">
+                                    Already Booked
+                                </button>
+                            @elseif($hasOverlappingBooking)
+                                <button disabled class="flex-1 bg-gray-400 text-white px-3 py-2 rounded text-sm text-center cursor-not-allowed">
+                                    You have another trip during these dates
+                                </button>
+                            @else
+                                <form action="{{ route('booking.checkout', $trip) }}" method="POST" class="flex-1">
+                                    @csrf
+                                    <button type="submit" class="w-full bg-[#9370db] text-white px-3 py-2 rounded text-sm text-center hover:bg-[#8a6acd] transition-all">
+                                        Book Now
+                                    </button>
+                                </form>
+                            @endif
                         </div>
                     </div>
 
