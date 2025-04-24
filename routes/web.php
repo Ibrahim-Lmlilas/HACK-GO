@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Client\DashboardController as ClientDashboardController;
 use App\Http\Controllers\Admin\TripController as AdminTripController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\Client\MyBookingsController;
 
 // Rout visitor
 Route::get('/', [DestinationController::class, 'index'])->name('welcome');
@@ -47,6 +48,9 @@ Route::middleware(['auth', UserMiddleware::class])->group(function () {
     Route::get('/trips', [App\Http\Controllers\Client\TripController::class, 'index'])->name('client.trips.index');
     Route::get('/trips/{trip}', [App\Http\Controllers\Client\TripController::class, 'show'])->name('client.trips.show');
     Route::get('/trips/{trip}/book', [App\Http\Controllers\Client\TripController::class, 'book'])->name('client.trips.book');
+
+    // Add My Bookings route
+    Route::get('/my-bookings', [MyBookingsController::class, 'index'])->name('client.bookings.index');
 });
 
 // Profile routes

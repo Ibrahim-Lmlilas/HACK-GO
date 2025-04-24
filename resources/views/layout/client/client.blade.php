@@ -7,6 +7,18 @@
     <title>{{ config('app.name', 'HACK&GO') }} - Client</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.17/index.global.min.js'></script>
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function() {
+          var calendarEl = document.getElementById('calendar');
+          var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth'
+          });
+          calendar.render();
+        });
+
+      </script>
     <script>
         tailwind.config = {
             theme: {
@@ -134,18 +146,12 @@
                         <i class="fas fa-plane ml-2.5"></i>
                         <span class="sidebar-content">Trips</span>
                     </a>
-                    <a href="/client/my-trips" class="sidebar-link">
+                    
+                    <a href="{{ route('client.bookings.index') }}" class="sidebar-link">
                         <i class="fas fa-suitcase ml-2.5"></i>
-                        <span class="sidebar-content">My Trips</span>
-                    </a>
-                    <a href="/client/my-bookings" class="sidebar-link">
-                        <i class="fas fa-ticket-alt ml-2.5"></i>
                         <span class="sidebar-content">My Bookings</span>
                     </a>
-                    <a href="/client/explore" class="sidebar-link">
-                        <i class="fas fa-compass ml-2.5"></i>
-                        <span class="sidebar-content">Explore</span>
-                    </a>
+
                     <a href="/client/chat" class="sidebar-link">
                         <i class="fas fa-comments ml-2.5"></i>
                         <span class="sidebar-content">Messages</span>
