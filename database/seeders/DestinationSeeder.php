@@ -31,7 +31,6 @@ class DestinationSeeder extends Seeder
             ['Midelt', 'Jbel Ayachi View', 4.2, 'https://happytrip.ma/wp-content/uploads/2022/01/Sommet-Jbel-Ayachi-gorges-jaafar-randonnee-happy-trip-voyage--960x1149.jpg'],
             ['Khouribga', 'Oued Srou', 4.0, 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/10/2c/65/67/lac-de-la-ville-de-oued.jpg?w=2000&h=800&s=1'],
             ['Beni Mellal', 'Ain Asserdoun', 4.5, 'https://www.mapexpress.ma/wp-content/uploads/2019/05/Ain-Asserdoun-M.jpg'],
-            ['Azilal', 'Ouzoud Falls', 4.7, 'https://www.feelmorocco.travel/wp-content/uploads/2020/06/Ouzoud-waterfalls-in-Marrakech.-Ouzoud-Falls.jpg'],
             ['Zagora', 'Draa Valley', 4.3, 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2a/82/08/4e/vallee-du-draa-maroc.jpg?w=1400&h=700&s=1'],
             ['Saidia', 'Saidia Beach', 4.4, 'https://www.toulouse.aeroport.fr/sites/default/files/styles/atb_xlarge/public/jpg/Maroc-oujda-SAIDIA_mxl.jpg?itok=ASkH6K_U']
         ];
