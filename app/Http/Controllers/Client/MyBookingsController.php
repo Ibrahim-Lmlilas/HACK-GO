@@ -21,10 +21,14 @@ class MyBookingsController extends Controller
                 'id' => $booking->id,
                 'title' => $booking->trip->name,
                 'start' => $booking->trip->start_date->format('Y-m-d'),
-                'end' => $booking->trip->end_date->format('Y-m-d'),
-                'backgroundColor' => '#3490dc', // Blue color for booked trips
-                'borderColor' => '#3490dc',
-                'url' => route('client.trips.show', $booking->trip),
+                'end' => $booking->trip->end_date->addDay()->format('Y-m-d'),
+                'backgroundColor' => '#3490dc',
+                'borderColor' => '#2779bd',
+                'textColor' => 'white',
+                'allDay' => true,
+                'extendedProps' => [
+                    'status' => $booking->status
+                ]
             ];
         });
 

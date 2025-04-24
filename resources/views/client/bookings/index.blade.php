@@ -1,6 +1,8 @@
 @extends('layout.client.client')
 
 @section('content')
+@extends('partials.profile.Profile_Information')
+@extends('partials.profile.Edit_Profile')
 <div class="container mx-auto px-3 py-4">
     <h1 class="text-xl font-bold mb-4">My Bookings</h1>
 
@@ -194,8 +196,17 @@
     padding: 2px 4px !important;
 }
 .fc .fc-daygrid-event {
-    padding: 1px 3px !important;
+    padding: 2px 4px !important;
     font-size: 0.7rem !important;
+    border-radius: 3px !important;
+    margin-top: 1px !important;
+    margin-bottom: 1px !important;
+}
+.fc .fc-day-today {
+    background: rgba(147, 112, 219, 0.1) !important;
+}
+.fc .fc-event-title {
+    font-weight: normal !important;
 }
 </style>
 @endpush
@@ -215,9 +226,14 @@ document.addEventListener('DOMContentLoaded', function() {
             right: 'next'
         },
         height: 'auto',
-        contentHeight: 300,
-        dayMaxEvents: 1,
-        displayEventTime: false
+        contentHeight: 200,
+        displayEventTime: false,
+        eventDidMount: function(info) {
+            if (info.event.extendedProps.status === 'cancelled') {
+                info.el.style.opacity = '0.5';
+                info.el.style.textDecoration = 'line-through';
+            }
+        }
     });
     calendar.render();
 });

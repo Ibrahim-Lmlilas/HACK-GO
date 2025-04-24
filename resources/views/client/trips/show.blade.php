@@ -1,6 +1,7 @@
 @extends('layout.client.client')
 
 @section('content')
+
 <div class="bg-gray-100 py-4">
     <!-- Lightbox Modal -->
     <div id="lightbox-modal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-75 flex items-center justify-center p-4">

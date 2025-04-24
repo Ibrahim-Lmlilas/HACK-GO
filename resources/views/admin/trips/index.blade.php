@@ -1,6 +1,8 @@
 @extends('layout.admin.admin')
 
 @section('content')
+@extends('partials.profile.Profile_Information')
+@extends('partials.profile.Edit_Profile')
 
 
 <style>

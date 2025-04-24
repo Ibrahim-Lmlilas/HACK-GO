@@ -1,6 +1,8 @@
 @extends('layout.client.client')
 
 @section('content')
+@extends('partials.profile.Profile_Information')
+@extends('partials.profile.Edit_Profile')
 <style>
 .trip-card {
     transition: all 0.3s ease;
