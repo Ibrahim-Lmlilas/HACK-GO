@@ -136,6 +136,9 @@ class BookingController extends Controller
             return back()->with('error', 'Bookings can only be cancelled at least 2 days before the trip starts.');
         }
 
+        // Remove user from the trip's channel
+        $booking->trip->channel->users()->detach(Auth::id());
+
         // Cancel the booking
         $booking->update([
             'status' => 'cancelled'
