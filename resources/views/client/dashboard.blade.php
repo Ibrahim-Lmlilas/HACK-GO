@@ -4,8 +4,8 @@
 @extends('partials.profile.Profile_Information')
 @extends('partials.profile.Edit_Profile')
 
-<div class="flex flex-col lg:flex-row gap-6">
-    <div class="flex-1 space-y-6">
+<div class="flex flex-col lg:flex-row gap-4">
+    <div class="flex-1 space-y-3">
         <div class="flex flex-col md:flex-row gap-5">
             <!-- destination chart-->
             <div class="relative h-64 w-full md:w-1/2 bg-white rounded-2xl p-5">
@@ -70,7 +70,7 @@
                 }
             </style>
 
-            <div class="grid grid-cols-3 gap-4 sm:gap-6">
+            <div class="grid grid-cols-3 gap-2 sm:gap-6 ">
                 @foreach($trips as $trip)
                 <div class="trip-card bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl relative group w-full">
                     <div class="relative h-[200px] sm:h-[280px]">

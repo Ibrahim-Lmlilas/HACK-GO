@@ -43,6 +43,7 @@ Route::post('/register', [RegisterController::class, 'register']);
 Route::middleware(['auth', UserMiddleware::class])->group(function () {
     Route::get('/dashboard', [ClientDashboardController::class, 'index'])->name('client.dashboard');
 
+    Route::get('/trips', [App\Http\Controllers\Client\TripController::class, 'index'])->name('client.trips.index');
     Route::get('/trips/{trip}', [App\Http\Controllers\Client\TripController::class, 'show'])->name('client.trips.show');
     Route::get('/trips/{trip}/book', [App\Http\Controllers\Client\TripController::class, 'book'])->name('client.trips.book');
 });

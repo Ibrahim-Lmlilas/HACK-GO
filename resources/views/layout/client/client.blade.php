@@ -130,6 +130,10 @@
                         <i class="fas fa-home ml-2.5"></i>
                         <span class="sidebar-content">Dashboard</span>
                     </a>
+                    <a href="{{ route('client.trips.index') }}" class="sidebar-link">
+                        <i class="fas fa-plane ml-2.5"></i>
+                        <span class="sidebar-content">Trips</span>
+                    </a>
                     <a href="/client/my-trips" class="sidebar-link">
                         <i class="fas fa-suitcase ml-2.5"></i>
                         <span class="sidebar-content">My Trips</span>
@@ -150,7 +154,7 @@
                         <i class="fas fa-users ml-2.5"></i>
                         <span class="sidebar-content">Travel Buddies</span>
                     </a>
-                    
+
                 </div>
                 <!-- Logout button at bottom of sidebar -->
                 <div class="mt-auto pt-4 absolute bottom-6 left-0 right-0 px-2">
