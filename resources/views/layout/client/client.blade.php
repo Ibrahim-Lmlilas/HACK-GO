@@ -110,7 +110,7 @@
         <!-- Sidebar container with z-index -->
         <div class="sidebar-container">
             <!-- Sidebar -->
-            <div class="sidebar bg-[#92472B] text-white flex flex-col items-start py-6 relative">
+            <div class="sidebar bg-[#92472B] text-white flex flex-col items-start py-6 ">
                 <div class="flex items-center justify-center mb-6">
                     <a href="#" class="transition-transform duration-300 hover:scale-125">
                         <svg width="60"  height="60" viewBox="0 0 117 110" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">

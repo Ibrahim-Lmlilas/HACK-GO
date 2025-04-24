@@ -12,7 +12,7 @@ class TripController extends Controller
     {
         $trips = Trip::with(['destination', 'hotel.hotelImages'])
             ->orderBy('start_date', 'desc')
-            ->get();
+            ->paginate(10);
 
         return view('client.trips.index', compact('trips'));
     }
@@ -25,7 +25,6 @@ class TripController extends Controller
 
     public function book(Trip $trip)
     {
-        // TODO: Implement booking functionality
         return redirect()->back()->with('success', 'Booking functionality coming soon!');
     }
 }

@@ -70,7 +70,7 @@
                 }
             </style>
 
-            <div class="grid grid-cols-3 gap-2 sm:gap-6 ">
+            <div class="grid grid-cols-1 md:grid-cols-3  gap-2 sm:gap-6 ">
                 @foreach($trips as $trip)
                 <div class="trip-card bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl relative group w-full">
                     <div class="relative h-[200px] sm:h-[280px]">

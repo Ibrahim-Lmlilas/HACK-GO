@@ -90,6 +90,11 @@
                 </div>
                 @endforeach
             </div>
+
+            <!-- Pagination -->
+            <div class="mt-8">
+                {{ $trips->links() }}
+            </div>
         </div>
     </div>
 </div>
