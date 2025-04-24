@@ -12,64 +12,86 @@
         </div>
 
         <div class="lg:w-2/3">
+            <style>
+            .trip-card {
+            transition: all 0.3s ease;
+            }
+            .trip-card:hover .hover-content {
+            opacity: 1;
+            transform: translateY(0);
+            }
+            .hover-content {
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            }
+            .trip-card:hover .card-info {
+            opacity: 0;
+            transform: translateY(-10px);
+            }
+            .card-info {
+            transition: all 0.3s ease;
+            }
+            </style>
+            
             @if(count($bookings) > 0)
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-                    @foreach($bookings as $booking)
-                    <div class="trip-card bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl relative group">
-                        <div class="relative h-[200px]">
-                            <img src="{{ $booking->trip->destination->image_url }}" alt="{{ $booking->trip->name }}"
-                                class="w-full h-full object-cover">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+                @foreach($bookings as $booking)
+                <div class="trip-card bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl relative group">
+                <div class="relative h-[200px]">
+                    <img src="{{ $booking->trip->destination->image_url }}" alt="{{ $booking->trip->name }}"
+                    class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
 
-                            <div class="absolute top-3 right-3 z-10 block sm:hidden">
-                                <a href="{{ route('client.trips.show', $booking->trip) }}"
-                                    class="inline-block bg-white text-black px-3 py-1.5 text-[10px] rounded-full hover:bg-gray-100 transition shadow-sm">
-                                    View Details
-                                </a>
-                            </div>
+                    <div class="absolute top-3 right-3 z-10 block sm:hidden">
+                    <a href="{{ route('client.trips.show', $booking->trip) }}"
+                        class="inline-block bg-white text-black px-3 py-1.5 text-[10px] rounded-full hover:bg-gray-100 transition shadow-sm">
+                        View Details
+                    </a>
+                    </div>
 
-                            <div class="absolute bottom-0 left-0 right-0 p-4 text-white">
-                                <div class="card-info">
-                                    <h5 class="text-base sm:text-lg font-bold mb-1 line-clamp-1">{{ $booking->trip->name }}</h5>
-                                    <p class="text-xs sm:text-sm opacity-90 mb-1 line-clamp-1">
-                                        <span class="inline-block px-2 py-0.5 rounded-full text-xs font-medium
-                                            @if($booking->status === 'completed') bg-green-100 text-green-800
-                                            @elseif($booking->status === 'pending') bg-yellow-100 text-yellow-800
-                                            @else bg-red-100 text-red-800
-                                            @endif">
-                                            {{ ucfirst($booking->status) }}
-                                        </span>
-                                    </p>
+                    <div class="absolute bottom-0 left-0 right-0 p-4 text-white">
+                    <div class="card-info">
+                        <h5 class="text-base sm:text-lg font-bold mb-1 line-clamp-1">{{ $booking->trip->name }}</h5>
+                        <p class="text-xs sm:text-sm opacity-90 mb-1 line-clamp-1">
+                        <span class="inline-block px-2 py-0.5 rounded-full text-xs font-medium
+                            @if($booking->status === 'completed') bg-green-100 text-green-800
+                            @elseif($booking->status === 'pending') bg-yellow-100 text-yellow-800
+                            @else bg-red-100 text-red-800
+                            @endif">
+                            {{ ucfirst($booking->status) }}
+                        </span>
+                        </p>
 
-                                    <div class="flex items-center justify-between">
-                                        <div class="flex items-center">
-                                            <i class="fas fa-calendar-alt mr-2 text-xs"></i>
-                                            <span class="text-xs">{{ $booking->trip->start_date->format('M d, Y') }}</span>
-                                        </div>
-                                        <div class="flex items-center">
-                                            <span class="text-sm font-bold">{{ number_format($booking->amount, 2) }}</span>
-                                            <span class="text-xs ml-1">MAD</span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="hidden sm:flex hover-content opacity-0 transform translate-y-10 absolute inset-0 flex-col items-center justify-center text-center p-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
-                                    <div class="space-y-2 mb-4">
-                                        <a href="{{ route('client.trips.show', $booking->trip) }}"
-                                            class="inline-block bg-white text-black px-4 py-2 rounded-full text-xs hover:bg-gray-100 transition">
-                                            View Details
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <i class="fas fa-calendar-alt mr-2 text-xs"></i>
+                            <span class="text-xs">{{ $booking->trip->start_date->format('M d, Y') }}</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="text-sm font-bold">{{ number_format($booking->amount, 2) }}</span>
+                            <span class="text-xs ml-1">MAD</span>
+                        </div>
                         </div>
                     </div>
-                    @endforeach
+
+                    <div class="hidden sm:flex hover-content absolute inset-0 flex-col items-center justify-center text-center p-4">
+                        <div class="space-y-2 mb-4">
+                        <a href="{{ route('client.trips.show', $booking->trip) }}"
+                            class="inline-block bg-white text-black px-4 py-2 rounded-full text-xs hover:bg-gray-100 transition">
+                            View Details
+                        </a>
+                        </div>
+                    </div>
+                    </div>
                 </div>
+                </div>
+                @endforeach
+            </div>
             @else
-                <div class="bg-white rounded-lg shadow p-6 text-center">
-                    <p class="text-gray-600 text-sm">You don't have any bookings yet.</p>
-                </div>
+            <div class="bg-white rounded-lg shadow p-6 text-center">
+                <p class="text-gray-600 text-sm">You don't have any bookings yet.</p>
+            </div>
             @endif
         </div>
     </div>
