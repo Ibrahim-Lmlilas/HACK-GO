@@ -163,6 +163,15 @@ class BookingController extends Controller
             'status' => 'cancelled'
         ]);
 
+        // Create notification for admin about the cancellation
+        Notification::create([
+            'user_id' => Auth::id(),
+            'type' => 'booking_cancelled',
+            'trip_id' => $booking->trip_id,
+            'message' => Auth::user()->name . " has cancelled their booking for trip {$booking->trip->name}",
+            'is_for_admin' => true
+        ]);
+
         return back()->with('success', 'Your booking has been cancelled successfully.');
     }
 }
