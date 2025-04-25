@@ -55,6 +55,10 @@ Route::middleware(['auth', UserMiddleware::class])->group(function () {
 
     // Add Channels route
     Route::get('/client/chat', [ChannelController::class, 'index'])->name('client.chat');
+
+    // Add Chat routes
+    Route::get('/client/chat/{channel}', [App\Http\Controllers\Client\ChatController::class, 'show'])->name('client.chat.show');
+    Route::post('/client/chat/{channel}', [App\Http\Controllers\Client\ChatController::class, 'store'])->name('client.chat.store');
 });
 
 // Profile routes
