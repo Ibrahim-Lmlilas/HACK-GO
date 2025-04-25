@@ -176,7 +176,7 @@
         <div class="flex-1 p-4 lg:p-6 overflow-auto main-content">
             <!-- Header -->
             <div class="flex flex-col lg:flex-row justify-between items-center mb-6">
-            <h1 class="text-2xl ml-8 font-bold mb-4 lg:mb-0">Welcome, {{ Auth::user()->name ?? 'Admin' }}!</h1>
+            <h1 class="text-2xl ml-8 font-bold mb-4 lg:mb-0">Welcome, {{ Auth::user()->name ?? 'Admin' }}</h1>
 
             <!-- Search bar -->
             <div class="relative w-full max-w-md mb-4 lg:mb-0 mx-4">

@@ -55,7 +55,7 @@
                         <!-- Back Button -->
                         <div class="mb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                             <h1 class="text-xl sm:text-2xl font-bold text-gray-900">{{ $trip->name }}</h1>
-                            <a href="{{ route('client.dashboard') }}"
+                            <a href="{{ route('client.trips.index') }}"
                                class="inline-flex items-center space-x-1 text-sm text-gray-600 hover:text-gray-900">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
@@ -137,7 +137,7 @@
                                     <div class="mb-3">
                                         <p class="text-sm text-gray-600">Booking for 1 person</p>
                                     </div>
-                                    <button type="submit" class="w-full bg-[#9370db] text-white px-3 py-2 rounded text-sm text-center hover:bg-[#8a6acd] transition-all">
+                                    <button type="submit"class="inline-block w-1/2 bg-emerald-500 text-white px-3 py-1.5 sm:px-4 sm:py-2 text-[10px] sm:text-xs rounded-full hover:bg-emerald-600 transition shadow-sm">
                                         Book Now
                                     </button>
                                 </form>
