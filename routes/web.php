@@ -15,6 +15,8 @@ use App\Http\Controllers\Client\DashboardController as ClientDashboardController
 use App\Http\Controllers\Admin\TripController as AdminTripController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\Client\MyBookingsController;
+use App\Http\Controllers\Client\ChannelController;
+use App\Http\Controllers\NotificationController;
 
 // Rout visitor
 Route::get('/', [DestinationController::class, 'index'])->name('welcome');
@@ -51,6 +53,13 @@ Route::middleware(['auth', UserMiddleware::class])->group(function () {
 
     // Add My Bookings route
     Route::get('/my-bookings', [MyBookingsController::class, 'index'])->name('client.bookings.index');
+
+    // Add Channels route
+    Route::get('/client/chat', [ChannelController::class, 'index'])->name('client.chat');
+
+    // Add Chat routes
+    Route::get('/client/chat/{channel}', [App\Http\Controllers\Client\ChatController::class, 'show'])->name('client.chat.show');
+    Route::post('/client/chat/{channel}', [App\Http\Controllers\Client\ChatController::class, 'store'])->name('client.chat.store');
 });
 
 // Profile routes
@@ -96,6 +105,13 @@ Route::get('/privacy', function () {
 Route::get('/terms', function () {
     return view('legal.terms');
 })->name('terms');
+
+// Notification routes
+Route::middleware('auth')->group(function () {
+    Route::get('/notifications', [NotificationController::class, 'getUserNotifications'])->name('notifications.index');
+    Route::get('/admin/notifications', [NotificationController::class, 'getAdminNotifications'])->middleware('admin')->name('admin.notifications.index');
+    Route::post('/notifications/{notification}/mark-read', [NotificationController::class, 'markAsRead'])->name('notifications.mark-read');
+});
 
 
 

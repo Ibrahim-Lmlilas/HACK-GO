@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Trip;
 use App\Models\Booking;
+use App\Models\Notification;
 use Illuminate\Http\Request;
 use Stripe\Stripe;
 use Stripe\Checkout\Session;
@@ -111,6 +112,27 @@ class BookingController extends Controller
             'status' => 'completed'
         ]);
 
+        // Add user to the trip's channel
+        $booking->trip->channel->users()->attach(Auth::id());
+
+        // Create notification for the user
+        Notification::create([
+            'user_id' => Auth::id(),
+            'type' => 'booking',
+            'trip_id' => $booking->trip_id,
+            'message' => "You have successfully booked a trip to {$booking->trip->name}",
+            'is_for_admin' => false
+        ]);
+
+        // Create notification for admin
+        Notification::create([
+            'user_id' => Auth::id(),
+            'type' => 'booking',
+            'trip_id' => $booking->trip_id,
+            'message' => "New booking by " . Auth::user()->name . " for trip {$booking->trip->name}",
+            'is_for_admin' => true
+        ]);
+
         return redirect()->route('client.dashboard')
             ->with('success', 'Your booking has been confirmed!');
     }
@@ -133,9 +155,21 @@ class BookingController extends Controller
             return back()->with('error', 'Bookings can only be cancelled at least 2 days before the trip starts.');
         }
 
+        // Remove user from the trip's channel
+        $booking->trip->channel->users()->detach(Auth::id());
+
         // Cancel the booking
         $booking->update([
             'status' => 'cancelled'
+        ]);
+
+        // Create notification for admin about the cancellation
+        Notification::create([
+            'user_id' => Auth::id(),
+            'type' => 'booking_cancelled',
+            'trip_id' => $booking->trip_id,
+            'message' => Auth::user()->name . " has cancelled their booking for trip {$booking->trip->name}",
+            'is_for_admin' => true
         ]);
 
         return back()->with('success', 'Your booking has been cancelled successfully.');
