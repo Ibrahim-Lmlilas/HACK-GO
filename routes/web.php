@@ -15,6 +15,7 @@ use App\Http\Controllers\Client\DashboardController as ClientDashboardController
 use App\Http\Controllers\Admin\TripController as AdminTripController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\Client\MyBookingsController;
+use App\Http\Controllers\Client\ChannelController;
 
 // Rout visitor
 Route::get('/', [DestinationController::class, 'index'])->name('welcome');
@@ -51,6 +52,9 @@ Route::middleware(['auth', UserMiddleware::class])->group(function () {
 
     // Add My Bookings route
     Route::get('/my-bookings', [MyBookingsController::class, 'index'])->name('client.bookings.index');
+
+    // Add Channels route
+    Route::get('/client/chat', [ChannelController::class, 'index'])->name('client.chat');
 });
 
 // Profile routes

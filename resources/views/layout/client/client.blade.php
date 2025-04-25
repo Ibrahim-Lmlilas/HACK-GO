@@ -146,7 +146,7 @@
                         <i class="fas fa-plane ml-2.5"></i>
                         <span class="sidebar-content">Trips</span>
                     </a>
-                    
+
                     <a href="{{ route('client.bookings.index') }}" class="sidebar-link">
                         <i class="fas fa-suitcase ml-2.5"></i>
                         <span class="sidebar-content">My Bookings</span>
@@ -154,7 +154,7 @@
 
                     <a href="/client/chat" class="sidebar-link">
                         <i class="fas fa-comments ml-2.5"></i>
-                        <span class="sidebar-content">Messages</span>
+                        <span class="sidebar-content">channel</span>
                     </a>
                     <a href="/client/travel-buddies" class="sidebar-link">
                         <i class="fas fa-users ml-2.5"></i>

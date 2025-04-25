@@ -52,6 +52,11 @@ class User extends Authenticatable
         return $this->hasMany(Booking::class);
     }
 
+    public function channels()
+    {
+        return $this->belongsToMany(Channel::class);
+    }
+
     public function activityBookings()
     {
         return $this->hasMany(ActivityBooking::class);
