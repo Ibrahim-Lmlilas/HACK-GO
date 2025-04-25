@@ -175,22 +175,33 @@
         <!-- Main Content -->
         <div class="flex-1 p-4 lg:p-6 overflow-auto main-content">
             <!-- Header -->
-            <div class="flex flex-col lg:flex-row justify-between mb-6">
-                <h1 class="text-2xl ml-8 font-bold mb-4 lg:mb-0">Welcome, {{ Auth::user()->name ?? 'Admin' }}!</h1>
-                <div class="flex items-center space-x-4">
-                    <button class="p-2 rounded-md"><i class="far fa-bell text-black"></i></button>
-                    <button onclick="openProfileModal()" class="w-8 h-8 rounded-full bg-gray-300 overflow-hidden hover:ring-2 hover:ring-gray-600 transition-all duration-200">
-                        @if(Auth::user()->profile_photo)
-                            <img src="{{ Storage::url(Auth::user()->profile_photo) }}"
-                                 alt="Profile"
-                                 class="w-full h-full object-cover">
-                        @else
-                            <img src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name ?? 'Admin') }}"
-                                 alt="Profile"
-                                 class="w-full h-full object-cover">
-                        @endif
-                    </button>
+            <div class="flex flex-col lg:flex-row justify-between items-center mb-6">
+            <h1 class="text-2xl ml-8 font-bold mb-4 lg:mb-0">Welcome, {{ Auth::user()->name ?? 'Admin' }}!</h1>
+
+            <!-- Search bar -->
+            <div class="relative w-full max-w-md mb-4 lg:mb-0 mx-4">
+                <input type="text"
+                   placeholder="Search..."
+                   class="w-full py-2 pl-10 pr-4 text-gray-700 bg-white border rounded-md focus:border-primary ">
+                <div class="absolute inset-y-0 left-0 flex items-center pl-3">
+                <i class="fas fa-search text-gray-400"></i>
                 </div>
+            </div>
+
+            <div class="flex items-center space-x-4">
+                <button class="p-2 rounded-md"><i class="far fa-bell text-black"></i></button>
+                <button onclick="openProfileModal()" class="w-8 h-8 rounded-full bg-gray-300 overflow-hidden hover:ring-2 hover:ring-gray-600 transition-all duration-200">
+                @if(Auth::user()->profile_photo)
+                    <img src="{{ Storage::url(Auth::user()->profile_photo) }}"
+                     alt="Profile"
+                     class="w-full h-full object-cover">
+                @else
+                    <img src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name ?? 'Admin') }}"
+                     alt="Profile"
+                     class="w-full h-full object-cover">
+                @endif
+                </button>
+            </div>
             </div>
             @yield('content')
         </div>

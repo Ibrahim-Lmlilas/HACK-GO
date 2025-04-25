@@ -79,16 +79,16 @@
                         <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent"></div>
 
                         <!-- Trip Info Overlay -->
-                        <div class="absolute bottom-0 left-0 right-0 p-4">
+                        <div class="absolute bottom-0 left-0 right-0 p-3">
                             <div class="flex justify-between items-start mb-2">
                                 <div>
-                                    <h5 class="text-white text-lg font-semibold mb-1">{{ $trip->name }}</h5>
+                                    <h5 class="text-white text-[13px] font-medium mb-1">{{ $trip->name }}</h5>
                                     <div class="flex items-center text-white/90">
-                                        <i class="fas fa-map-marker-alt text-[#FFB800] mr-2"></i>
-                                        <span class="text-sm">{{ $trip->destination->name }}</span>
+                                        <i class="fas fa-map-marker-alt text-[#FFB800] mr-1.5 text-[10px]"></i>
+                                        <span class="text-[10px]">{{ $trip->destination->name }}</span>
                                     </div>
                                 </div>
-                                <div class="bg-[#FF9736] text-white px-3 py-1 rounded-full text-sm">
+                                <div class="bg-[#FF9736] text-white px-2 py-0.5 rounded-full text-[10px]">
                                     {{ number_format($trip->price, 0) }} MAD
                                 </div>
                             </div>
@@ -97,20 +97,20 @@
                             <div class="grid grid-cols-3 gap-2 mt-3">
                                 <div class="bg-white/10 backdrop-blur-sm rounded-lg p-2">
                                     <div class="flex items-center text-white">
-                                        <i class="fas fa-calendar-alt text-[#FFB800] mr-2"></i>
-                                        <div class="text-xs">
-                                            <div class="opacity-70">Date</div>
-                                            <div>{{ $trip->start_date->format('M d') }}</div>
+                                        <i class="fas fa-calendar-alt text-[#FFB800] mr-1.5 text-[10px]"></i>
+                                        <div>
+                                            <div class="text-[9px] opacity-70">Date</div>
+                                            <div class="text-[10px]">{{ $trip->start_date->format('M d') }}</div>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="bg-white/10 backdrop-blur-sm rounded-lg p-2">
+                                <div class="bg-white/10 backdrop-blur-sm rounded-lg p-1.5">
                                     <div class="flex items-center text-white">
-                                        <i class="fas fa-users text-[#FFB800] mr-2"></i>
-                                        <div class="text-xs">
-                                            <div class="opacity-70">Capacity</div>
-                                            <div>{{ $trip->capacity }} people</div>
+                                        <i class="fas fa-users text-[#FFB800] mr-1.5 text-[10px]"></i>
+                                        <div>
+                                            <div class="text-[9px] opacity-70">Capacity</div>
+                                            <div class="text-[10px]">{{ $trip->capacity }} people</div>
                                         </div>
                                     </div>
                                 </div>
@@ -118,24 +118,24 @@
                         </div>
 
                         <!-- Action Button -->
-                        <div class="absolute top-4 right-4">
+                        <div class="absolute top-2 right-2">
                             <a href="{{ route('client.trips.show', $trip) }}"
-                                class="inline-block bg-white/90  text-gray-800  px-4 py-2 rounded-full text-sm transition-all duration-300 transform hover:scale-105">
+                                class="inline-block bg-white/90 text-gray-800 px-2 py-1 rounded-full text-[10px] transition-all duration-300 transform hover:scale-105">
                                 View Details
                             </a>
                         </div>
                     </div>
 
                     @if($trip->hotel)
-                    <div class="p-4 border-t border-gray-100">
+                    <div class="p-2 border-t border-gray-100">
                         <div class="flex items-center">
-                            <div class="w-12 h-12 rounded-lg overflow-hidden mr-3">
+                            <div class="w-8 h-8 rounded-lg overflow-hidden mr-2">
                                 <img src="{{ $trip->hotel->image_url }}" alt="{{ $trip->hotel->name }}"
                                     class="w-full h-full object-cover">
                             </div>
                             <div>
-                                <h6 class="text-sm font-medium text-gray-800">{{ $trip->hotel->name }}</h6>
-                                <p class="text-xs text-gray-500">{{ $trip->hotel->location }}</p>
+                                <h6 class="text-[11px] font-medium text-gray-800">{{ $trip->hotel->name }}</h6>
+                                <p class="text-[9px] text-gray-500">{{ $trip->hotel->location }}</p>
                             </div>
                         </div>
                     </div>
