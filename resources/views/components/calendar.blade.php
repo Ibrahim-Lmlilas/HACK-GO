@@ -57,75 +57,123 @@
     }
 @endphp
 
-<div class="calendar" id="calendar-{{ $date->format('Y-m') }}">
-    <div class="flex justify-between items-center mb-4">
-        <h2 class="text-xl font-bold text-gray-800">{{ $date->format('F Y') }}</h2>
-        <div class="flex space-x-1">
-            <button
-                class="p-1 rounded hover:bg-gray-100"
-                onclick="updateCalendar('{{ $date->copy()->subMonth()->format('m') }}', '{{ $date->copy()->subMonth()->format('Y') }}')"
+<div class="calendar bg-[#F8F8F8] rounded-2xl p-6" id="calendar-{{ $date->format('Y-m') }}">
+    <div class="flex justify-between items-center mb-6">
+        <h2 class="text-xl font-semibold text-gray-800">{{ $date->format('F Y') }}</h2>
+        <div class="flex items-center space-x-2">
+            <button type="button"
+                class="text-gray-600 hover:text-[#9DC45F] transition-colors"
+                data-month="{{ $date->copy()->subMonth()->format('m') }}"
+                data-year="{{ $date->copy()->subMonth()->format('Y') }}"
             >
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-                </svg>
+                <i class="fas fa-chevron-left"></i>
             </button>
-            <button
-                class="p-1 rounded hover:bg-gray-100"
-                onclick="updateCalendar('{{ $date->copy()->addMonth()->format('m') }}', '{{ $date->copy()->addMonth()->format('Y') }}')"
+            <button type="button"
+                class="text-gray-600 hover:text-[#9DC45F] transition-colors"
+                data-month="{{ $date->copy()->addMonth()->format('m') }}"
+                data-year="{{ $date->copy()->addMonth()->format('Y') }}"
             >
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                </svg>
+                <i class="fas fa-chevron-right"></i>
             </button>
         </div>
     </div>
 
-    <div class="grid grid-cols-7 gap-2 text-center text-xs text-gray-500 mb-2">
-        <div>Su</div>
-        <div>Mo</div>
-        <div>Tu</div>
-        <div>We</div>
-        <div>Th</div>
-        <div>Fr</div>
-        <div>Sa</div>
+    <div class="bg-white rounded-xl p-4 shadow-sm">
+        <div class="grid grid-cols-7 gap-1 mb-4">
+            <div class="text-center text-xs font-medium text-gray-400">Su</div>
+            <div class="text-center text-xs font-medium text-gray-400">Mo</div>
+            <div class="text-center text-xs font-medium text-gray-400">Tu</div>
+            <div class="text-center text-xs font-medium text-gray-400">We</div>
+            <div class="text-center text-xs font-medium text-gray-400">Th</div>
+            <div class="text-center text-xs font-medium text-gray-400">Fr</div>
+            <div class="text-center text-xs font-medium text-gray-400">Sa</div>
+        </div>
+
+        <div class="grid grid-cols-7 gap-1">
+            @foreach($weeks as $week)
+                @foreach($week as $day)
+                    <div class="relative">
+                        <button
+                            class="w-8 h-8 flex items-center justify-center text-sm rounded-lg transition-colors
+                            {{ !$day['current'] ? 'text-gray-400' : 'text-gray-700' }}
+                            {{ $day['selected'] ? 'bg-[#9DC45F] text-white' : '' }}
+                            {{ $day['today'] ? 'bg-[#9DC45F] text-white' : '' }}
+                            {{ !$day['selected'] && !$day['today'] ? 'hover:bg-[#9DC45F] hover:text-white' : '' }}"
+                            data-date="{{ $date->copy()->setDay($day['date'])->format('Y-m-d') }}"
+                        >
+                            {{ $day['date'] }}
+                        </button>
+                    </div>
+                @endforeach
+            @endforeach
+        </div>
     </div>
 
-    <div class="grid grid-cols-7 gap-2 text-center">
-        @foreach($weeks as $week)
-            @foreach($week as $day)
-                <div
-                    class="py-2 {{ !$day['current'] ? 'text-gray-400' : '' }}
-                           {{ $day['selected'] ? 'bg-[#8a2be2] text-white rounded-full' : '' }}
-                           {{ $day['today'] ? 'bg-blue-100 text-blue-600 rounded-full' : '' }}"
-                    data-date="{{ $date->copy()->setDay($day['date'])->format('Y-m-d') }}"
-                >
-                    {{ $day['date'] }}
-                </div>
-            @endforeach
-        @endforeach
-    </div>
+
 </div>
 
 <script>
-function updateCalendar(month, year) {
-    // Show loading state
-    const calendarSection = document.getElementById('calendar-section');
-    calendarSection.innerHTML = '<div class="flex justify-center items-center h-64"><div class="animate-spin rounded-full h-8 w-8 border-b-2 border-[#8a2be2]"></div></div>';
+function attachCalendarListeners() {
+    const calendar = document.getElementById('calendar-{{ $date->format('Y-m') }}');
+    if (!calendar) return;
 
-    // Make AJAX request
-    fetch(`/admin/calendar?month=${month}&year=${year}`, {
+    // Add click handlers for navigation buttons
+    calendar.querySelectorAll('button[data-month]').forEach(button => {
+        // Remove existing listeners to prevent duplicates
+        button.removeEventListener('click', handleCalendarNavigation);
+        // Add new listener
+        button.addEventListener('click', handleCalendarNavigation);
+    });
+}
+
+function handleCalendarNavigation() {
+    const month = this.dataset.month;
+    const year = this.dataset.year;
+    updateCalendar(month, year);
+}
+
+function updateCalendar(month, year) {
+    const calendar = document.getElementById('calendar-{{ $date->format('Y-m') }}');
+    calendar.innerHTML = '<div class="flex justify-center items-center h-64"><div class="animate-spin rounded-full h-8 w-8 border-b-2 border-[#FFB800]"></div></div>';
+
+    fetch(`/calendar/update?month=${month}&year=${year}`, {
         headers: {
-            'X-Requested-With': 'XMLHttpRequest'
+            'X-Requested-With': 'XMLHttpRequest',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
         }
     })
-    .then(response => response.text())
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.text();
+    })
     .then(html => {
-        calendarSection.outerHTML = html;
+        calendar.outerHTML = html;
+        // Reattach event listeners after updating the calendar
+        setTimeout(attachCalendarListeners, 0);
     })
     .catch(error => {
         console.error('Error:', error);
-        // Reload page as fallback
         window.location.href = `?month=${month}&year=${year}`;
     });
 }
+
+// Initial attachment of event listeners
+document.addEventListener('DOMContentLoaded', attachCalendarListeners);
+
+// Also attach listeners when the DOM changes
+const observer = new MutationObserver(function(mutations) {
+    mutations.forEach(function(mutation) {
+        if (mutation.addedNodes.length) {
+            attachCalendarListeners();
+        }
+    });
+});
+
+observer.observe(document.body, {
+    childList: true,
+    subtree: true
+});
 </script>
+

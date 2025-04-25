@@ -112,17 +112,17 @@
         }
     </style>
 </head>
-<body class="bg-gray-100">
+<body class="bg-gray-200">
     <div class="flex h-screen">
         <!-- Mobile menu button -->
-        <button class="lg:hidden fixed top-4 left-4 z-20 p-2 rounded-md bg-[#92472B] text-white" onclick="toggleSidebar()">
+        <button class="lg:hidden fixed top-4 left-4 z-20 p-2 rounded-md bg-gray-800 text-white" onclick="toggleSidebar()">
             <i class="fas fa-bars"></i>
         </button>
 
         <!-- Sidebar container with z-index -->
         <div class="sidebar-container">
             <!-- Sidebar -->
-            <div class="sidebar bg-[#92472B] text-white flex flex-col items-start py-6 ">
+            <div class="sidebar bg-gray-800 text-white flex flex-col items-start py-6 ">
                 <div class="flex items-center justify-center mb-6">
                     <a href="#" class="transition-transform duration-300 hover:scale-125">
                         <svg width="60"  height="60" viewBox="0 0 117 110" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -152,22 +152,19 @@
                         <span class="sidebar-content">My Bookings</span>
                     </a>
 
-                    <a href="/client/chat" class="sidebar-link">
+                    <a href="{{ route('client.chat') }}" class="sidebar-link">
                         <i class="fas fa-comments ml-2.5"></i>
                         <span class="sidebar-content">channel</span>
                     </a>
-                    <a href="/client/travel-buddies" class="sidebar-link">
-                        <i class="fas fa-users ml-2.5"></i>
-                        <span class="sidebar-content">Travel Buddies</span>
-                    </a>
+
 
                 </div>
                 <!-- Logout button at bottom of sidebar -->
                 <div class="mt-auto pt-4 absolute bottom-6 left-0 right-0 px-2">
                     <form method="POST" action="{{ route('logout') }}" class="w-full">
                         @csrf
-                        <button type="submit" class="sidebar-link flex items-center text-red-500 hover:bg-red-100 w-full">
-                            <i class="fas fa-sign-out-alt ml-1.5"></i>
+                        <button type="submit" class="sidebar-link flex items-center hover:bg-[rgba(254,251,234,0.1)] w-full">
+                            <i class="fas fa-sign-out-alt ml-3"></i>
                             <span class="sidebar-content">Logout</span>
                         </button>
                     </form>

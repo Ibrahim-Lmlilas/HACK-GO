@@ -70,6 +70,14 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.password');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+    // Calendar route
+    Route::get('/calendar/update', function(Request $request) {
+        return view('components.calendar', [
+            'month' => $request->query('month'),
+            'year' => $request->query('year')
+        ]);
+    })->name('calendar.update');
+
     // Booking routes
     Route::post('/trips/{trip}/checkout', [BookingController::class, 'checkout'])->name('booking.checkout');
     Route::get('/booking/{booking}/success', [BookingController::class, 'success'])->name('booking.success');
