@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\TripController as AdminTripController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\Client\MyBookingsController;
 use App\Http\Controllers\Client\ChannelController;
+use App\Http\Controllers\NotificationController;
 
 // Rout visitor
 Route::get('/', [DestinationController::class, 'index'])->name('welcome');
@@ -104,6 +105,13 @@ Route::get('/privacy', function () {
 Route::get('/terms', function () {
     return view('legal.terms');
 })->name('terms');
+
+// Notification routes
+Route::middleware('auth')->group(function () {
+    Route::get('/notifications', [NotificationController::class, 'getUserNotifications'])->name('notifications.index');
+    Route::get('/admin/notifications', [NotificationController::class, 'getAdminNotifications'])->middleware('admin')->name('admin.notifications.index');
+    Route::post('/notifications/{notification}/mark-read', [NotificationController::class, 'markAsRead'])->name('notifications.mark-read');
+});
 
 
 
