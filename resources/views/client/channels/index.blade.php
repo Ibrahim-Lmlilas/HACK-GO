@@ -13,9 +13,9 @@
                 </a>
             </div>
         @else
-            <div class="grid gap-4">
+            <div class="grid gap-4" id="channelsList">
                 @foreach($channels as $channel)
-                    <div class="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-100">
+                    <div class="channel-item bg-white rounded-lg shadow-sm overflow-hidden border border-gray-100">
                         <div class="p-3 sm:p-4">
                             <div class="flex flex-col sm:flex-row items-start justify-between">
                                 <div class="flex-1 mr-0 sm:mr-4 mb-3 sm:mb-0 w-full">
@@ -46,4 +46,27 @@
         @endif
     </div>
 </div>
+
+<script>
+    document.getElementById('searchInput').addEventListener('keyup', function() {
+        const searchValue = this.value.toLowerCase();
+        const channels = document.querySelectorAll('.channel-item');
+
+        channels.forEach(channel => {
+            const tripName = channel.querySelector('h2').textContent.toLowerCase();
+            const destination = channel.querySelector('h6').textContent.toLowerCase();
+            const date = channel.querySelector('.fa-calendar-alt')?.nextElementSibling?.textContent.toLowerCase() || '';
+            const members = channel.querySelector('.fa-users')?.nextElementSibling?.textContent.toLowerCase() || '';
+
+            if (tripName.includes(searchValue) ||
+                destination.includes(searchValue) ||
+                date.includes(searchValue) ||
+                members.includes(searchValue)) {
+                channel.style.display = '';
+            } else {
+                channel.style.display = 'none';
+            }
+        });
+    });
+</script>
 @endsection
