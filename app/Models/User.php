@@ -81,6 +81,7 @@ class User extends Authenticatable
 
     public function adminNotifications()
     {
-        return $this->notifications()->where('is_read', true);
+        return $this->hasMany(Notification::class, 'user_id')
+            ->where('is_for_admin', 1);
     }
 }
