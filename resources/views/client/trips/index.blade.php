@@ -36,11 +36,11 @@
 
                </div>
 
-            
+
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 sm:gap-6">
                 @foreach($trips as $trip)
-                <div class="trip-card bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl relative group border border-emerald-100">
+                <div class="trip-card trip-item bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl relative group border border-emerald-100">
                     <div class="relative h-[200px] sm:h-[280px]">
                         <img src="{{ $trip->destination->image_url }}" alt="{{ $trip->name }}"
                             class="w-full h-full object-cover">
@@ -106,4 +106,27 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.getElementById('searchInput').addEventListener('keyup', function() {
+        const searchValue = this.value.toLowerCase();
+        const trips = document.querySelectorAll('.trip-item');
+
+        trips.forEach(trip => {
+            const tripName = trip.querySelector('h5').textContent.toLowerCase();
+            const destination = trip.querySelector('p').textContent.toLowerCase();
+            const hotel = trip.querySelector('.fa-hotel')?.nextElementSibling?.textContent.toLowerCase() || '';
+            const price = trip.querySelector('.bg-emerald-600 span').textContent.toLowerCase();
+
+            if (tripName.includes(searchValue) ||
+                destination.includes(searchValue) ||
+                hotel.includes(searchValue) ||
+                price.includes(searchValue)) {
+                trip.style.display = '';
+            } else {
+                trip.style.display = 'none';
+            }
+        });
+    });
+</script>
 @endsection

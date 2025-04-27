@@ -60,6 +60,10 @@ Route::middleware(['auth', UserMiddleware::class])->group(function () {
     // Add Chat routes
     Route::get('/client/chat/{channel}', [App\Http\Controllers\Client\ChatController::class, 'show'])->name('client.chat.show');
     Route::post('/client/chat/{channel}', [App\Http\Controllers\Client\ChatController::class, 'store'])->name('client.chat.store');
+
+    // Notification routes
+    Route::get('/notifications', [NotificationController::class, 'getUserNotifications'])->name('notifications.index');
+    Route::post('/notifications/{notification}/mark-as-read', [NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');
 });
 
 // Profile routes

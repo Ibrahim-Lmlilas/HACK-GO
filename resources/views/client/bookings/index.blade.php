@@ -51,7 +51,7 @@
             @if($bookings->count() > 0)
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                 @foreach($bookings as $booking)
-                <div class="trip-card bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl relative group border border-emerald-100">
+                <div class="trip-card booking-item bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl relative group border border-emerald-100">
                     <div class="relative h-[200px] sm:h-[280px]">
                         <img src="{{ $booking->trip->destination->image_url }}" alt="{{ $booking->trip->name }}"
                             class="w-full h-full object-cover">
@@ -169,6 +169,29 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.getElementById('searchInput').addEventListener('keyup', function() {
+        const searchValue = this.value.toLowerCase();
+        const bookings = document.querySelectorAll('.booking-item');
+
+        bookings.forEach(booking => {
+            const tripName = booking.querySelector('h5').textContent.toLowerCase();
+            const status = booking.querySelector('span.inline-block').textContent.toLowerCase();
+            const date = booking.querySelector('.fa-calendar-alt')?.nextElementSibling?.textContent.toLowerCase() || '';
+            const amount = booking.querySelector('.bg-emerald-600 span').textContent.toLowerCase();
+
+            if (tripName.includes(searchValue) ||
+                status.includes(searchValue) ||
+                date.includes(searchValue) ||
+                amount.includes(searchValue)) {
+                booking.style.display = '';
+            } else {
+                booking.style.display = 'none';
+            }
+        });
+    });
+</script>
 @endsection
 
 @push('styles')
