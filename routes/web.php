@@ -114,6 +114,10 @@ Route::middleware(['auth', AdminMiddleware::class])->prefix('admin')->group(func
     Route::get('reservations/{booking}', [\App\Http\Controllers\Admin\ReservationController::class, 'show'])->name('admin.reservations.show');
     Route::put('reservations/{booking}/status', [\App\Http\Controllers\Admin\ReservationController::class, 'updateStatus'])->name('admin.reservations.update-status');
 
+    // Messages routes
+    Route::get('messages', [\App\Http\Controllers\Admin\MessagesController::class, 'index'])->name('admin.messages.index');
+    Route::get('messages/{channel}', [\App\Http\Controllers\Admin\MessagesController::class, 'show'])->name('admin.messages.show');
+
     // Notification routes
     Route::get('/notifications', [NotificationController::class, 'getAdminNotifications'])->name('notifications.index');
     Route::post('/notifications/{notification}/mark-as-read', [NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');

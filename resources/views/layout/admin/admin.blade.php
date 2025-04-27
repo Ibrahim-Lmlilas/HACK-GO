@@ -134,7 +134,7 @@
                         <i class="fas fa-calendar-check ml-2.5"></i>
                         <span class="sidebar-content">Reservations</span>
                     </a>
-                    <a href="" class="sidebar-link">
+                    <a href="{{ route('admin.messages.index') }}" class="sidebar-link">
                         <i class="fas fa-comment-dots ml-2.5"></i>
                         <span class="sidebar-content">Messages</span>
                     </a>
