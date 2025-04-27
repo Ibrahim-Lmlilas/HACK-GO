@@ -135,6 +135,7 @@
                             </defs>
                     </svg>
                     </a>
+                    
                     <span class="sidebar-content">HACK&GO</span>
                 </div>
                 <div class="space-y-1 w-full mt-10">
