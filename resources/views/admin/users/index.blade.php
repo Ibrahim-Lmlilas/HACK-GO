@@ -4,67 +4,64 @@
 @extends('partials.profile.Profile_Information')
 @extends('partials.profile.Edit_Profile')
 
-<div class="container mx-auto px-4">
-        <div class="bg-white rounded-lg shadow-lg p-6">
-            <div class="flex justify-between items-center mb-6">
-                <div class="relative w-1/2">
-                    <input type="text" id="searchInput" class="w-full pl-10 pr-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#92472B] transition-colors" placeholder="Search users...">
-                    <div class="absolute left-3 top-2.5 text-gray-400">
-                        <i class="fas fa-search"></i>
-                    </div>
-                </div>
+<div class="container mx-auto px-4 py-6">
 
-            </div>
-
-
-
-                <div class="overflow-x-auto rounded-lg border border-gray-200">
-                    <table class="min-w-full divide-y divide-gray-200 text-center">
-                        <thead class="">
-                            <tr>
-                                <th class="py-2 px-4 text-xs font-medium text-gray-500 uppercase tracking-wider">Profile</th>
-                                <th class="py-2 px-4 text-xs font-medium text-gray-500 uppercase tracking-wider">First Name</th>
-                                <th class="py-2 px-4 text-xs font-medium text-gray-500 uppercase tracking-wider">Last Name</th>
-                                <th class="py-2 px-4 text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
-                                <th class="py-2 px-4 text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
-                                <th class="py-2 px-4 text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody class=" divide-y " id="userTableBody">
-                            @foreach($users as $user)
-                            <tr class=" mr-12 ">
-                                <td class="py-2  px-4">
-                                    <div class="w-8 h-8 mx-auto rounded-full overflow-hidden">
-                                        @if($user->profile_photo)
-                                            <img src="{{ Storage::url($user->profile_photo) }}" alt="{{ $user->name }}" class="w-full h-full object-cover">
-                                        @else
-                                            <img src="https://ui-avatars.com/api/?name={{ urlencode($user->name) }}&background=92472B&color=ffffff" alt="{{ $user->name }}" class="w-full h-full object-cover">
-                                        @endif
-                                    </div>
-                                </td>
-                                <td class="py-2 px-4 text-sm">{{ $user->first_name }}</td>
-                                <td class="py-2 px-4 text-sm">{{ $user->last_name }}</td>
-                                <td class="py-2 px-4 text-sm">{{ $user->email }}</td>
-                                <td class="py-2 px-4">
-                                    <span class="px-2 py-1 text-xs rounded-full {{ $user->role === 'admin' ? 'bg-blue-100 text-blue-800' : 'bg-gray-100 text-gray-800' }}">
+        <div class="overflow-hidden rounded-xl border border-gray-100 bg-white">
+            <!-- Scrollable table container -->
+            <div class="max-h-[500px] overflow-auto">
+                <table class="min-w-full divide-y divide-gray-100">
+                    <thead class="bg-gray-50 sticky top-0">
+                        <tr>
+                            <th class="py-3 px-4 text-xs font-medium text-gray-500 uppercase tracking-wider">Profile</th>
+                            <th class="py-3 px-4 text-xs font-medium text-gray-500 uppercase tracking-wider">First Name</th>
+                            <th class="py-3 px-4 text-xs font-medium text-gray-500 uppercase tracking-wider">Last Name</th>
+                            <th class="py-3 px-4 text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                            <th class="py-3 px-4 text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
+                            <th class="py-3 px-4 text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-100" id="userTableBody">
+                        @foreach($users as $user)
+                        <tr class="hover:bg-gray-50 transition-colors">
+                            <td class="py-3 px-4">
+                                <div class="w-10 h-10 mx-auto rounded-full overflow-hidden border-2 border-green-100">
+                                    @if($user->profile_photo)
+                                        <img src="{{ Storage::url($user->profile_photo) }}" alt="{{ $user->name }}" class="w-full h-full object-cover">
+                                    @else
+                                        <img src="https://ui-avatars.com/api/?name={{ urlencode($user->name) }}&background=92C919&color=ffffff" alt="{{ $user->name }}" class="w-full h-full object-cover">
+                                    @endif
+                                </div>
+                            </td>
+                            <td class="py-3 px-4 text-sm text-center font-medium text-gray-700">{{ $user->first_name }}</td>
+                            <td class="py-3 px-4 text-sm text-center font-medium text-gray-700">{{ $user->last_name }}</td>
+                            <td class="py-3 px-4 text-sm text-center text-gray-500">{{ $user->email }}</td>
+                            <td class="py-3 px-4 text-center">
+                                @if($user->role === 'admin')
+                                    <span class="px-3 py-1.5 text-xs font-medium rounded-full bg-green-100 text-green-800">
+                                        Admin
+                                    </span>
+                                @else
+                                    <span class="px-3 py-1.5 text-xs font-medium rounded-full bg-gray-100 text-gray-800">
                                         {{ $user->role }}
                                     </span>
-                                </td>
-                                <td class="py-2 px-4">
-                                    <button onclick="openDeleteModal({{ $user->id }})" class="text-white mx-auto     bg-red-500 hover:bg-red-600 rounded-lg px-3 py-1.5 transition duration-300 ease-in-out flex items-center gap-2">
-                                        <i class="fas fa-trash text-xs"></i>
-                                        <span class="text-sm">Delete</span>
-                                    </button>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
+                                @endif
+                            </td>
+                            <td class="py-3 px-4 text-center">
+                                <button onclick="openDeleteModal({{ $user->id }})" class="text-white bg-red-500 hover:bg-red-600 rounded-full px-4 py-1.5 transition duration-300 ease-in-out flex items-center gap-2 mx-auto">
+                                    <i class="fas fa-trash text-xs"></i>
+                                    <span class="text-xs font-medium">Delete</span>
+                                </button>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
-                <div class="mt-4">
-                    {{ $users->links() }}
-                </div>
+        <div class="mt-6">
+            {{ $users->links() }}
+        </div>
 </div>
 
 <!-- Add User Modal -->

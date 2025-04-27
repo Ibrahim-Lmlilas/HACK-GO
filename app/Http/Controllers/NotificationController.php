@@ -24,7 +24,7 @@ class NotificationController extends Controller
 
     public function getAdminNotifications()
     {
-        $notifications = $this->notificationService->getAdminNotifications();
+        $notifications = $this->notificationService->getAdminNotifications(Auth::user());
         return view('notifications.admin', compact('notifications'));
     }
 
