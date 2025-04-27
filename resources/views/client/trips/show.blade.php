@@ -4,7 +4,7 @@
 
 <div class="bg-gray-100 py-4">
     <!-- Lightbox Modal -->
-    <div id="lightbox-modal" class="fixed inset-0 z-50 bg-black bg-opacity-75 flex items-center justify-center p-4">
+    <div id="lightbox-modal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-75 flex items-center justify-center p-4">
         <div class="relative w-full max-w-3xl mx-auto">
             <button class="absolute top-2 right-2 text-white hover:text-gray-300" onclick="closeLightbox()">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

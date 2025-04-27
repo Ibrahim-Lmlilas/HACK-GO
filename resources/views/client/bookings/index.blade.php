@@ -69,9 +69,9 @@
                                 <h5 class="text-base sm:text-lg font-bold mb-1 line-clamp-1 text-emerald-50">{{ $booking->trip->name }}</h5>
                                 <p class="text-xs sm:text-sm opacity-90 mb-1 line-clamp-1 text-emerald-100">
                                     <span class="inline-block px-2 py-0.5 rounded-full text-xs font-medium
-                                        @if($booking->status === 'completed')  text-emerald-800
-                                        @elseif($booking->status === 'pending')  
-                                        @else bg-red-100
+                                        @if($booking->status === 'completed') bg-emerald-100 text-emerald-800
+                                        @elseif($booking->status === 'pending') bg-yellow-100 text-yellow-800
+                                        @else bg-red-100 text-red-800
                                         @endif">
                                         {{ ucfirst($booking->status) }}
                                     </span>
@@ -240,6 +240,17 @@
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
+    // Build an array of all trip days
+    var tripDays = [];
+    @foreach($bookings as $booking)
+        @php
+            $period = \Carbon\CarbonPeriod::create($booking->trip->start_date, $booking->trip->end_date);
+        @endphp
+        @foreach($period as $date)
+            tripDays.push('{{ $date->format('Y-m-d') }}');
+        @endforeach
+    @endforeach
+
     var calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
         events: @json($calendarEvents),
@@ -251,10 +262,20 @@ document.addEventListener('DOMContentLoaded', function() {
         height: 'auto',
         contentHeight: 200,
         displayEventTime: false,
+        eventColor: '#3B82F6',
+        eventTextColor: 'white',
+        dayCellDidMount: function(arg) {
+            // Highlight if this day is in tripDays
+            if (tripDays.includes(arg.date.toISOString().slice(0, 10))) {
+                arg.el.style.background = '#93c5fd'; // Tailwind blue-300
+                arg.el.style.borderRadius = '8px';
+            }
+        },
         eventDidMount: function(info) {
             if (info.event.extendedProps.status === 'cancelled') {
                 info.el.style.opacity = '0.5';
                 info.el.style.textDecoration = 'line-through';
+                info.el.style.backgroundColor = '#EF4444';
             }
         }
     });
