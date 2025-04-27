@@ -161,24 +161,43 @@
     <!-- Right sidebar -->
     <div class="w-full lg:w-80 space-y-5">
         <!-- Weather -->
-        <div class="bg-white rounded-2xl p-3">
-            <h3 class="text-gray-700 mb-4">Weather Watcher <i class="fas fa-cloud-sun text-black"></i></h3>
-            <div class="flex items-center space-x-2 mb-3">
-                <input type="text" id="city-input" placeholder="Enter city name" class="flex-1 p-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-black">
-                <button id="search-btn" class="text-black p-2 rounded-lg transition"><i class="fas fa-search"></i></button>
+        <div class="bg-[#F8F8F8] rounded-2xl p-6">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-xl font-semibold text-gray-800">Weather</h3>
+
             </div>
-            <div class="weather-info hidden">
-                <div class="flex justify-between items-center mb-3">
-                    <h4 id="city-name" class="text-lg font-medium"></h4>
-                    <p id="temperature" class="text-2xl font-bold"></p>
+
+            <div class="relative">
+                <input type="text"
+                    id="city-input"
+                    placeholder="Search city..."
+                    class="w-full px-4 py-3 bg-white rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#9DC45F] border-none shadow-sm"
+                >
+                <button id="search-btn" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+
+            <div class="weather-info hidden mt-6 bg-white rounded-xl p-4">
+                <div class="flex justify-between items-center mb-4">
+                    <div>
+                        <h4 id="city-name" class="text-lg font-semibold text-gray-800"></h4>
+                        <p id="description" class="text-sm text-gray-500 mt-1"></p>
+                    </div>
+                    <p id="temperature" class="text-3xl font-bold text-gray-800"></p>
                 </div>
-                <div class="space-y-2 text-sm text-gray-600">
-                    <p id="description" class="py-1"></p>
-                    <p id="humidity" class="py-1"></p>
-                    <p id="wind" class="py-1"></p>
+
+                <div class="grid grid-cols-2 gap-4 mt-4">
+                    <div class="bg-[#F8F8F8] rounded-lg p-3">
+                        <p id="humidity" class="text-sm text-gray-600"></p>
+                    </div>
+                    <div class="bg-[#F8F8F8] rounded-lg p-3">
+                        <p id="wind" class="text-sm text-gray-600"></p>
+                    </div>
                 </div>
             </div>
-            <p id="error-message" class="hidden mt-2 text-sm text-red-500 font-medium"></p>
+
+            <p id="error-message" class="hidden mt-4 text-sm text-red-500 font-medium text-center"></p>
         </div>
 
         <!-- Calendar -->
