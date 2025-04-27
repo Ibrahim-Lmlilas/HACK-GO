@@ -109,6 +109,11 @@ Route::middleware(['auth', AdminMiddleware::class])->prefix('admin')->group(func
     Route::get('trips/{trip}/select-hotel', [AdminTripController::class, 'selectHotel'])->name('admin.trips.select-hotel');
     Route::post('trips/{trip}/save-hotel', [AdminTripController::class, 'saveHotel'])->name('admin.trips.save-hotel');
 
+    // Reservation routes
+    Route::get('reservations', [\App\Http\Controllers\Admin\ReservationController::class, 'index'])->name('admin.reservations');
+    Route::get('reservations/{booking}', [\App\Http\Controllers\Admin\ReservationController::class, 'show'])->name('admin.reservations.show');
+    Route::put('reservations/{booking}/status', [\App\Http\Controllers\Admin\ReservationController::class, 'updateStatus'])->name('admin.reservations.update-status');
+
     // Notification routes
     Route::get('/notifications', [NotificationController::class, 'getAdminNotifications'])->name('notifications.index');
     Route::post('/notifications/{notification}/mark-as-read', [NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');
