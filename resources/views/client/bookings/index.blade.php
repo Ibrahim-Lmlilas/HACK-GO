@@ -69,9 +69,9 @@
                                 <h5 class="text-base sm:text-lg font-bold mb-1 line-clamp-1 text-emerald-50">{{ $booking->trip->name }}</h5>
                                 <p class="text-xs sm:text-sm opacity-90 mb-1 line-clamp-1 text-emerald-100">
                                     <span class="inline-block px-2 py-0.5 rounded-full text-xs font-medium
-                                        @if($booking->status === 'completed') bg-emerald-100 text-emerald-800
-                                        @elseif($booking->status === 'pending') bg-yellow-100 text-yellow-800
-                                        @else bg-red-100 text-red-800
+                                        @if($booking->status === 'completed')  text-emerald-800
+                                        @elseif($booking->status === 'pending')  
+                                        @else bg-red-100
                                         @endif">
                                         {{ ucfirst($booking->status) }}
                                     </span>

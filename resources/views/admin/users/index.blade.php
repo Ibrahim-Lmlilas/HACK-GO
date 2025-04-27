@@ -68,7 +68,7 @@
 
 
 <!-- Delete Confirmation Modal -->
-<div id="deleteModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center">
+<div id="deleteModal" class="fixed inset-0 bg-black bg-opacity-50  flex items-center justify-center">
     <div class="bg-white rounded-lg p-8 max-w-sm w-full">
         <div class="text-center">
             <i class="fas fa-exclamation-triangle text-red-500 text-5xl mb-4"></i>
