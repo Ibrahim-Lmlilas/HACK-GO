@@ -108,6 +108,10 @@ Route::middleware(['auth', AdminMiddleware::class])->prefix('admin')->group(func
 
     Route::get('trips/{trip}/select-hotel', [AdminTripController::class, 'selectHotel'])->name('admin.trips.select-hotel');
     Route::post('trips/{trip}/save-hotel', [AdminTripController::class, 'saveHotel'])->name('admin.trips.save-hotel');
+
+    // Notification routes
+    Route::get('/notifications', [NotificationController::class, 'getAdminNotifications'])->name('notifications.index');
+    Route::post('/notifications/{notification}/mark-as-read', [NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');
 });
 
 Route::get('/privacy', function () {

@@ -57,16 +57,6 @@ class User extends Authenticatable
         return $this->belongsToMany(Channel::class);
     }
 
-    public function activityBookings()
-    {
-        return $this->hasMany(ActivityBooking::class);
-    }
-
-    public function accommodationReviews()
-    {
-        return $this->hasMany(AccommodationReview::class);
-    }
-
     public function sentMessages()
     {
         return $this->hasMany(Message::class, 'sender_id');
@@ -77,10 +67,7 @@ class User extends Authenticatable
         return $this->hasMany(Message::class, 'receiver_id');
     }
 
-    public function preferences()
-    {
-        return $this->hasOne(UserPreference::class);
-    }
+
 
     public function notifications()
     {
@@ -90,5 +77,10 @@ class User extends Authenticatable
     public function unreadNotifications()
     {
         return $this->notifications()->where('is_read', false);
+    }
+
+    public function adminNotifications()
+    {
+        return $this->notifications()->where('is_read', true);
     }
 }

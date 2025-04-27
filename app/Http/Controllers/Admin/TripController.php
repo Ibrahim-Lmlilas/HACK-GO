@@ -12,7 +12,7 @@ class TripController extends Controller
 {
     public function index()
     {
-        $trips = Trip::with('destination')->get();
+        $trips = Trip::with('destination')->orderBy('start_date', 'desc')->paginate(10);
         return view('admin.trips.index', compact('trips'));
     }
 
