@@ -68,7 +68,6 @@ class BookingController extends Controller
             // Calculate total amount
             $totalAmount = $trip->price * $numberOfPersons;
 
-            // Create a new booking record
             $booking = Booking::create([
                 'user_id' => Auth::id(),
                 'trip_id' => $trip->id,
@@ -77,7 +76,6 @@ class BookingController extends Controller
                 'number_of_persons' => $numberOfPersons,
             ]);
 
-            // Create Stripe Checkout Session
             $session = Session::create([
                 'payment_method_types' => ['card'],
                 'line_items' => [[

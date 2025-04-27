@@ -70,63 +70,76 @@
                 }
             </style>
 
-            <div class="grid grid-cols-1 md:grid-cols-3  gap-2 sm:gap-6 ">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-2 sm:gap-6">
                 @foreach($trips as $trip)
-                <div class="trip-card bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl relative group w-full">
-                    <div class="relative h-[200px] sm:h-[280px]">
+                <div class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-300">
+                    <div class="relative h-[200px]">
                         <img src="{{ $trip->destination->image_url }}" alt="{{ $trip->name }}"
                             class="w-full h-full object-cover">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent"></div>
 
-                        <div class="absolute top-3 right-3 z-10 block sm:hidden">
+                        <!-- Trip Info Overlay -->
+                        <div class="absolute bottom-0 left-0 right-0 p-3">
+                            <div class="flex justify-between items-start mb-2">
+                                <div>
+                                    <h5 class="text-white text-[13px] font-medium mb-1">{{ $trip->name }}</h5>
+                                    <div class="flex items-center text-white/90">
+                                        <i class="fas fa-map-marker-alt text-[#FFB800] mr-1.5 text-[10px]"></i>
+                                        <span class="text-[10px]">{{ $trip->destination->name }}</span>
+                                    </div>
+                                </div>
+                                <div class="bg-[#FF9736] text-white px-2 py-0.5 rounded-full text-[10px]">
+                                    {{ number_format($trip->price, 0) }} MAD
+                                </div>
+                            </div>
+
+                            <!-- Trip Details -->
+                            <div class="grid grid-cols-3 gap-2 mt-3">
+                                <div class="bg-white/10 backdrop-blur-sm rounded-lg p-2">
+                                    <div class="flex items-center text-white">
+                                        <i class="fas fa-calendar-alt text-[#FFB800] mr-1.5 text-[10px]"></i>
+                                        <div>
+                                            <div class="text-[9px] opacity-70">Date</div>
+                                            <div class="text-[10px]">{{ $trip->start_date->format('M d') }}</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="bg-white/10 backdrop-blur-sm rounded-lg p-1.5">
+                                    <div class="flex items-center text-white">
+                                        <i class="fas fa-users text-[#FFB800] mr-1.5 text-[10px]"></i>
+                                        <div>
+                                            <div class="text-[9px] opacity-70">Capacity</div>
+                                            <div class="text-[10px]">{{ $trip->capacity }} people</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Action Button -->
+                        <div class="absolute top-2 right-2">
                             <a href="{{ route('client.trips.show', $trip) }}"
-                                class="inline-block bg-white text-black px-3 py-1.5 sm:px-4 sm:py-2 text-[10px] sm:text-xs rounded-full hover:bg-gray-100 transition shadow-sm">
+                                class="inline-block bg-white/90 text-gray-800 px-2 py-1 rounded-full text-[10px] transition-all duration-300 transform hover:scale-105">
                                 View Details
                             </a>
                         </div>
+                    </div>
 
-                        <div class="absolute bottom-0 left-0 right-0 p-4 text-white">
-                            <!-- Card Info (hides on hover) -->
-                            <div class="card-info">
-                                <h5 class="text-base sm:text-lg font-bold mb-1 line-clamp-1">{{ $trip->name }}</h5>
-                                <p class="text-xs sm:text-sm opacity-90 mb-1 line-clamp-1">{{ $trip->destination->name }}</p>
-
-                                @if($trip->hotel)
-                                <div class="flex items-center mb-2">
-                                    <i class="fas fa-hotel mr-2 text-xs"></i>
-                                    <span class="text-xs line-clamp-1">{{ $trip->hotel->name }}</span>
-                                </div>
-                                @endif
-
-                                <div class="flex items-center justify-between">
-                                    <div class="flex items-center">
-                                        <i class="fas fa-calendar-alt mr-2 text-xs"></i>
-                                        <span class="text-xs">{{ $trip->start_date->format('M d') }}</span>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <span class="text-sm font-bold">{{ number_format($trip->price, 2) }}</span>
-                                        <span class="text-xs ml-1">MAD</span>
-                                    </div>
-                                </div>
+                    @if($trip->hotel)
+                    <div class="p-2 border-t border-gray-100">
+                        <div class="flex items-center">
+                            <div class="w-8 h-8 rounded-lg overflow-hidden mr-2">
+                                <img src="{{ $trip->hotel->image_url }}" alt="{{ $trip->hotel->name }}"
+                                    class="w-full h-full object-cover">
                             </div>
-
-                            <!-- Mobile: Always visible, Desktop: Only visible on hover -->
-                            <div class="hidden sm:flex hover-content opacity-0 transform translate-y-10 absolute inset-0 flex-col items-center justify-center text-center p-4">
-                                <div class="space-y-2 mb-4">
-                                    <div class="flex items-center justify-center space-x-2">
-                                        <i class="fas fa-users text-xs"></i>
-                                        <span class="text-xs">{{ $trip->capacity }} persons</span>
-                                    </div>
-                                </div>
-                                <div class="space-y-2 mb-4">
-                                    <a href="{{ route('client.trips.show', $trip) }}"
-                                        class="inline-block bg-white text-black px-4 sm:px-6 py-2 rounded-full text-xs hover:bg-gray-100 transition">
-                                        View Details
-                                    </a>
-                                </div>
+                            <div>
+                                <h6 class="text-[11px] font-medium text-gray-800">{{ $trip->hotel->name }}</h6>
+                                <p class="text-[9px] text-gray-500">{{ $trip->hotel->location }}</p>
                             </div>
                         </div>
                     </div>
+                    @endif
                 </div>
                 @endforeach
             </div>
@@ -136,35 +149,52 @@
     <!-- Right sidebar -->
     <div class="w-full lg:w-80 space-y-5">
         <!-- Weather -->
-        <div class="bg-white rounded-2xl p-3">
-            <h3 class="text-gray-700 mb-4">Weather Watcher <i class="fas fa-cloud-sun text-[#9370db]"></i></h3>
-            <div class="flex items-center space-x-2 mb-3">
-                <input type="text" id="city-input" placeholder="Enter city name" class="flex-1 p-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
-                <button id="search-btn" class="text-black p-2 rounded-lg transition"><i class="fas fa-search"></i></button>
+        <div class="bg-[#F8F8F8] rounded-2xl p-6">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-xl font-semibold text-gray-800">Weather</h3>
+
             </div>
-            <div class="weather-info hidden">
-                <div class="flex justify-between items-center mb-3">
-                    <h4 id="city-name" class="text-lg font-medium"></h4>
-                    <p id="temperature" class="text-2xl font-bold"></p>
+
+            <div class="relative">
+                <input type="text"
+                    id="city-input"
+                    placeholder="Search city..."
+                    class="w-full px-4 py-3 bg-white rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#9DC45F] border-none shadow-sm"
+                >
+                <button id="search-btn" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+
+            <div class="weather-info hidden mt-6 bg-white rounded-xl p-4">
+                <div class="flex justify-between items-center mb-4">
+                    <div>
+                        <h4 id="city-name" class="text-lg font-semibold text-gray-800"></h4>
+                        <p id="description" class="text-sm text-gray-500 mt-1"></p>
+                    </div>
+                    <p id="temperature" class="text-3xl font-bold text-gray-800"></p>
                 </div>
-                <div class="space-y-2 text-sm text-gray-600">
-                    <p id="description" class="py-1"></p>
-                    <p id="humidity" class="py-1"></p>
-                    <p id="wind" class="py-1"></p>
+
+                <div class="grid grid-cols-2 gap-4 mt-4">
+                    <div class="bg-[#F8F8F8] rounded-lg p-3">
+                        <p id="humidity" class="text-sm text-gray-600"></p>
+                    </div>
+                    <div class="bg-[#F8F8F8] rounded-lg p-3">
+                        <p id="wind" class="text-sm text-gray-600"></p>
+                    </div>
                 </div>
             </div>
-            <p id="error-message" class="hidden mt-2 text-sm text-red-500 font-medium"></p>
+
+            <p id="error-message" class="hidden mt-4 text-sm text-red-500 font-medium text-center"></p>
         </div>
 
         <!-- Calendar -->
-        <div class="bg-white rounded-lg shadow overflow-hidden">
             <div class="p-6">
                 <x-calendar
                     :month="request('month')"
                     :year="request('year')"
                 />
             </div>
-        </div>
 
 
     </div>
@@ -214,11 +244,23 @@ function getWeather(city) {
 function updateWeatherInfo(data) {
     cityName.textContent = data.name;
     temperature.textContent = `${data.main.temp.toFixed(1)}°C`;
-    description.innerHTML = `<i class="fas fa-cloud-sun text-[#9370db] mr-2"></i> ${capitalize(data.weather[0].description)}`;
-    humidity.innerHTML = `<i class="fas fa-tint text-[#9370db] mr-2"></i> Humidity: ${data.main.humidity}%`;
-    wind.innerHTML = `<i class="fas fa-wind text-[#9370db] mr-2"></i> Wind Speed: ${data.wind.speed.toFixed(1)} m/s`;
+    description.innerHTML = `${capitalize(data.weather[0].description)}`;
+    humidity.innerHTML = `<div class="flex items-center">
+        <i class="fas fa-tint text-[#9DC45F] mr-2"></i>
+        <div>
+            <span class="block text-gray-400 text-xs">Humidity</span>
+            <span class="block text-gray-700">${data.main.humidity}%</span>
+        </div>
+    </div>`;
+    wind.innerHTML = `<div class="flex items-center">
+        <i class="fas fa-wind text-[#9DC45F] mr-2"></i>
+        <div>
+            <span class="block text-gray-400 text-xs">Wind Speed</span>
+            <span class="block text-gray-700">${data.wind.speed.toFixed(1)} m/s</span>
+        </div>
+    </div>`;
 
-    weatherInfo.style.display = 'block';
+    weatherInfo.classList.remove('hidden');
 }
 
 function capitalize(str) {
@@ -227,13 +269,13 @@ function capitalize(str) {
 
 function displayError(message) {
     errorMessage.textContent = message;
-    errorMessage.style.display = 'block';
-    weatherInfo.style.display = 'none';
+    errorMessage.classList.remove('hidden');
+    weatherInfo.classList.add('hidden');
 }
 
 function clearError() {
     errorMessage.textContent = '';
-    errorMessage.style.display = 'none';
+    errorMessage.classList.add('hidden');
 }
 
 function openProfileModal() {

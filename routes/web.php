@@ -60,6 +60,10 @@ Route::middleware(['auth', UserMiddleware::class])->group(function () {
     // Add Chat routes
     Route::get('/client/chat/{channel}', [App\Http\Controllers\Client\ChatController::class, 'show'])->name('client.chat.show');
     Route::post('/client/chat/{channel}', [App\Http\Controllers\Client\ChatController::class, 'store'])->name('client.chat.store');
+
+    // Notification routes
+    Route::get('/notifications', [NotificationController::class, 'getUserNotifications'])->name('notifications.index');
+    Route::post('/notifications/{notification}/mark-as-read', [NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');
 });
 
 // Profile routes
@@ -69,6 +73,14 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::put('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.password');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    // Calendar route
+    Route::get('/calendar/update', function(Request $request) {
+        return view('components.calendar', [
+            'month' => $request->query('month'),
+            'year' => $request->query('year')
+        ]);
+    })->name('calendar.update');
 
     // Booking routes
     Route::post('/trips/{trip}/checkout', [BookingController::class, 'checkout'])->name('booking.checkout');

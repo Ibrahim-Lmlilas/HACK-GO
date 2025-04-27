@@ -81,4 +81,14 @@ class User extends Authenticatable
     {
         return $this->hasOne(UserPreference::class);
     }
+
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class)->where('is_for_admin', false);
+    }
+
+    public function unreadNotifications()
+    {
+        return $this->notifications()->where('is_read', false);
+    }
 }

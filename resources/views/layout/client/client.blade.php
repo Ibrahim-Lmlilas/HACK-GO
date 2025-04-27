@@ -112,17 +112,17 @@
         }
     </style>
 </head>
-<body class="bg-gray-100">
+<body class="bg-gray-200">
     <div class="flex h-screen">
         <!-- Mobile menu button -->
-        <button class="lg:hidden fixed top-4 left-4 z-20 p-2 rounded-md bg-[#92472B] text-white" onclick="toggleSidebar()">
+        <button class="lg:hidden fixed top-4 left-4 z-20 p-2 rounded-md bg-gray-800 text-white" onclick="toggleSidebar()">
             <i class="fas fa-bars"></i>
         </button>
 
         <!-- Sidebar container with z-index -->
         <div class="sidebar-container">
             <!-- Sidebar -->
-            <div class="sidebar bg-[#92472B] text-white flex flex-col items-start py-6 ">
+            <div class="sidebar bg-gray-800 text-white flex flex-col items-start py-6 ">
                 <div class="flex items-center justify-center mb-6">
                     <a href="#" class="transition-transform duration-300 hover:scale-125">
                         <svg width="60"  height="60" viewBox="0 0 117 110" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -152,22 +152,19 @@
                         <span class="sidebar-content">My Bookings</span>
                     </a>
 
-                    <a href="/client/chat" class="sidebar-link">
+                    <a href="{{ route('client.chat') }}" class="sidebar-link">
                         <i class="fas fa-comments ml-2.5"></i>
                         <span class="sidebar-content">channel</span>
                     </a>
-                    <a href="/client/travel-buddies" class="sidebar-link">
-                        <i class="fas fa-users ml-2.5"></i>
-                        <span class="sidebar-content">Travel Buddies</span>
-                    </a>
+
 
                 </div>
                 <!-- Logout button at bottom of sidebar -->
                 <div class="mt-auto pt-4 absolute bottom-6 left-0 right-0 px-2">
                     <form method="POST" action="{{ route('logout') }}" class="w-full">
                         @csrf
-                        <button type="submit" class="sidebar-link flex items-center text-red-500 hover:bg-red-100 w-full">
-                            <i class="fas fa-sign-out-alt ml-1.5"></i>
+                        <button type="submit" class="sidebar-link flex items-center hover:bg-[rgba(254,251,234,0.1)] w-full">
+                            <i class="fas fa-sign-out-alt ml-3"></i>
                             <span class="sidebar-content">Logout</span>
                         </button>
                     </form>
@@ -178,22 +175,66 @@
         <!-- Main Content -->
         <div class="flex-1 p-4 lg:p-6 overflow-auto main-content">
             <!-- Header -->
-            <div class="flex flex-col lg:flex-row justify-between mb-6">
-                <h1 class="text-2xl ml-8 font-bold mb-4 lg:mb-0">Welcome, {{ Auth::user()->name ?? 'Admin' }}!</h1>
-                <div class="flex items-center space-x-4">
-                    <button class="p-2 rounded-md"><i class="far fa-bell text-black"></i></button>
-                    <button onclick="openProfileModal()" class="w-8 h-8 rounded-full bg-gray-300 overflow-hidden hover:ring-2 hover:ring-gray-600 transition-all duration-200">
-                        @if(Auth::user()->profile_photo)
-                            <img src="{{ Storage::url(Auth::user()->profile_photo) }}"
-                                 alt="Profile"
-                                 class="w-full h-full object-cover">
-                        @else
-                            <img src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name ?? 'Admin') }}"
-                                 alt="Profile"
-                                 class="w-full h-full object-cover">
+            <div class="flex flex-col lg:flex-row justify-between items-center mb-6">
+            <h1 class="text-2xl ml-8 font-bold mb-4 lg:mb-0">Welcome, {{ Auth::user()->name ?? 'Admin' }}</h1>
+
+            <!-- Search bar -->
+            <div class="relative w-full max-w-md mb-4 lg:mb-0 mx-4">
+                <input type="text" id="searchInput"
+                   placeholder="Search..."
+                   class="w-full py-2 pl-10 pr-4 text-gray-700 bg-white border rounded-md focus:border-primary ">
+                <div class="absolute inset-y-0 left-0 flex items-center pl-3">
+                <i class="fas fa-search text-gray-400"></i>
+                </div>
+            </div>
+
+            <div class="flex items-center space-x-4">
+                <div class="relative">
+                    <button onclick="toggleNotifications()" class="p-2 rounded-md relative">
+                        <i class="far fa-bell text-black"></i>
+                        @if(Auth::user()->unreadNotifications()->count() > 0)
+                            <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                                {{ Auth::user()->unreadNotifications()->count() }}
+                            </span>
                         @endif
                     </button>
+                    <div id="notificationsDropdown" class="hidden absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-lg z-50">
+                        <div class="p-4">
+                            <h3 class="font-bold mb-2">Notifications</h3>
+                            <div class="max-h-96 overflow-y-auto">
+                                @forelse(Auth::user()->notifications()->latest()->take(5)->get() as $notification)
+                                    <div class="p-2 border-b {{ $notification->is_read ? 'bg-gray-50' : 'bg-blue-50' }}">
+                                        <p class="text-sm">{{ $notification->message }}</p>
+                                        <span class="text-xs text-gray-500">{{ $notification->created_at->diffForHumans() }}</span>
+                                        @if(!$notification->is_read)
+                                            <form action="{{ route('notifications.markAsRead', $notification) }}" method="POST" class="inline">
+                                                @csrf
+                                                <button type="submit" class="text-xs text-blue-500 hover:text-blue-700">Mark as read</button>
+                                            </form>
+                                        @endif
+                                    </div>
+                                @empty
+                                    <p class="text-sm text-gray-500">No notifications</p>
+                                @endforelse
+                            </div>
+                            @if(Auth::user()->notifications()->count() > 5)
+                                <a href="{{ route('notifications.index') }}" class="block text-center text-sm text-blue-500 mt-2">View all notifications</a>
+                            @endif
+                        </div>
+                    </div>
                 </div>
+                <button onclick="openProfileModal()" class="w-8 h-8 rounded-full bg-gray-300 overflow-hidden hover:ring-2 hover:ring-gray-600 transition-all duration-200">
+                @if(Auth::user()->profile_photo)
+                    <img src="{{ Storage::url(Auth::user()->profile_photo) }}"
+                     alt="Profile"
+                     class="w-full h-full object-cover">
+                @else
+                    <img src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name ?? 'Admin') }}"
+                     alt="Profile"
+                     class="w-full h-full object-cover">
+                @endif
+                </button>
+            </div>
             </div>
             @yield('content')
         </div>
@@ -230,6 +271,21 @@
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 closeProfileModal();
+            }
+        });
+
+        function toggleNotifications() {
+            const dropdown = document.getElementById('notificationsDropdown');
+            dropdown.classList.toggle('hidden');
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            const dropdown = document.getElementById('notificationsDropdown');
+            const button = document.querySelector('button[onclick="toggleNotifications()"]');
+
+            if (!dropdown.contains(event.target) && !button.contains(event.target)) {
+                dropdown.classList.add('hidden');
             }
         });
     </script>
