@@ -18,13 +18,5 @@ class Destination extends Model
         'is_featured'
     ];
 
-    public function accommodations()
-    {
-        return $this->hasMany(Accommodation::class);
-    }
-
-    public function activities()
-    {
-        return $this->hasMany(Activity::class);
-    }
+    
 }

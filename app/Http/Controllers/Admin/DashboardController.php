@@ -74,10 +74,9 @@ class DashboardController extends Controller
             ]
         ];
 
-        $averagePrice = 1245;
-        $successRate = 85;
+       
 
-        return view('admin.dashboard', compact('stats', 'destinations', 'popularDestinations', 'averagePrice', 'successRate', 'hotels'));
+        return view('admin.dashboard', compact('stats', 'destinations', 'popularDestinations', 'hotels'));
     }
 
     private function calculateChange($model)

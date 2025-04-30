@@ -20,7 +20,6 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
 
-        // Delete user's profile photo if exists
         if ($user->profile_photo) {
             Storage::delete($user->profile_photo);
         }

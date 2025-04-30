@@ -16,7 +16,7 @@ class CalendarController extends Controller
             return view('admin.partials.calendar-section', [
                 'month' => $month,
                 'year' => $year,
-                'selectedDates' => [] // Add your selected dates logic here
+                'selectedDates' => [] 
             ]);
         }
 

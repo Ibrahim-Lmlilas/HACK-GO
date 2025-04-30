@@ -14,7 +14,6 @@ class BookingController extends Controller
 {
     public function checkout(Trip $trip, Request $request)
     {
-        // Validate number of persons
         $request->validate([
             'number_of_persons' => 'required|integer|min:1'
         ]);
@@ -32,7 +31,7 @@ class BookingController extends Controller
             return back()->with('error', "Sorry, only {$availableSpots} spots available for this trip.");
         }
 
-        // Check if user already has a booking for this trip
+        // Check if user already has a booking
         $existingBooking = Booking::where('user_id', Auth::id())
             ->where('trip_id', $trip->id)
             ->where('status', '!=', 'cancelled')
@@ -110,10 +109,10 @@ class BookingController extends Controller
             'status' => 'completed'
         ]);
 
-        // Add user to the trip's channel
+        // Add user  trip channel
         $booking->trip->channel->users()->attach(Auth::id());
 
-        // Create notification for the user
+        // Create  for user
         Notification::create([
             'user_id' => Auth::id(),
             'type' => 'booking',
@@ -122,7 +121,7 @@ class BookingController extends Controller
             'is_for_admin' => false
         ]);
 
-        // Create notification for admin
+        // Create  for admin
         Notification::create([
             'user_id' => Auth::id(),
             'type' => 'booking',
@@ -153,7 +152,7 @@ class BookingController extends Controller
             return back()->with('error', 'Bookings can only be cancelled at least 2 days before the trip starts.');
         }
 
-        // Remove user from the trip's channel
+        // Remove user from
         $booking->trip->channel->users()->detach(Auth::id());
 
         // Cancel the booking
@@ -161,7 +160,7 @@ class BookingController extends Controller
             'status' => 'cancelled'
         ]);
 
-        // Create notification for admin about the cancellation
+        //  notification for admin
         Notification::create([
             'user_id' => Auth::id(),
             'type' => 'booking_cancelled',

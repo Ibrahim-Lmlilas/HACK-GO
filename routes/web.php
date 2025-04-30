@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Admin\CalendarController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\MessagesController;
+use App\Http\Controllers\Admin\ReservationController;
 use App\Http\Controllers\DestinationController;
 use \App\Http\Middleware\UserMiddleware as UserMiddleware;
 use \App\Http\Middleware\AdminMiddleware as AdminMiddleware;
@@ -16,7 +18,12 @@ use App\Http\Controllers\Admin\TripController as AdminTripController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\Client\MyBookingsController;
 use App\Http\Controllers\Client\ChannelController;
+use App\Http\Controllers\Client\ChatController;
+use App\Http\Controllers\Client\TripController;
 use App\Http\Controllers\NotificationController;
+
+
+
 
 // Rout visitor
 Route::get('/', [DestinationController::class, 'index'])->name('welcome');
@@ -35,38 +42,43 @@ Route::post('/contact', function (Request $request) {
 })->name('contact.submit');
 
 
-// Authentication Routes
+
+
+
+
+// Authentication
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-// Registration Routes
+// Registration
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register']);
+
+
+
+
+
 
 Route::middleware(['auth', UserMiddleware::class])->group(function () {
     Route::get('/dashboard', [ClientDashboardController::class, 'index'])->name('client.dashboard');
 
-    Route::get('/trips', [App\Http\Controllers\Client\TripController::class, 'index'])->name('client.trips.index');
-    Route::get('/trips/{trip}', [App\Http\Controllers\Client\TripController::class, 'show'])->name('client.trips.show');
-    Route::get('/trips/{trip}/book', [App\Http\Controllers\Client\TripController::class, 'book'])->name('client.trips.book');
+    Route::get('/trips', [TripController::class, 'index'])->name('client.trips.index');
+    Route::get('/trips/{trip}', [TripController::class, 'show'])->name('client.trips.show');
+    Route::get('/trips/{trip}/book', [TripController::class, 'book'])->name('client.trips.book');
 
-    // Add My Bookings route
     Route::get('/my-bookings', [MyBookingsController::class, 'index'])->name('client.bookings.index');
 
-    // Add Channels route
     Route::get('/client/chat', [ChannelController::class, 'index'])->name('client.chat');
 
-    // Add Chat routes
-    Route::get('/client/chat/{channel}', [App\Http\Controllers\Client\ChatController::class, 'show'])->name('client.chat.show');
-    Route::post('/client/chat/{channel}', [App\Http\Controllers\Client\ChatController::class, 'store'])->name('client.chat.store');
+    Route::get('/client/chat/{channel}', [ChatController::class, 'show'])->name('client.chat.show');
+    Route::post('/client/chat/{channel}', [ChatController::class, 'store'])->name('client.chat.store');
 
-    // Notification routes
     Route::get('/notifications', [NotificationController::class, 'getUserNotifications'])->name('notifications.index');
     Route::post('/notifications/{notification}/mark-as-read', [NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');
 });
 
-// Profile routes
+// Profile
 Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -82,13 +94,13 @@ Route::middleware(['auth'])->group(function () {
         ]);
     })->name('calendar.update');
 
-    // Booking routes
+    // Booking
     Route::post('/trips/{trip}/checkout', [BookingController::class, 'checkout'])->name('booking.checkout');
     Route::get('/booking/{booking}/success', [BookingController::class, 'success'])->name('booking.success');
     Route::put('/booking/{booking}/cancel', [BookingController::class, 'cancel'])->name('booking.cancel');
 });
 
-// Admin routes
+// Admin
 Route::middleware(['auth', AdminMiddleware::class])->prefix('admin')->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
     Route::get('calendar', [CalendarController::class, 'getCalendar'])->name('admin.calendar');
@@ -109,18 +121,19 @@ Route::middleware(['auth', AdminMiddleware::class])->prefix('admin')->group(func
     Route::get('trips/{trip}/select-hotel', [AdminTripController::class, 'selectHotel'])->name('admin.trips.select-hotel');
     Route::post('trips/{trip}/save-hotel', [AdminTripController::class, 'saveHotel'])->name('admin.trips.save-hotel');
 
-    // Reservation routes
-    Route::get('reservations', [\App\Http\Controllers\Admin\ReservationController::class, 'index'])->name('admin.reservations');
-    Route::get('reservations/{booking}', [\App\Http\Controllers\Admin\ReservationController::class, 'show'])->name('admin.reservations.show');
-    Route::put('reservations/{booking}/status', [\App\Http\Controllers\Admin\ReservationController::class, 'updateStatus'])->name('admin.reservations.update-status');
+    // Reservation
+    Route::get('reservations', [ReservationController::class, 'index'])->name('admin.reservations');
+    Route::get('reservations/{booking}', [ReservationController::class, 'show'])->name('admin.reservations.show');
+    Route::put('reservations/{booking}/status', [ReservationController::class, 'updateStatus'])->name('admin.reservations.update-status');
 
-    // Messages routes
-    Route::get('messages', [\App\Http\Controllers\Admin\MessagesController::class, 'index'])->name('admin.messages.index');
-    Route::get('messages/{channel}', [\App\Http\Controllers\Admin\MessagesController::class, 'show'])->name('admin.messages.show');
+    Route::get('messages', [MessagesController::class, 'index'])->name('admin.messages.index');
+    Route::get('messages/{channel}', [MessagesController::class, 'show'])->name('admin.messages.show');
 
     // Notification routes
     Route::get('/notifications', [NotificationController::class, 'getAdminNotifications'])->name('notifications.index');
 });
+
+
 
 Route::get('/privacy', function () {
     return view('legal.privacy');
@@ -130,7 +143,7 @@ Route::get('/terms', function () {
     return view('legal.terms');
 })->name('terms');
 
-// Notification routes
+// Notification 
 Route::middleware('auth')->group(function () {
     Route::get('/notifications', [NotificationController::class, 'getUserNotifications'])->name('notifications.index');
     Route::get('/admin/notifications', [NotificationController::class, 'getAdminNotifications'])->middleware('admin')->name('admin.notifications.index');

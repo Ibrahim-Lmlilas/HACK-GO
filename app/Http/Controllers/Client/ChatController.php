@@ -16,7 +16,6 @@ class ChatController extends Controller
                 ->with('error', 'You are not a member of this channel.');
         }
 
-        // Get channel messages with sender information
         $messages = $channel->messages()
             ->with('sender')
             ->orderBy('created_at', 'asc')
@@ -33,12 +32,10 @@ class ChatController extends Controller
                 ->with('error', 'You are not a member of this channel.');
         }
 
-        // Validate the message
         $validated = request()->validate([
             'message' => 'required|string|max:1000'
         ]);
 
-        // Create the message
         $channel->messages()->create([
             'sender_id' => Auth::id(),
             'content' => $validated['message']

@@ -37,17 +37,14 @@ class ProfileController extends Controller
             ]);
 
             if ($request->hasFile('profile_photo')) {
-                // Delete old photo if exists
                 if ($user->profile_photo) {
                     Storage::delete('public/profile-photos/' . $user->profile_photo);
                 }
 
-                // Store new photo
                 $path = $request->file('profile_photo')->store('profile-photos', 'public');
                 $validated['profile_photo'] = $path;
             }
 
-            // Update the name field with username
             $validated['name'] = $validated['username'];
 
             $user->update($validated);
